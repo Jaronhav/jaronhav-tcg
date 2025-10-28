@@ -39,10 +39,16 @@
       border-radius: 10px;
     }
 
+    /* Center Shopify Buy Button */
     #product-component-1761632586504 {
-      display: flex;
-      justify-content: center;
+      display: flex !important;
+      justify-content: center !important;
       margin-top: 20px;
+    }
+
+    #product-component-1761632586504 button {
+      display: block !important;
+      margin: 0 auto !important;
     }
 
     footer {
@@ -66,7 +72,7 @@
     <p><strong>Price:</strong> $40</p>
     <p>This stunning Japanese Rayquaza VMAX graded CGC Pristine 10 is a collector's gem with flawless centering and surface.</p>
 
-    <!-- 🟩 Shopify Buy Button (Button Only, Centered) -->
+    <!-- Shopify Buy Button Embed -->
     <div id='product-component-1761632586504'></div>
     <script type="text/javascript">
     (function () {
@@ -115,8 +121,7 @@
                     "font-weight": "600",
                     "padding": "12px 30px",
                     "border-radius": "8px",
-                    "margin": "0 auto",
-                    "display": "block"
+                    "display": "block",
                   },
                   "button:hover": {
                     "background-color": "#444"
@@ -136,7 +141,6 @@
       }
     })();
     </script>
-    <!-- 🟩 End Shopify Embed -->
 
     <br><br>
     <a href="index.html">← Back to Graded Cards</a>
