@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CGC Pristine 10 Rayquaza VMAX JP | Jaronhav TCG</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rayquaza VMAX - Jaronhav TCG</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -19,111 +19,116 @@
       padding: 20px 0;
     }
 
-    .banner {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      padding: 10px;
-      text-transform: uppercase;
-    }
-
-    .socials {
-      margin-top: 10px;
-    }
-
-    .socials a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .product-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 40px auto;
-      max-width: 800px;
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-container img {
-      width: 400px;
-      border-radius: 10px;
-    }
-
-    .product-info {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .product-info h2 {
-      margin-bottom: 10px;
-    }
-
-    .product-info p {
-      font-size: 18px;
-      margin: 8px 0;
-    }
-
-    .back-link {
-      margin-top: 25px;
-      display: inline-block;
+    a {
       color: #007bff;
       text-decoration: none;
     }
 
-    .back-link:hover {
-      text-decoration: underline;
+    .product-container {
+      margin: 40px auto;
+      max-width: 800px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .product-image {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
     }
 
     footer {
       background-color: #222;
       color: white;
       padding: 15px 0;
-      margin-top: 30px;
-    }
-
-    .buy-button-placeholder {
-      background-color: #ddd;
-      color: #333;
-      padding: 10px 20px;
-      border-radius: 5px;
-      margin-top: 15px;
-      display: inline-block;
-      cursor: not-allowed;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <div class="banner">TRIAL SITE. STORE NOT ACTIVE.</div>
 
   <header>
     <h1>Jaronhav TCG</h1>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-    </div>
   </header>
 
   <div class="product-container">
-    <img src="https://i.ebayimg.com/images/g/1QMAAeSwgopo-yzE/s-l1600.webp" alt="CGC Pristine 10 Rayquaza VMAX JP">
-    <div class="product-info">
-      <h2>CGC Pristine 10 Rayquaza VMAX JP</h2>
-      <p>Price: $40</p>
-      <p>This stunning Japanese Rayquaza VMAX graded CGC Pristine 10 is a centerpiece for collectors. Ships securely in a protective sleeve and graded case.</p>
+    <h2>CGC Pristine 10 Rayquaza VMAX JP</h2>
+    <img class="product-image" src="https://i.ebayimg.com/images/g/1QMAAeSwgopo-yzE/s-l1600.webp" alt="Rayquaza VMAX">
 
-      <div class="buy-button-placeholder">Shopify Buy Button (Coming Soon)</div>
+    <p><strong>Price:</strong> $40</p>
+    <p>This stunning Japanese Rayquaza VMAX graded CGC Pristine 10 is a collector's gem with flawless centering and surface.</p>
 
-      <br>
-      <a href="index.html" class="back-link">← Back to Graded Cards</a>
-    </div>
+    <!-- 🟩 Shopify Buy Button Embed -->
+    <div id='product-component-1761632586504'></div>
+    <script type="text/javascript">
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit();
+        } else {
+          loadScript();
+        }
+      } else {
+        loadScript();
+      }
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'pxq5yx-ka.myshopify.com',
+          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7747388342350',
+            node: document.getElementById('product-component-1761632586504'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+              "product": {
+                "styles": {
+                  "product": {
+                    "@media (min-width: 601px)": {
+                      "max-width": "100%",
+                      "margin-left": "auto",
+                      "margin-right": "auto",
+                      "margin-bottom": "30px"
+                    }
+                  }
+                },
+                "text": {
+                  "button": "Add to cart"
+                }
+              },
+              "cart": {
+                "text": {
+                  "total": "Subtotal",
+                  "button": "Checkout"
+                }
+              },
+              "toggle": {}
+            },
+          });
+        });
+      }
+    })();
+    </script>
+    <!-- 🟩 End Shopify Embed -->
+
+    <br><br>
+    <a href="index.html">← Back to Graded Cards</a>
   </div>
 
   <footer>
     <p>&copy; 2025 Jaronhav TCG</p>
   </footer>
+
 </body>
 </html>
