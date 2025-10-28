@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGC Pristine 10 Mesprit AR - Jaronhav TCG</title>
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333;}
+    header {background:#222; color:white; padding:20px; text-align:center;}
+    .product-container {display:flex; flex-wrap:wrap; justify-content:center; background:white; margin:20px auto; padding:20px; max-width:900px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+    .product-image {max-width:400px; width:100%; border-radius:10px; margin-bottom:20px;}
+    .product-details {max-width:450px; margin-left:20px; flex:1;}
+    .product-details h2 {font-size:26px; margin:0 0 10px;}
+    .product-details .price {font-size:22px; color:#e74c3c; margin:15px 0;}
+    .product-details p.description {font-size:16px; line-height:1.5;}
+    #product-component-1761637214727 {display:flex !important; justify-content:center !important; margin-top:20px;}
+    #product-component-1761637214727 button {display:block !important; margin:0 auto !important;}
+    footer {background:#222; color:white; padding:15px 0; margin-top:40px; text-align:center;}
+    a.back-link {display:inline-block; margin-top:20px; color:#3498db; text-decoration:none;}
+    a.back-link:hover {text-decoration:underline;}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Jaronhav TCG</h1>
+</header>
+
+<div class="product-container">
+  <img class="product-image" src="https://i.ebayimg.com/images/g/7DYAAeSwAIBo-4X0/s-l960.webp" alt="CGC Pristine 10 Mesprit AR">
+
+  <div class="product-details">
+    <h2>CGC Pristine 10 Mesprit AR</h2>
+    <p class="price">$30</p>
+    <p class="description">Mesprit AR card graded CGC Pristine 10. Excellent condition, perfect for collectors and Pokémon enthusiasts.</p>
+
+    <!-- Shopify Buy Button -->
+    <div id='product-component-1761637214727'></div>
+    <script type="text/javascript">
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); }
+      } else { loadScript(); }
+
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'pxq5yx-ka.myshopify.com',
+          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7747494838350',
+            node: document.getElementById('product-component-1761637214727'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+              product: {
+                contents: { img:false, title:false, price:false },
+                text: { button:"Add to cart" },
+                styles: {
+                  button: { "background-color":"#222", "color":"white" },
+                  "button:hover": { "background-color":"#444" }
+                }
+              },
+              modalProduct: {
+                contents: { img:false, imgWithCarousel:true, button:false, buttonWithQuantity:true },
+                text: { button:"Add to cart" }
+              },
+              cart: { text: { total:"Subtotal", button:"Checkout" } },
+              toggle: {}
+            }
+          });
+        });
+      }
+    })();
+    </script>
+
+    <a class="back-link" href="index.html">← Back to Graded Cards</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Jaronhav TCG</p>
+</footer>
+
+</body>
+</html>
