@@ -3,50 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rayquaza VMAX - Jaronhav TCG</title>
+  <title>CGC Pristine 10 Rayquaza VMAX JP - Jaronhav TCG</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      text-align: center;
+      background-color: #f4f4f4;
+      color: #333;
     }
 
     header {
       background-color: #222;
       color: white;
-      padding: 20px 0;
-    }
-
-    a {
-      color: #007bff;
-      text-decoration: none;
+      padding: 20px;
+      text-align: center;
     }
 
     .product-container {
-      margin: 40px auto;
-      max-width: 800px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 900px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .product-image {
-      width: 100%;
       max-width: 400px;
+      width: 100%;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
 
-    /* Center Shopify Buy Button */
-    #product-component-1761632586504 {
+    .product-details {
+      max-width: 450px;
+      margin-left: 20px;
+      flex: 1;
+    }
+
+    .product-details h2 {
+      font-size: 26px;
+      margin: 0 0 10px;
+    }
+
+    .product-details .price {
+      font-size: 22px;
+      color: #e74c3c;
+      margin: 15px 0;
+    }
+
+    .product-details p.description {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #product-component {
       display: flex !important;
       justify-content: center !important;
       margin-top: 20px;
     }
 
-    #product-component-1761632586504 button {
+    #product-component button {
       display: block !important;
       margin: 0 auto !important;
     }
@@ -56,99 +77,87 @@
       color: white;
       padding: 15px 0;
       margin-top: 40px;
+      text-align: center;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a.back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Jaronhav TCG</h1>
-  </header>
+<header>
+  <h1>Jaronhav TCG</h1>
+</header>
 
-  <div class="product-container">
+<div class="product-container">
+  <img class="product-image" src="https://i.ebayimg.com/images/g/1QMAAeSwgopo-yzE/s-l1600.webp" alt="CGC Pristine 10 Rayquaza VMAX JP">
+
+  <div class="product-details">
     <h2>CGC Pristine 10 Rayquaza VMAX JP</h2>
-    <img class="product-image" src="https://i.ebayimg.com/images/g/1QMAAeSwgopo-yzE/s-l1600.webp" alt="Rayquaza VMAX">
+    <p class="price">$40</p>
+    <p class="description">A pristine condition Rayquaza VMAX card graded CGC 10. This Japanese edition card is a must-have for collectors looking for top-tier cards with flawless centering and surface quality.</p>
 
-    <p><strong>Price:</strong> $40</p>
-    <p>This stunning Japanese Rayquaza VMAX graded CGC Pristine 10 is a collector's gem with flawless centering and surface.</p>
-
-    <!-- Shopify Buy Button Embed -->
-    <div id='product-component-1761632586504'></div>
+    <!-- Shopify Buy Button -->
+    <div id="product-component"></div>
     <script type="text/javascript">
-    (function () {
-      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-      if (window.ShopifyBuy) {
-        if (window.ShopifyBuy.UI) {
-          ShopifyBuyInit();
-        } else {
-          loadScript();
+      (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); }
+        } else { loadScript(); }
+
+        function loadScript() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = scriptURL;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+          script.onload = ShopifyBuyInit;
         }
-      } else {
-        loadScript();
-      }
-      function loadScript() {
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = scriptURL;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-        script.onload = ShopifyBuyInit;
-      }
-      function ShopifyBuyInit() {
-        var client = ShopifyBuy.buildClient({
-          domain: 'pxq5yx-ka.myshopify.com',
-          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
-        });
-        ShopifyBuy.UI.onReady(client).then(function (ui) {
-          ui.createComponent('product', {
-            id: '7747388342350',
-            node: document.getElementById('product-component-1761632586504'),
-            moneyFormat: '%24%7B%7Bamount%7D%7D',
-            options: {
-              "product": {
-                "contents": {
-                  "img": false,
-                  "title": false,
-                  "price": false,
-                  "description": false
-                },
-                "text": {
-                  "button": "Add to cart"
-                },
-                "styles": {
-                  "button": {
-                    "background-color": "#222",
-                    "color": "white",
-                    "font-weight": "600",
-                    "padding": "12px 30px",
-                    "border-radius": "8px",
-                    "display": "block",
-                  },
-                  "button:hover": {
-                    "background-color": "#444"
-                  }
-                }
-              },
-              "cart": {
-                "text": {
-                  "total": "Subtotal",
-                  "button": "Checkout"
-                }
-              },
-              "toggle": {}
-            },
+
+        function ShopifyBuyInit() {
+          var client = ShopifyBuy.buildClient({
+            domain: 'pxq5yx-ka.myshopify.com',
+            storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
           });
-        });
-      }
-    })();
+          ShopifyBuy.UI.onReady(client).then(function (ui) {
+            ui.createComponent('product', {
+              id: '7747388342350',
+              node: document.getElementById('product-component'),
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: {
+                product: {
+                  contents: { img: false, title: false, price: false, description: false },
+                  text: { button: "Add to cart" },
+                  styles: { 
+                    button: { "background-color": "#222", "color": "white", "padding": "12px 30px", "border-radius": "8px", "display": "block" },
+                    "button:hover": { "background-color": "#444" }
+                  }
+                },
+                cart: { text: { total: "Subtotal", button: "Checkout" } },
+                toggle: {}
+              }
+            });
+          });
+        }
+      })();
     </script>
 
-    <br><br>
-    <a href="index.html">← Back to Graded Cards</a>
+    <a class="back-link" href="index.html">← Back to Graded Cards</a>
   </div>
+</div>
 
-  <footer>
-    <p>&copy; 2025 Jaronhav TCG</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Jaronhav TCG</p>
+</footer>
 
 </body>
 </html>
