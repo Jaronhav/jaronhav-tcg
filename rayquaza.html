@@ -60,7 +60,7 @@
     <p><strong>Price:</strong> $40</p>
     <p>This stunning Japanese Rayquaza VMAX graded CGC Pristine 10 is a collector's gem with flawless centering and surface.</p>
 
-    <!-- 🟩 Shopify Buy Button Embed -->
+    <!-- 🟩 Shopify Buy Button (Button Only) -->
     <div id='product-component-1761632586504'></div>
     <script type="text/javascript">
     (function () {
@@ -93,18 +93,26 @@
             moneyFormat: '%24%7B%7Bamount%7D%7D',
             options: {
               "product": {
-                "styles": {
-                  "product": {
-                    "@media (min-width: 601px)": {
-                      "max-width": "100%",
-                      "margin-left": "auto",
-                      "margin-right": "auto",
-                      "margin-bottom": "30px"
-                    }
-                  }
+                "contents": {
+                  "img": false,
+                  "title": false,
+                  "price": false,
+                  "description": false
                 },
                 "text": {
                   "button": "Add to cart"
+                },
+                "styles": {
+                  "button": {
+                    "background-color": "#007bff",
+                    "color": "white",
+                    "font-weight": "600",
+                    "padding": "12px 24px",
+                    "border-radius": "8px"
+                  },
+                  "button:hover": {
+                    "background-color": "#0056b3"
+                  }
                 }
               },
               "cart": {
