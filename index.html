@@ -81,12 +81,12 @@
       border-radius: 8px 8px 0 0;
     }
 
-    /* Coming Soon Banner - small grey rectangle */
+    /* Coming Soon Banner */
     .coming-soon-banner {
       position: absolute;
       top: 10px;
       left: 10px;
-      background-color: rgba(128, 128, 128, 0.8); /* grey */
+      background-color: rgba(128, 128, 128, 0.8);
       color: white;
       font-weight: bold;
       padding: 5px 10px;
@@ -97,6 +97,15 @@
 
     .card.sealed {
       position: relative;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
     }
 
     footer {
@@ -121,66 +130,59 @@
   <!-- Graded Cards Section -->
   <h2 class="section-title">Graded Cards</h2>
   <div class="card-container">
-    <!-- Rayquaza VMAX -->
     <div class="card">
       <a href="rayquaza.html">
         <img src="https://i.ebayimg.com/images/g/1QMAAeSwgopo-yzE/s-l1600.webp" alt="CGC Pristine 10 Rayquaza VMAX JP">
+        <h3>CGC Pristine 10 Rayquaza VMAX JP</h3>
       </a>
-      <h3>CGC Pristine 10 Rayquaza VMAX JP</h3>
       <p>$40</p>
     </div>
 
-    <!-- Latios -->
     <div class="card">
       <a href="latios.html">
         <img src="https://i.ebayimg.com/images/g/g0AAAeSwaQxo-yE0/s-l1600.webp" alt="CGC 8.5 Latios (French)">
+        <h3>CGC 8.5 Latios (French)</h3>
       </a>
-      <h3>CGC 8.5 Latios (French)</h3>
       <p>$40</p>
     </div>
 
-    <!-- Machamp -->
     <div class="card">
       <a href="machamp.html">
         <img src="https://i.ebayimg.com/images/g/AEsAAeSwxyFo-4d7/s-l1600.webp" alt="CGC Pristine 10 Machamp VMAX">
+        <h3>CGC Pristine 10 Machamp VMAX</h3>
       </a>
-      <h3>CGC Pristine 10 Machamp VMAX</h3>
       <p>$36</p>
     </div>
 
-    <!-- Flareon -->
     <div class="card">
       <a href="flareon.html">
         <img src="https://i.ebayimg.com/images/g/Eu0AAeSwipFo-4SB/s-l1600.webp" alt="CGC Pristine 10 Flareon JP">
+        <h3>CGC Pristine 10 Flareon JP</h3>
       </a>
-      <h3>CGC Pristine 10 Flareon JP</h3>
       <p>$30</p>
     </div>
 
-    <!-- Mesprit -->
     <div class="card">
       <a href="mesprit.html">
         <img src="https://i.ebayimg.com/images/g/AwcAAeSwyNdo-4X0/s-l1600.webp" alt="CGC Pristine 10 Mesprit AR">
+        <h3>CGC Pristine 10 Mesprit AR</h3>
       </a>
-      <h3>CGC Pristine 10 Mesprit AR</h3>
       <p>$30</p>
     </div>
 
-    <!-- Lechonk -->
     <div class="card">
       <a href="lechonk.html">
         <img src="https://i.ebayimg.com/images/g/DDcAAeSwGK5o-4mG/s-l1600.webp" alt="PSA 8 Lechonk IR">
+        <h3>PSA 8 Lechonk IR</h3>
       </a>
-      <h3>PSA 8 Lechonk IR</h3>
       <p>$15</p>
     </div>
 
-    <!-- Hitmontop -->
     <div class="card">
       <a href="hitmontop.html">
         <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp" alt="CGC 10 Hitmontop">
+        <h3>CGC 10 Hitmontop</h3>
       </a>
-      <h3>CGC 10 Hitmontop</h3>
       <p>$30</p>
     </div>
   </div>
@@ -188,30 +190,28 @@
   <!-- Sealed Products Section -->
   <h2 class="section-title">Sealed Products</h2>
 
-  <!-- Boxes Subsection -->
-  <h3 style="margin-top:30px;">Booster Boxes</h3>
+  <!-- Boxes -->
+  <h3 style="margin-top:30px;">Boxes</h3>
   <div class="card-container">
-    <!-- Terastal Festival Booster Box -->
     <div class="card sealed">
       <a href="sealed-box-terastal.html">
-        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/terastal_booster_box3.jpg" alt="Terastal Festival Booster Box">
+        <div class="coming-soon-banner">Coming Soon</div>
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/terastal_booster_box.jpg" alt="Terastal Festival Booster Box">
+        <h3>Terastal Festival Booster Box</h3>
       </a>
-      <div class="coming-soon-banner">Coming Soon</div>
-      <h3>Terastal Festival Booster Box</h3>
       <p>$90</p>
     </div>
   </div>
 
-  <!-- Packs Subsection -->
-  <h3 style="margin-top:30px;">Booster Packs</h3>
+  <!-- Packs -->
+  <h3 style="margin-top:30px;">Packs</h3>
   <div class="card-container">
-    <!-- Terastal Festival Pack -->
     <div class="card sealed">
       <a href="sealed-pack-terastal.html">
-        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/terastal_pack2.jpg" alt="Terastal Festival Pack">
+        <div class="coming-soon-banner">Coming Soon</div>
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/terastal_pack.jpg" alt="Terastal Festival Pack">
+        <h3>Terastal Festival Pack</h3>
       </a>
-      <div class="coming-soon-banner">Coming Soon</div>
-      <h3>Terastal Festival Pack</h3>
       <p>$5</p>
     </div>
   </div>
