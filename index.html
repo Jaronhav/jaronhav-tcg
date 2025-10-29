@@ -1,178 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jaronhav TCG</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mega Evolutions Mini Tin - Jaronhav TCG</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
 
-  <body class="bg-gray-100 text-gray-900">
-    <!-- Header -->
-    <header class="bg-white shadow">
-      <div class="container mx-auto px-4 py-6 flex justify-between items-center">
-        <h1 class="text-3xl font-bold">Jaronhav TCG</h1>
-        <nav class="space-x-6">
-          <a href="#graded" class="hover:text-blue-600">Graded</a>
-          <a href="#sealed" class="hover:text-blue-600">Sealed</a>
-          <a href="#contact" class="hover:text-blue-600">Contact</a>
-        </nav>
-      </div>
-    </header>
+    header {
+      background-color: #222;
+      color: white;
+      padding: 20px 0;
+    }
 
-    <!-- Hero -->
-    <section class="bg-blue-600 text-white py-16 text-center">
-      <h2 class="text-4xl font-bold mb-4">Premium Pokémon Cards</h2>
-      <p class="text-lg">Authentic Graded Cards & Sealed Collectibles</p>
-    </section>
+    h1 {
+      margin: 0;
+    }
 
-    <!-- GRADED SECTION -->
-    <section id="graded" class="py-12">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Graded Cards</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="rayquaza.html">
-              <img src="images/rayquaza.jpg" alt="Rayquaza" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="rayquaza.html" class="text-lg font-semibold hover:text-blue-600">Rayquaza</a>
-            </div>
-          </div>
+    .container {
+      margin: 40px auto;
+      max-width: 800px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="latios.html">
-              <img src="images/latios.jpg" alt="Latios" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="latios.html" class="text-lg font-semibold hover:text-blue-600">Latios</a>
-            </div>
-          </div>
+    .product-img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="machamp.html">
-              <img src="images/machamp.jpg" alt="Machamp" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="machamp.html" class="text-lg font-semibold hover:text-blue-600">Machamp</a>
-            </div>
-          </div>
+    .description {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 20px;
+    }
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="flareon.html">
-              <img src="images/flareon.jpg" alt="Flareon" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="flareon.html" class="text-lg font-semibold hover:text-blue-600">Flareon</a>
-            </div>
-          </div>
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="mesprit.html">
-              <img src="images/mesprit.jpg" alt="Mesprit" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="mesprit.html" class="text-lg font-semibold hover:text-blue-600">Mesprit</a>
-            </div>
-          </div>
+    .socials a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="hitmontop.html">
-              <img src="images/hitmontop.jpg" alt="Hitmontop" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="hitmontop.html" class="text-lg font-semibold hover:text-blue-600">Hitmontop</a>
-            </div>
-          </div>
+    .socials a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jaronhav TCG</h1>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </header>
 
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="lechonk.html">
-              <img src="images/lechonk.jpg" alt="Lechonk" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="lechonk.html" class="text-lg font-semibold hover:text-blue-600">Lechonk</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="container">
+    <h2>Mega Evolutions Mini Tin</h2>
+    <img class="product-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_evolutions_tin.jpg" alt="Mega Evolutions Mini Tin">
 
-    <!-- SEALED SECTION -->
-    <section id="sealed" class="py-12 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Sealed</h2>
+    <p class="description">
+      Official Pokémon TCG Mega Evolutions Mini Tin — includes a mix of booster packs and collectible cards in a compact tin. 
+      Perfect for collectors and sealed product enthusiasts. 
+      Currently unavailable — check back soon for stock updates.
+    </p>
 
-        <!-- Mega Evolutions Mini Tin -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-12">
-          <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <a href="mega-tin.html">
-              <img src="images/mega_evolutions_mini_tin.jpg" alt="Mega Evolutions Mini Tin" class="w-full h-64 object-cover" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="mega-tin.html" class="text-lg font-semibold text-gray-800 hover:text-blue-600">
-                Mega Evolutions Mini Tin
-              </a>
-            </div>
-          </div>
-        </div>
+    <div id='product-component-1761639999999'></div>
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit();
+        } else {
+          loadScript();
+        }
+      } else {
+        loadScript();
+      }
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'pxq5yx-ka.myshopify.com',
+          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7747512345678', // replace with actual product ID
+            node: document.getElementById('product-component-1761639999999'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+              "product": {
+                "contents": {
+                  "img": false,
+                  "title": false,
+                  "price": false
+                },
+                "text": {
+                  "button": "Add to cart"
+                }
+              }
+            },
+          });
+        });
+      }
+    })();
+    /*]]>*/
+    </script>
+  </div>
 
-        <!-- Booster Boxes & Packs -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-
-          <!-- Terastal Festival Booster Box -->
-          <div class="relative bg-white shadow-lg rounded-2xl overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-              <div class="bg-gray-700 text-white text-xs font-bold px-4 py-1 transform rotate-[-30deg] rounded">
-                COMING SOON
-              </div>
-            </div>
-            <a href="#">
-              <img src="images/terastal-booster-box3.jpg" alt="Terastal Festival Booster Box" class="w-full h-64 object-cover opacity-90" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="#" class="text-lg font-semibold text-gray-800 hover:text-blue-600">
-                Terastal Festival Booster Box
-              </a>
-            </div>
-          </div>
-
-          <!-- Terastal Festival Pack -->
-          <div class="relative bg-white shadow-lg rounded-2xl overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-              <div class="bg-gray-700 text-white text-xs font-bold px-4 py-1 transform rotate-[-30deg] rounded">
-                COMING SOON
-              </div>
-            </div>
-            <a href="#">
-              <img src="images/terastal-pack2.jpg" alt="Terastal Festival Pack" class="w-full h-64 object-cover opacity-90" />
-            </a>
-            <div class="p-4 text-center">
-              <a href="#" class="text-lg font-semibold text-gray-800 hover:text-blue-600">
-                Terastal Festival Pack
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-12">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">Contact</h2>
-        <p>Have a question? Reach out through Instagram or eBay.</p>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-white py-6">
-      <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
-        <p>&copy; 2025 Jaronhav TCG. All rights reserved.</p>
-        <div class="flex space-x-4 mt-4 sm:mt-0">
-          <a href="https://www.instagram.com/jaronhav.tcg" target="_blank" class="hover:text-blue-400">Instagram</a>
-          <a href="https://www.ebay.com/usr/jaronhav-tcg" target="_blank" class="hover:text-blue-400">eBay</a>
-        </div>
-      </div>
-    </footer>
-  </body>
+  <footer>
+    <p>&copy; 2025 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+</body>
 </html>
