@@ -95,7 +95,9 @@
       line-height: 1.6;
     }
 
-    #product-component-1762000000000 {
+    #product-component-1762040382197 {
+      display: flex;
+      justify-content: center;
       margin-top: 10px;
     }
 
@@ -148,8 +150,8 @@
 
   <div class="product-container">
     <div class="product-image">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp.jpg" alt="PSA 8 Shining Magikarp Unlimited">
-      <p class="cert-link">Cert #: <a href="https://www.psacard.com/cert/124535923" target="_blank">124535923</a></p>
+      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/magikarp.jpg" alt="PSA 8 Shining Magikarp Unlimited">
+      <p class="cert-link">Cert #: <a href="https://www.psacard.com/cert/00000000" target="_blank">00000000</a></p>
     </div>
 
     <div class="product-details">
@@ -157,13 +159,14 @@
       <p class="price">$650</p>
       <p class="description">
         A stunning PSA 8 Shining Magikarp from the Neo Revelation set.  
-        This Unlimited edition card showcases the iconic golden Magikarp in Near-Mint condition—  
+        This Unlimited edition card showcases the iconic golden Magikarp in pristine condition—  
         perfect for serious collectors and graded Pokémon enthusiasts.
       </p>
 
       <!-- Shopify Buy Button -->
-      <div id='product-component-1762000000000'></div>
+      <div id='product-component-1762040382197'></div>
       <script type="text/javascript">
+      /*<![CDATA[*/
       (function () {
         var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
         if (window.ShopifyBuy) {
@@ -175,15 +178,13 @@
         } else {
           loadScript();
         }
-
         function loadScript() {
           var script = document.createElement('script');
           script.async = true;
           script.src = scriptURL;
-          (document.head || document.body).appendChild(script);
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
           script.onload = ShopifyBuyInit;
         }
-
         function ShopifyBuyInit() {
           var client = ShopifyBuy.buildClient({
             domain: 'pxq5yx-ka.myshopify.com',
@@ -191,43 +192,52 @@
           });
           ShopifyBuy.UI.onReady(client).then(function (ui) {
             ui.createComponent('product', {
-              id: 'YOUR_MAGIKARP_PRODUCT_ID',
-              node: document.getElementById('product-component-1762000000000'),
+              id: '7750602883150',
+              node: document.getElementById('product-component-1762040382197'),
               moneyFormat: '%24%7B%7Bamount%7D%7D',
               options: {
-                "product": {
-                  "styles": {
-                    "button": {
-                      "background-color": "#555",
-                      "color": "#fff",
-                      "border-radius": "6px",
-                      "padding": "10px 20px",
-                      "font-weight": "bold",
-                      ":hover": {
-                        "background-color": "#333"
-                      }
-                    }
-                  },
-                  "contents": {
-                    "img": false,
-                    "title": false,
-                    "price": false
-                  },
-                  "text": {
-                    "button": "Add to cart"
-                  }
-                },
-                "cart": {
-                  "text": {
-                    "total": "Subtotal",
-                    "button": "Checkout"
-                  }
-                }
-              },
+      "product": {
+        "styles": {
+          "product": {
+            "@media (min-width: 601px)": {
+              "max-width": "calc(25% - 20px)",
+              "margin-left": "20px",
+              "margin-bottom": "50px"
+            }
+          },
+          "button": {
+            "background-color": "#555",
+            "color": "#fff",
+            "border-radius": "6px",
+            "padding": "10px 20px",
+            "font-weight": "bold",
+            ":hover": {
+              "background-color": "#333"
+            }
+          }
+        },
+        "contents": {
+          "img": false,
+          "title": false,
+          "price": false
+        },
+        "text": {
+          "button": "Add to cart"
+        }
+      },
+      "cart": {
+        "text": {
+          "total": "Subtotal",
+          "button": "Checkout"
+        }
+      },
+      "toggle": {}
+      },
             });
           });
         }
       })();
+      /*]]>*/
       </script>
 
       <a class="back-link" href="index.html">← Back to Home</a>
