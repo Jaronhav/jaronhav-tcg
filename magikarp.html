@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSA 8 Shining Magikarp Unlimited | Jaronhav TCG</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    header {
+      background-color: #222;
+      color: white;
+      padding: 20px 0;
+    }
+
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    .product-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .product-container img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .product-title {
+      font-size: 24px;
+      margin: 20px 0 10px;
+    }
+
+    .price {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    .socials a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    /* Shopify Buy Button Placement */
+    #product-component-1762000000000 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">TRIAL SITE. STORE NOT ACTIVE.</div>
+
+  <header>
+    <h1>Jaronhav TCG</h1>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </header>
+
+  <div class="product-container">
+    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp.jpg" alt="PSA 8 Shining Magikarp Unlimited">
+    <h2 class="product-title">PSA 8 Shining Magikarp Unlimited</h2>
+    <p class="price">$650</p>
+
+    <!-- Shopify Buy Button -->
+    <div id='product-component-1762000000000'></div>
+    <script type="text/javascript">
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit();
+        } else {
+          loadScript();
+        }
+      } else {
+        loadScript();
+      }
+
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.head || document.body).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'pxq5yx-ka.myshopify.com',
+          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: 'YOUR_MAGIKARP_PRODUCT_ID',
+            node: document.getElementById('product-component-1762000000000'),
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+              "product": {
+                "styles": {
+                  "product": {
+                    "@media (min-width: 601px)": {
+                      "max-width": "100%",
+                      "margin": "0 auto",
+                      "text-align": "center"
+                    }
+                  }
+                },
+                "contents": {
+                  "img": false,
+                  "title": false,
+                  "price": false
+                },
+                "text": {
+                  "button": "Add to cart"
+                }
+              },
+              "cart": {
+                "text": {
+                  "total": "Subtotal",
+                  "button": "Checkout"
+                }
+              }
+            },
+          });
+        });
+      }
+    })();
+    </script>
+
+    <a class="back-link" href="index.html">← Back to Home</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+</body>
+</html>
