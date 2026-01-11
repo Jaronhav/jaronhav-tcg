@@ -117,19 +117,25 @@
   position: relative; /* ensure overlay is positioned relative to card */
 }
 
-.card.sold .sold-overlay {
+.image-container {
+  position: relative; /* needed for overlay to be relative to the image */
+  display: inline-block; /* ensures sizing matches image */
+}
+
+.sold-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-45deg);
-  font-size: 60px; /* bigger text */
+  font-size: 60px;
   font-weight: bold;
-  color: rgba(50, 50, 50, 0.9); /* darker and more opaque */
-  pointer-events: none; /* doesn’t block clicks */
+  color: rgba(50, 50, 50, 0.9);
+  pointer-events: none;
   z-index: 10;
   text-align: center;
   white-space: nowrap;
 }
+
 
   </style>
 </head>
