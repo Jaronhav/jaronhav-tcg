@@ -113,13 +113,16 @@
       padding: 15px 0;
       margin-top: 30px;
     }
-    .card.sold {
-  position: relative; /* ensure overlay is positioned relative to card */
+    .image-container {
+  position: relative;           /* for overlay positioning */
+  display: inline-block;        /* shrink-wrap around image */
+  width: 100%;                  /* match image width */
 }
 
-.image-container {
-  position: relative; /* needed for overlay to be relative to the image */
-  display: inline-block; /* ensures sizing matches image */
+.image-container img {
+  display: block;               /* remove inline spacing below image */
+  width: 100%;                  /* keep responsive */
+  height: auto;
 }
 
 .sold-overlay {
@@ -127,9 +130,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-45deg);
-  font-size: 60px;
+  font-size: 60px;              /* bigger text */
   font-weight: bold;
-  color: rgba(50, 50, 50, 0.9);
+  color: rgba(50, 50, 50, 0.9); /* darker gray */
   pointer-events: none;
   z-index: 10;
   text-align: center;
@@ -155,16 +158,17 @@
   <div class="card-container">
 
 <!-- PSA 8 Shining Magikarp (SOLD) -->
-<div class="card sold">
+  <div class="card">
   <a href="magikarp.html">
-    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg" alt="PSA 8 Shining Magikarp Unlimited">
+    <div class="image-container">
+      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg" alt="PSA 8 Shining Magikarp Unlimited">
+      <div class="sold-overlay">SOLD</div>
+    </div>
     <h3>PSA 8 Shining Magikarp Unlimited</h3>
   </a>
   <p>$650</p>
-
-  <!-- SOLD overlay -->
-  <div class="sold-overlay">SOLD</div>
 </div>
+
 
 
      <!-- PSA 5 Mew Delta Species Error -->
