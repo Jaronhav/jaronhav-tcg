@@ -113,6 +113,23 @@
       padding: 15px 0;
       margin-top: 30px;
     }
+    .card.sold {
+  position: relative; /* ensure overlay is positioned relative to card */
+}
+
+.card.sold .sold-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 36px; /* adjust as needed */
+  font-weight: bold;
+  color: rgba(128, 128, 128, 0.7); /* semi-transparent gray */
+  pointer-events: none; /* so it doesn’t block clicks */
+  z-index: 10;
+  text-align: center;
+  white-space: nowrap;
+}
   </style>
 </head>
 <body>
@@ -130,14 +147,18 @@
   <h2 class="section-title">Graded Cards</h2>
   <div class="card-container">
 
-    <!-- PSA 8 Shining Magikarp -->
-    <div class="card">
-      <a href="magikarp.html">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg" alt="PSA 8 Shining Magikarp Unlimited">
-        <h3>PSA 8 Shining Magikarp Unlimited</h3>
-      </a>
-      <p>$650</p>
-    </div>
+<!-- PSA 8 Shining Magikarp (SOLD) -->
+<div class="card sold">
+  <a href="magikarp.html">
+    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg" alt="PSA 8 Shining Magikarp Unlimited">
+    <h3>PSA 8 Shining Magikarp Unlimited</h3>
+  </a>
+  <p>$650</p>
+
+  <!-- SOLD overlay -->
+  <div class="sold-overlay">SOLD</div>
+</div>
+
 
      <!-- PSA 5 Mew Delta Species Error -->
     <div class="card">
@@ -262,6 +283,7 @@
       <p>$5</p>
     </div>
   </div>
+
 
   <footer>
     <p>&copy; 2025 Jaronhav TCG</p>
