@@ -1,52 +1,49 @@
-// /api/inventory.js
+// api-inventory.js
+// Serverless function for Vercel to fetch Shopify product inventory
+
 export default async function handler(req, res) {
-  const clientId = process.env.SHOPIFY_CLIENT_ID;
-  const clientSecret = process.env.SHOPIFY_CLIENT_SECRET;
-  const shop = 'jaronhav-tcg.myshopify.com';
+  try {
+    const SHOPIFY_STORE = process.env.SHOPIFY_STORE;
+    const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 
-  // Get access token
-  const tokenResponse = await fetch(`https://${shop}/admin/oauth/access_token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      grant_type: 'client_credentials',
-      client_id: clientId,
-      client_secret: clientSecret,
-    }),
-  });
-
-  const tokenData = await tokenResponse.json();
-  const accessToken = tokenData.access_token;
-
-  // Fetch product inventory
-  const query = `
-    {
-      productByHandle(handle: "charizard-upc") {
-        title
-        variants(first: 10) {
-          edges {
-            node {
-              id
-              title
-              quantityAvailable
-            }
-          }
-        }
-      }
+    if (!SHOPIFY_STORE || !SHOPIFY_ACCESS_TOKEN) {
+      return res.status(500).json({ error: 'Missing Shopify environment variables' });
     }
-  `;
 
-  const productResponse = await fetch(`https://${shop}/admin/api/2026-01/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Access-Token': accessToken,
-    },
-    body: JSON.stringify({ query }),
-  });
+    // You can pass a product ID as a query param, e.g., ?id=7801249464398
+    const productId = req.query.id;
+    if (!productId) {
+      return res.status(400).json({ error: 'Product ID is required as query parameter "id"' });
+    }
 
-  const productData = await productResponse.json();
-  res.status(200).json(productData);
+    // Fetch product data from Shopify
+    const response = await fetch(
+      `https://${SHOPIFY_STORE}/admin/api/2026-01/products/${productId}.json`,
+      {
+        headers: {
+          'X-Shopify-Access-Token': SHOPIFY_ACCESS_TOKEN,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: 'Shopify API error', details: text });
+    }
+
+    const data = await response.json();
+
+    // Extract inventory info for each variant
+    const inventory = data.product.variants.map(variant => ({
+      id: variant.id,
+      title: variant.title,
+      available: variant.inventory_quantity,
+    }));
+
+    res.status(200).json({ inventory });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error', details: err.message });
+  }
 }
