@@ -188,24 +188,17 @@
 
   <!-- Inventory fetch script -->
 <script>
-  const productId = "7801249464398"; // Shopify product ID
+  const productId = "7801249464398";
   const inventoryEl = document.getElementById('inventory-count');
 
-  // Use full URL to avoid relative path issues
-  const apiUrl = `https://jaronhav-tcg.vercel.app/api/inventory?id=${productId}`;
-
-  fetch(apiUrl)
-    .then(res => {
-      if (!res.ok) throw new Error(`API responded with ${res.status}`);
-      return res.json();
-    })
+  fetch(`/api/inventory?id=${productId}`)
+    .then(res => res.json())
     .then(data => {
-      console.log("Inventory API response:", data); // check console
+      console.log("Inventory API response:", data);
       if (!data.variants || data.variants.length === 0) {
         inventoryEl.innerText = 'Inventory unavailable';
         return;
       }
-
       const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
       inventoryEl.innerText = totalQty === 0 ? 'Sold Out' : `Quantity available: ${totalQty}`;
     })
