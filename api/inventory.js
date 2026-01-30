@@ -4,7 +4,7 @@ const SHOPIFY_STORE = "jaronhav-tcg";
 const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
 
 export default async function handler(req, res) {
-  // 1️⃣ Check token
+  // 1️⃣ Check Shopify Admin token
   if (!SHOPIFY_TOKEN) {
     console.error("Missing Shopify Admin token");
     return res.status(500).json({ error: "Missing Shopify Admin token" });
@@ -36,9 +36,10 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: text });
     }
 
+    // 5️⃣ Parse response
     const data = await response.json();
 
-    // 5️⃣ Return all variants
+    // 6️⃣ Return all variants to the frontend
     return res.status(200).json({ variants: data.variants });
   } catch (err) {
     console.error("Shopify fetch error:", err);
