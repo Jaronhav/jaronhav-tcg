@@ -95,4 +95,215 @@
       line-height: 1.6;
     }
 
-    .back-li
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #555;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .socials a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .inventory-note {
+      font-weight: bold;
+      color: #b00020;
+      margin-bottom: 15px;
+    }
+
+    .inventory-note.low {
+      color: #d35400;
+    }
+
+    .inventory-note.out {
+      color: #777;
+    }
+
+    @media (max-width: 768px) {
+      .product-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-details {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+  <header>
+    <h1>Jaronhav TCG</h1>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </header>
+
+  <div class="product-container">
+    <div class="product-image">
+      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Charizard_UPC2.jpg" alt="Mega Charizard Ultra Premium Collection">
+    </div>
+
+    <div class="product-details">
+      <h2 class="product-title">Mega Charizard X ex UPC</h2>
+      <p class="price">$150</p>
+
+      <!-- Inventory placeholder -->
+      <p class="inventory-note" data-product-handle="mega-charizard-x-ex-upc">
+        Checking stock…
+      </p>
+
+      <p class="description">
+      The immense power of Mega Evolution has brought forth the flickering blue flames of Mega Charizard X ex! 
+      This ferocious Mega Evolution Pokémon ex burns up Fire Energy to fuel its Inferno X attack, doing more damage for each card you discard.
+      You’ll find Mega Charizard X ex here as a foil promo card, along with another foil promo card featuring Oricorio ex to help get 
+      more Fire Energy into play. Even more Pokémon await inside a stack of booster packs, and gameplay accessories like a playmat, 
+      deck box, and card sleeves let you show off amazing art of Mega Charizard X in action.
+      </p>
+
+      <!-- Shopify Buy Button -->
+      <div id='product-component-1768165838903'></div>
+<script type="text/javascript">
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) {
+      ShopifyBuyInit();
+    } else {
+      loadScript();
+    }
+  } else {
+    loadScript();
+  }
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: 'pxq5yx-ka.myshopify.com',
+      storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+    });
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      ui.createComponent('product', {
+        id: '7801249464398',
+        node: document.getElementById('product-component-1768165838903'),
+        moneyFormat: '%24%7B%7Bamount%7D%7D',
+        options: {
+          product: {
+            styles: { product: { "@media (min-width: 601px)": { "max-width": "calc(25% - 20px)", "margin-left": "20px", "margin-bottom": "50px" } } },
+            contents: { img: false, title: false, price: false },
+            text: { button: "Add to cart" }
+          },
+          modalProduct: {
+            contents: { img: false, imgWithCarousel: true, button: false, buttonWithQuantity: true },
+            styles: { product: { "@media (min-width: 601px)": { "max-width": "100%", "margin-left": "0px", "margin-bottom": "0px" } } },
+            text: { button: "Add to cart" }
+          },
+          option: {},
+          cart: { text: { total: "Subtotal", button: "Checkout" } },
+          toggle: {}
+        },
+      });
+    });
+  }
+})();
+</script>
+
+      <a class="back-link" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Inventory Script (Safe, Variant Sum) -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    async function loadAllInventories() {
+      const inventoryElements = document.querySelectorAll(".inventory-note[data-product-handle]");
+
+      for (const el of inventoryElements) {
+        const handle = el.dataset.productHandle;
+
+        try {
+          const query = `
+          {
+            product(handle: "${handle}") {
+              variants(first: 50) {
+                edges {
+                  node {
+                    quantityAvailable
+                  }
+                }
+              }
+            }
+          }
+          `;
+
+          const res = await fetch("https://pxq5yx-ka.myshopify.com/api/2023-10/graphql.json", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Shopify-Storefront-Access-Token": "61a50ca3e8975eccf13765c349333cc3"
+            },
+            body: JSON.stringify({ query })
+          });
+
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const data = await res.json();
+          const variants = data?.data?.product?.variants?.edges || [];
+          const totalQty = variants.reduce((sum, v) => sum + (v.node.quantityAvailable || 0), 0);
+
+          if (totalQty > 5) {
+            el.textContent = `${totalQty} available`;
+            el.className = "inventory-note";
+          } else if (totalQty > 1) {
+            el.textContent = `Only ${totalQty} left — selling fast`;
+            el.className = "inventory-note low";
+          } else if (totalQty === 1) {
+            el.textContent = `Last one available`;
+            el.className = "inventory-note low";
+          } else {
+            el.textContent = `Sold out`;
+            el.className = "inventory-note out";
+          }
+        } catch (err) {
+          console.error("Inventory fetch error for", handle, err);
+          el.textContent = "Stock info unavailable";
+          el.className = "inventory-note out";
+        }
+      }
+    }
+
+    loadAllInventories().catch(err => console.error("Inventory script error:", err));
+  });
+  </script>
+
+  <footer>
+    <p>&copy; 2025 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+</body>
+</html>
