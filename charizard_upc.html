@@ -197,18 +197,14 @@
       return res.json();
     })
     .then(data => {
-      console.log("Inventory API response:", data); // debug
-      if (data.error) {
+      console.log("Inventory API response:", data); // Check in console
+      if (!data.variants || data.variants.length === 0) {
         inventoryEl.innerText = 'Inventory unavailable';
         return;
       }
 
-      if (data.variants && data.variants.length > 0) {
-        const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
-        inventoryEl.innerText = totalQty === 0 ? 'Sold Out' : `Quantity available: ${totalQty}`;
-      } else {
-        inventoryEl.innerText = 'Inventory unavailable';
-      }
+      const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
+      inventoryEl.innerText = totalQty === 0 ? 'Sold Out' : `Quantity available: ${totalQty}`;
     })
     .catch(err => {
       console.error('Fetch error:', err);
