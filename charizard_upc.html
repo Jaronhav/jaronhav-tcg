@@ -42,7 +42,7 @@
 
     <div class="product-details">
       <h2 class="product-title">Mega Charizard X ex UPC</h2>
-      <p class="price">$145</p>
+      <p class="price">$150</p>
       <p class="description">
         The immense power of Mega Evolution has brought forth the flickering blue flames of Mega Charizard X ex! 
         This ferocious Mega Evolution Pokémon ex burns up Fire Energy to fuel its Inferno X attack, doing more damage for each card you discard.
@@ -53,6 +53,39 @@
 
       <!-- Inventory placeholder -->
       <p id="inventory-count">Loading inventory...</p>
+
+      <!-- Shopify Buy Button -->
+      <div id="product-component-1768165838903"></div>
+      <script type="text/javascript">
+        /* Shopify Buy Button JS - ensure you use absolute URL if script src is remote */
+        (function () {
+          var scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+          if (!window.ShopifyBuy) {
+            var script = document.createElement('script');
+            script.src = scriptURL;
+            script.async = true;
+            script.onload = initShopifyBuy;
+            document.head.appendChild(script);
+          } else {
+            initShopifyBuy();
+          }
+
+          function initShopifyBuy() {
+            if (!window.ShopifyBuy.UI) return;
+            ShopifyBuy.UI.onReady(window.ShopifyBuy.buildClient({
+              domain: 'jaronhav-tcg.myshopify.com',
+              storefrontAccessToken: 'YOUR_SHOPIFY_BUY_BUTTON_TOKEN'
+            })).then(function (ui) {
+              ui.createComponent('product', {
+                id: '7801249464398',
+                node: document.getElementById('product-component-1768165838903'),
+                moneyFormat: '%24%7B%7Bamount%7D%7D',
+                options: { /* your existing Shopify options */ }
+              });
+            });
+          }
+        })();
+      </script>
 
       <a class="back-link" href="index.html">← Back to Home</a>
     </div>
