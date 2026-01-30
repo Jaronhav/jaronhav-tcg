@@ -156,7 +156,7 @@
 
     <div class="product-details">
       <h2 class="product-title">Mega Charizard X ex UPC</h2>
-      <p class="price">$150</p>
+      <p class="price">$145</p>
       <p class="description">
       The immense power of Mega Evolution has brought forth the flickering blue flames of Mega Charizard X ex! 
       This ferocious Mega Evolution Pokémon ex burns up Fire Energy to fuel its Inferno X attack, doing more damage for each card you discard.
@@ -188,13 +188,12 @@
 
   <!-- Inventory fetch script -->
   <script>
-    // Replace with your actual product ID and SKU
+    // Only product ID is required now (no SKU)
     const productId = "7801249464398"; // Shopify product ID
-    const sku = "MEGACHARXUPC"; // optional: replace with your variant SKU
 
     const inventoryEl = document.getElementById('inventory-count');
 
-    fetch(`/api/inventory?id=${productId}&sku=${sku}`)
+    fetch(`/api/inventory?id=${productId}`)
       .then(res => res.json())
       .then(data => {
         if (data.error) {
@@ -203,15 +202,7 @@
           return;
         }
 
-        // If SKU is provided, the API returns { quantity: number }
-        if (data.quantity !== undefined) {
-          if (data.quantity === 0) {
-            inventoryEl.innerText = 'Sold Out';
-          } else {
-            inventoryEl.innerText = `Quantity available: ${data.quantity}`;
-          }
-        } else if (data.variants) {
-          // fallback if no SKU, show total quantity
+        if (data.variants) {
           const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
           if (totalQty === 0) {
             inventoryEl.innerText = 'Sold Out';
