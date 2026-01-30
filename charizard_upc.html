@@ -188,19 +188,42 @@
 
   <!-- Inventory fetch script -->
   <script>
-  fetch('/api-inventory')
-    .then(res => res.json())
-    .then(data => {
-      const quantity = data.data.productByHandle.variants.edges[0].node.quantityAvailable;
-      const inventoryEl = document.getElementById('inventory-count');
-      if (quantity === 0) {
-        inventoryEl.innerText = 'Sold Out';
-      } else {
-        inventoryEl.innerText = `Quantity available: ${quantity}`;
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById('inventory-count').innerText = 'Inventory unavailable';
-    });
-</script>
+    // Replace with your actual product ID and SKU
+    const productId = "7801249464398"; // Shopify product ID
+    const sku = "MEGACHARXUPC"; // optional: replace with your variant SKU
+
+    const inventoryEl = document.getElementById('inventory-count');
+
+    fetch(`/api/inventory?id=${productId}&sku=${sku}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          inventoryEl.innerText = 'Inventory unavailable';
+          console.error('Inventory API error:', data.error);
+          return;
+        }
+
+        // If SKU is provided, the API returns { quantity: number }
+        if (data.quantity !== undefined) {
+          if (data.quantity === 0) {
+            inventoryEl.innerText = 'Sold Out';
+          } else {
+            inventoryEl.innerText = `Quantity available: ${data.quantity}`;
+          }
+        } else if (data.variants) {
+          // fallback if no SKU, show total quantity
+          const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
+          if (totalQty === 0) {
+            inventoryEl.innerText = 'Sold Out';
+          } else {
+            inventoryEl.innerText = `Quantity available: ${totalQty}`;
+          }
+        }
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+        inventoryEl.innerText = 'Inventory unavailable';
+      });
+  </script>
+</body>
+</html>
