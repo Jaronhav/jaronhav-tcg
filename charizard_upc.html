@@ -42,7 +42,7 @@
 
     <div class="product-details">
       <h2 class="product-title">Mega Charizard X ex UPC</h2>
-      <p class="price">$145</p>
+      <p class="price">$150</p>
       <p class="description">
         The immense power of Mega Evolution has brought forth the flickering blue flames of Mega Charizard X ex! 
         This ferocious Mega Evolution Pokémon ex burns up Fire Energy to fuel its Inferno X attack, doing more damage for each card you discard.
@@ -55,49 +55,57 @@
       <p id="inventory-count">Loading inventory...</p>
 
       <!-- Shopify Buy Button -->
-
-<div id="product-component-1768165838903"></div>
-<script type="text/javascript">
-  (function () {
-    var scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
-    if (!window.ShopifyBuy) {
-      var script = document.createElement('script');
-      script.src = scriptURL;
-      script.async = true;
-      script.onload = initShopifyBuy;
-      document.head.appendChild(script);
-    } else {
-      initShopifyBuy();
-    }
-
-    function initShopifyBuy() {
-      if (!window.ShopifyBuy.UI) return;
-      var client = ShopifyBuy.buildClient({
-        domain: 'jaronhav-tcg.myshopify.com',
-        storefrontAccessToken: 'YOUR_SHOPIFY_BUY_BUTTON_TOKEN'
-      });
-      ShopifyBuy.UI.onReady(client).then(function(ui){
-        ui.createComponent('product', {
-          id: '7801249464398', // Product ID
-          node: document.getElementById('product-component-1768165838903'),
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-            product: {
-              buttonDestination: 'checkout',
-              variantId: 'all',
-            },
-            cart: {
-              startOpen: false,
-            }
+      <div id="product-component-1768165838903"></div>
+      <script type="text/javascript">
+        (function () {
+          var scriptURL = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+          if (!window.ShopifyBuy) {
+            var script = document.createElement('script');
+            script.src = scriptURL;
+            script.async = true;
+            script.onload = initShopifyBuy;
+            document.head.appendChild(script);
+          } else {
+            initShopifyBuy();
           }
-        });
-      });
-    }
-  })();
-</script>
 
+          function initShopifyBuy() {
+            if (!window.ShopifyBuy.UI) return;
+            var client = ShopifyBuy.buildClient({
+              domain: 'jaronhav-tcg.myshopify.com',
+              storefrontAccessToken: 'YOUR_SHOPIFY_BUY_BUTTON_TOKEN'
+            });
+            ShopifyBuy.UI.onReady(client).then(function(ui){
+              ui.createComponent('product', {
+                id: '7801249464398', // Product ID
+                node: document.getElementById('product-component-1768165838903'),
+                moneyFormat: '%24%7B%7Bamount%7D%7D',
+                options: {
+                  product: {
+                    buttonDestination: 'checkout',
+                    variantId: 'all',
+                  },
+                  cart: { startOpen: false }
+                }
+              });
+            });
+          }
+        })();
+      </script>
 
-  <!-- Inventory fetch script -->
+      <a class="back-link" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+
+  <!-- Inventory fetch script (independent) -->
   <script>
     const productId = "7801249464398"; // Mega Charizard product ID
     const inventoryEl = document.getElementById('inventory-count');
