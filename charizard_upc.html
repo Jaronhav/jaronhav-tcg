@@ -191,13 +191,16 @@
   const productId = "7801249464398"; // Shopify product ID
   const inventoryEl = document.getElementById('inventory-count');
 
-  fetch(`/api/inventory?id=${productId}`)
+  // Use full URL to avoid relative path issues
+  const apiUrl = `https://jaronhav-tcg.vercel.app/api/inventory?id=${productId}`;
+
+  fetch(apiUrl)
     .then(res => {
       if (!res.ok) throw new Error(`API responded with ${res.status}`);
       return res.json();
     })
     .then(data => {
-      console.log("Inventory API response:", data); // Check in console
+      console.log("Inventory API response:", data); // check console
       if (!data.variants || data.variants.length === 0) {
         inventoryEl.innerText = 'Inventory unavailable';
         return;
@@ -211,6 +214,7 @@
       inventoryEl.innerText = 'Inventory unavailable';
     });
 </script>
+
 
 </body>
 </html>
