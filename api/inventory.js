@@ -1,55 +1,69 @@
-export default async function handler(req, res) {
-  const domain = process.env.SHOPIFY_DOMAIN;
-  const token = process.env.SHOPIFY_ADMIN_TOKEN;
-  const productId = "7801249464398";
+// shopify.js
+import fetch from "node-fetch";
 
-  if (!domain || !token) {
-    return res.status(500).json({ error: "Missing Shopify environment variables" });
+// Shopify store handle
+const SHOPIFY_STORE = "jaronhav-tcg";
+
+// Admin API token stored in Vercel environment variable
+const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+
+// Fetch all products
+async function getProducts() {
+  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products.json`;
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "X-Shopify-Access-Token": SHOPIFY_TOKEN,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Shopify API error: ${res.status} - ${text}`);
   }
 
-  const headers = {
-    "X-Shopify-Admin-Token": token,
-    "Content-Type": "application/json",
-  };
+  const data = await res.json();
+  return data.products; // array of products
+}
 
+// Fetch variants for a specific product ID
+async function getVariants(productId) {
+  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${productId}/variants.json`;
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "X-Shopify-Access-Token": SHOPIFY_TOKEN,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Shopify API error: ${res.status} - ${text}`);
+  }
+
+  const data = await res.json();
+  return data.variants; // array of variants
+}
+
+// Example usage
+async function main() {
   try {
-    // 1️⃣ Get product to find inventory_item_id
-    const productRes = await fetch(
-      `https://${domain}/admin/api/2024-01/products/${productId}.json`,
-      { headers }
-    );
+    const products = await getProducts();
+    console.log("Products:", products);
 
-    if (!productRes.ok) {
-      const text = await productRes.text();
-      throw new Error(text);
+    // Fetch variants for the first product as an example
+    if (products.length > 0) {
+      const firstProductId = products[0].id;
+      const variants = await getVariants(firstProductId);
+      console.log(`Variants for product ${firstProductId}:`, variants);
     }
-
-    const productData = await productRes.json();
-    const inventoryItemId =
-      productData.product.variants[0].inventory_item_id;
-
-    // 2️⃣ Get inventory level
-    const inventoryRes = await fetch(
-      `https://${domain}/admin/api/2024-01/inventory_levels.json?inventory_item_ids=${inventoryItemId}`,
-      { headers }
-    );
-
-    if (!inventoryRes.ok) {
-      const text = await inventoryRes.text();
-      throw new Error(text);
-    }
-
-    const inventoryData = await inventoryRes.json();
-    const available =
-      inventoryData.inventory_levels[0]?.available ?? 0;
-
-    return res.status(200).json({
-      available,
-    });
   } catch (err) {
-    return res.status(500).json({
-      error: "Shopify API error",
-      details: err.message,
-    });
+    console.error(err);
   }
 }
+
+main();
