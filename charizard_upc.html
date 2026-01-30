@@ -166,9 +166,7 @@
       <p class="price">$150</p>
 
       <!-- Inventory placeholder -->
-      <p class="inventory-note" data-product-handle="mega-charizard-x-ex-upc">
-        Checking stock…
-      </p>
+      <p class="inventory-note" id="inventory-7801249464398">Checking stock…</p>
 
       <p class="description">
       The immense power of Mega Evolution has brought forth the flickering blue flames of Mega Charizard X ex! 
@@ -234,67 +232,64 @@
     </div>
   </div>
 
-  <!-- Inventory Script (Safe, Variant Sum) -->
+  <!-- Inventory Script using Product ID -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    async function loadAllInventories() {
-      const inventoryElements = document.querySelectorAll(".inventory-note[data-product-handle]");
+    const productId = "gid://shopify/Product/7801249464398"; // Your product ID
+    const inventoryEl = document.getElementById("inventory-7801249464398");
 
-      for (const el of inventoryElements) {
-        const handle = el.dataset.productHandle;
-
-        try {
-          const query = `
-          {
-            product(handle: "${handle}") {
-              variants(first: 50) {
-                edges {
-                  node {
-                    quantityAvailable
-                  }
+    async function loadInventory() {
+      try {
+        const query = `
+        {
+          product(id: "${productId}") {
+            variants(first: 50) {
+              edges {
+                node {
+                  quantityAvailable
                 }
               }
             }
           }
-          `;
-
-          const res = await fetch("https://pxq5yx-ka.myshopify.com/api/2023-10/graphql.json", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Shopify-Storefront-Access-Token": "61a50ca3e8975eccf13765c349333cc3"
-            },
-            body: JSON.stringify({ query })
-          });
-
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          const data = await res.json();
-          const variants = data?.data?.product?.variants?.edges || [];
-          const totalQty = variants.reduce((sum, v) => sum + (v.node.quantityAvailable || 0), 0);
-
-          if (totalQty > 5) {
-            el.textContent = `${totalQty} available`;
-            el.className = "inventory-note";
-          } else if (totalQty > 1) {
-            el.textContent = `Only ${totalQty} left — selling fast`;
-            el.className = "inventory-note low";
-          } else if (totalQty === 1) {
-            el.textContent = `Last one available`;
-            el.className = "inventory-note low";
-          } else {
-            el.textContent = `Sold out`;
-            el.className = "inventory-note out";
-          }
-        } catch (err) {
-          console.error("Inventory fetch error for", handle, err);
-          el.textContent = "Stock info unavailable";
-          el.className = "inventory-note out";
         }
+        `;
+
+        const res = await fetch("https://pxq5yx-ka.myshopify.com/api/2023-10/graphql.json", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Storefront-Access-Token": "61a50ca3e8975eccf13765c349333cc3"
+          },
+          body: JSON.stringify({ query })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        const variants = data?.data?.product?.variants?.edges || [];
+        const totalQty = variants.reduce((sum, v) => sum + (v.node.quantityAvailable || 0), 0);
+
+        if (totalQty > 5) {
+          inventoryEl.textContent = `${totalQty} available`;
+          inventoryEl.className = "inventory-note";
+        } else if (totalQty > 1) {
+          inventoryEl.textContent = `Only ${totalQty} left — selling fast`;
+          inventoryEl.className = "inventory-note low";
+        } else if (totalQty === 1) {
+          inventoryEl.textContent = `Last one available`;
+          inventoryEl.className = "inventory-note low";
+        } else {
+          inventoryEl.textContent = `Sold out`;
+          inventoryEl.className = "inventory-note out";
+        }
+      } catch (err) {
+        console.error("Inventory fetch error:", err);
+        inventoryEl.textContent = "Stock info unavailable";
+        inventoryEl.className = "inventory-note out";
       }
     }
 
-    loadAllInventories().catch(err => console.error("Inventory script error:", err));
+    loadInventory();
   });
   </script>
 
