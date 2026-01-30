@@ -1,82 +1,59 @@
-// shopify.js
-import fetch from "node-fetch";
+// pages/api/inventory.js
 
-// Shopify store handle
 const SHOPIFY_STORE = "jaronhav-tcg";
-
-// Admin API token stored in Vercel environment variables (server-side only)
 const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
 
-if (!SHOPIFY_TOKEN) {
-  throw new Error(
-    "Missing Shopify Admin token. Make sure SHOPIFY_ADMIN_TOKEN is set in Vercel env."
-  );
-}
-
-/**
- * Fetch a single product by product ID
- * @param {string} productId
- * @returns {object} product object
- */
-export async function getProductById(productId) {
-  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${productId}.json`;
-
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "X-Shopify-Access-Token": SHOPIFY_TOKEN,
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Shopify API error: ${res.status} - ${text}`);
+export default async function handler(req, res) {
+  // 1️⃣ Check token
+  if (!SHOPIFY_TOKEN) {
+    return res.status(500).json({ error: "Missing Shopify Admin token" });
   }
 
-  const data = await res.json();
-  return data.product;
-}
+  const { id, sku } = req.query;
 
-/**
- * Fetch all variants for a specific product ID
- * @param {string} productId
- * @returns {array} variants
- */
-export async function getVariants(productId) {
-  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${productId}/variants.json`;
-
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "X-Shopify-Access-Token": SHOPIFY_TOKEN,
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Shopify API error: ${res.status} - ${text}`);
+  // 2️⃣ Validate product ID
+  if (!id) {
+    return res.status(400).json({ error: "Missing product ID" });
   }
 
-  const data = await res.json();
-  return data.variants;
-}
+  try {
+    // 3️⃣ Fetch product variants from Shopify Admin API
+    const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${id}/variants.json`;
 
-/**
- * Fetch inventory quantity for a specific variant SKU
- * @param {string} productId
- * @param {string} sku
- * @returns {number} inventory quantity
- */
-export async function getQuantityBySKU(productId, sku) {
-  const variants = await getVariants(productId);
-  const variant = variants.find((v) => v.sku === sku);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "X-Shopify-Access-Token": SHOPIFY_TOKEN,
+        "Content-Type": "application/json",
+      },
+    });
 
-  if (!variant) {
-    throw new Error(`Variant with SKU "${sku}" not found`);
+    // 4️⃣ Handle Shopify API errors
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: text });
+    }
+
+    const data = await response.json();
+    const variants = data.variants;
+
+    // 5️⃣ If SKU is provided, return quantity only
+    if (sku) {
+      const variant = variants.find((v) => v.sku === sku);
+      if (!variant) {
+        return res
+          .status(404)
+          .json({ error: `Variant with SKU "${sku}" not found` });
+      }
+      return res.status(200).json({ quantity: variant.inventory_quantity });
+    }
+
+    // 6️⃣ No SKU provided → return all variants
+    return res.status(200).json({ variants });
+  } catch (err) {
+    console.error("Shopify fetch error:", err);
+    return res.status(500).json({ error: "Server error: " + err.message });
   }
-
-  return variant.inventory_quantity;
 }
+
 
