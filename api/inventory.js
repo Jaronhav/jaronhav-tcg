@@ -4,12 +4,22 @@ import fetch from "node-fetch";
 // Shopify store handle
 const SHOPIFY_STORE = "jaronhav-tcg";
 
-// Admin API token stored in Vercel environment variable
+// Admin API token stored in Vercel environment variables (server-side only)
 const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
 
-// Fetch all products
-async function getProducts() {
-  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products.json`;
+if (!SHOPIFY_TOKEN) {
+  throw new Error(
+    "Missing Shopify Admin token. Make sure SHOPIFY_ADMIN_TOKEN is set in Vercel env."
+  );
+}
+
+/**
+ * Fetch a single product by product ID
+ * @param {string} productId
+ * @returns {object} product object
+ */
+export async function getProductById(productId) {
+  const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${productId}.json`;
 
   const res = await fetch(url, {
     method: "GET",
@@ -25,11 +35,15 @@ async function getProducts() {
   }
 
   const data = await res.json();
-  return data.products; // array of products
+  return data.product;
 }
 
-// Fetch variants for a specific product ID
-async function getVariants(productId) {
+/**
+ * Fetch all variants for a specific product ID
+ * @param {string} productId
+ * @returns {array} variants
+ */
+export async function getVariants(productId) {
   const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${productId}/variants.json`;
 
   const res = await fetch(url, {
@@ -46,24 +60,23 @@ async function getVariants(productId) {
   }
 
   const data = await res.json();
-  return data.variants; // array of variants
+  return data.variants;
 }
 
-// Example usage
-async function main() {
-  try {
-    const products = await getProducts();
-    console.log("Products:", products);
+/**
+ * Fetch inventory quantity for a specific variant SKU
+ * @param {string} productId
+ * @param {string} sku
+ * @returns {number} inventory quantity
+ */
+export async function getQuantityBySKU(productId, sku) {
+  const variants = await getVariants(productId);
+  const variant = variants.find((v) => v.sku === sku);
 
-    // Fetch variants for the first product as an example
-    if (products.length > 0) {
-      const firstProductId = products[0].id;
-      const variants = await getVariants(firstProductId);
-      console.log(`Variants for product ${firstProductId}:`, variants);
-    }
-  } catch (err) {
-    console.error(err);
+  if (!variant) {
+    throw new Error(`Variant with SKU "${sku}" not found`);
   }
+
+  return variant.inventory_quantity;
 }
 
-main();
