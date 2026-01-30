@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const domain = process.env.SHOPIFY_DOMAIN;
-  const token = process.env.SHOPIFY_ACCESS_TOKEN;
+  const token = process.env.SHOPIFY_ADMIN_TOKEN;
   const productId = "7801249464398";
 
   if (!domain || !token) {
