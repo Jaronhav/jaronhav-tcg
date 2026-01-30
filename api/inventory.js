@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   const headers = {
-    "X-Shopify-Access-Token": token,
+    "X-Shopify-Admin-Token": token,
     "Content-Type": "application/json",
   };
 
