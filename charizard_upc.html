@@ -188,16 +188,19 @@
 
   <!-- Inventory fetch script -->
   <script>
-    fetch('/api/inventory')
-      .then(res => res.json())
-      .then(data => {
-        const quantity = data.data.productByHandle.variants.edges[0].node.quantityAvailable;
-        document.getElementById('inventory-count').innerText = `Quantity available: ${quantity}`;
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById('inventory-count').innerText = 'Inventory unavailable';
-      });
-  </script>
-</body>
-</html>
+  fetch('/api-inventory')
+    .then(res => res.json())
+    .then(data => {
+      const quantity = data.data.productByHandle.variants.edges[0].node.quantityAvailable;
+      const inventoryEl = document.getElementById('inventory-count');
+      if (quantity === 0) {
+        inventoryEl.innerText = 'Sold Out';
+      } else {
+        inventoryEl.innerText = `Quantity available: ${quantity}`;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('inventory-count').innerText = 'Inventory unavailable';
+    });
+</script>
