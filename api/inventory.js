@@ -1,41 +1,55 @@
 export default async function handler(req, res) {
-  const { SHOPIFY_DOMAIN, SHOPIFY_ACCESS_TOKEN } = process.env;
+  const domain = process.env.SHOPIFY_DOMAIN;
+  const token = process.env.SHOPIFY_ACCESS_TOKEN;
+  const productId = "7801249464398";
 
-  if (!SHOPIFY_DOMAIN || !SHOPIFY_ACCESS_TOKEN) {
-    return res.status(500).json({
-      error: "Missing Shopify environment variables",
-    });
+  if (!domain || !token) {
+    return res.status(500).json({ error: "Missing Shopify environment variables" });
   }
 
-  // OPTIONAL: filter by product handle or SKU later
-  const url = `https://${SHOPIFY_DOMAIN}/admin/api/2024-01/inventory_levels.json?limit=50`;
+  const headers = {
+    "X-Shopify-Access-Token": token,
+    "Content-Type": "application/json",
+  };
 
   try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN,
-        "Content-Type": "application/json",
-      },
-    });
+    // 1️⃣ Get product to find inventory_item_id
+    const productRes = await fetch(
+      `https://${domain}/admin/api/2024-01/products/${productId}.json`,
+      { headers }
+    );
 
-    if (!response.ok) {
-      const text = await response.text();
-      return res.status(response.status).json({
-        error: "Shopify API error",
-        details: text,
-      });
+    if (!productRes.ok) {
+      const text = await productRes.text();
+      throw new Error(text);
     }
 
-    const data = await response.json();
+    const productData = await productRes.json();
+    const inventoryItemId =
+      productData.product.variants[0].inventory_item_id;
+
+    // 2️⃣ Get inventory level
+    const inventoryRes = await fetch(
+      `https://${domain}/admin/api/2024-01/inventory_levels.json?inventory_item_ids=${inventoryItemId}`,
+      { headers }
+    );
+
+    if (!inventoryRes.ok) {
+      const text = await inventoryRes.text();
+      throw new Error(text);
+    }
+
+    const inventoryData = await inventoryRes.json();
+    const available =
+      inventoryData.inventory_levels[0]?.available ?? 0;
 
     return res.status(200).json({
-      inventory_levels: data.inventory_levels,
+      available,
     });
   } catch (err) {
     return res.status(500).json({
-      error: "Server error",
-      message: err.message,
+      error: "Shopify API error",
+      details: err.message,
     });
   }
 }
