@@ -49,149 +49,98 @@
         deck box, and card sleeves let you show off amazing art of Mega Charizard X in action.
       </p>
 
-      <!-- Inventory placeholder -->
-      <p id="inventory-count">Loading inventory...</p>
+      <!-- Inventory + Buy Button wrapper -->
+      <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px;">
+        <!-- Inventory placeholder -->
+        <p id="inventory-count" style="margin:0;">Loading inventory...</p>
 
-      <!-- Shopify Buy Button -->
-      <div id='product-component-1769805696113'></div>
-<script type="text/javascript">
-/*<![CDATA[*/
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'pxq5yx-ka.myshopify.com',
-      storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
-    });
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: '7801249464398',
-        node: document.getElementById('product-component-1769805696113'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-  "product": {
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "calc(25% - 20px)",
-          "margin-left": "20px",
-          "margin-bottom": "50px"
-        }
-      },
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "contents": {
-      "img": false,
-      "title": false,
-      "price": false
-    },
-    "text": {
-      "button": "Add to cart"
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "button": false,
-      "buttonWithQuantity": true
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "text": {
-      "button": "Add to cart"
-    }
-  },
-  "option": {},
-  "cart": {
-    "styles": {
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "text": {
-      "total": "Subtotal",
-      "button": "Checkout"
-    },
-    "popup": false
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#111111",
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    }
-  }
-},
-      });
-    });
-  }
-})();
-/*]]>*/
-</script>
+        <!-- Shopify Buy Button -->
+        <div id='product-component-1769805696113'></div>
+      </div>
 
-      <!-- Inventory fetch script (independent) -->
+      <!-- Shopify Buy Button Script (unchanged) -->
+      <script type="text/javascript">
+      /*<![CDATA[*/
+      (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) {
+            ShopifyBuyInit();
+          } else {
+            loadScript();
+          }
+        } else {
+          loadScript();
+        }
+        function loadScript() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = scriptURL;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+          script.onload = ShopifyBuyInit;
+        }
+        function ShopifyBuyInit() {
+          var client = ShopifyBuy.buildClient({
+            domain: 'pxq5yx-ka.myshopify.com',
+            storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+          });
+          ShopifyBuy.UI.onReady(client).then(function (ui) {
+            ui.createComponent('product', {
+              id: '7801249464398',
+              node: document.getElementById('product-component-1769805696113'),
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: {
+                "product": {
+                  "styles": {
+                    "product": {
+                      "@media (min-width: 601px)": {
+                        "max-width": "calc(25% - 20px)",
+                        "margin-left": "20px",
+                        "margin-bottom": "50px"
+                      }
+                    },
+                    "button": {
+                      ":hover": {
+                        "background-color": "#1d1d1d"
+                      },
+                      "background-color": "#111111",
+                      ":focus": {
+                        "background-color": "#1d1d1d"
+                      }
+                    }
+                  },
+                  "contents": {
+                    "img": false,
+                    "title": false,
+                    "price": false
+                  },
+                  "text": {
+                    "button": "Add to cart"
+                  }
+                },
+                "modalProduct": {
+                  "contents": {
+                    "img": false,
+                    "imgWithCarousel": true,
+                    "button": false,
+                    "buttonWithQuantity": true
+                  },
+                  "text": { "button": "Add to cart" }
+                },
+                "cart": {
+                  "text": { "total": "Subtotal", "button": "Checkout" },
+                  "styles": { "button":{"background-color":"#111111", ":hover":{"background-color":"#1d1d1d"}} },
+                  "popup": false
+                }
+              },
+            });
+          });
+        }
+      })();
+      /*]]>*/
+      </script>
+
+      <!-- Inventory fetch script (unchanged) -->
       <script>
         const productId = "7801249464398"; // Mega Charizard product ID
         const inventoryEl = document.getElementById('inventory-count');
