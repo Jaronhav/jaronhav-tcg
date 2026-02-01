@@ -161,7 +161,7 @@
       </p>
 
       <!-- Shopify Buy Button -->
-    <div id='product-component-1769763906670'></div>
+   <div id='product-component-1769914753935'></div>
 <script type="text/javascript">
 /*<![CDATA[*/
 (function () {
@@ -190,7 +190,7 @@
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent('product', {
         id: '7819167400014',
-        node: document.getElementById('product-component-1769763906670'),
+        node: document.getElementById('product-component-1769914753935'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
   "product": {
@@ -200,6 +200,15 @@
           "max-width": "calc(25% - 20px)",
           "margin-left": "20px",
           "margin-bottom": "50px"
+        }
+      },
+      "button": {
+        ":hover": {
+          "background-color": "#1d1d1d"
+        },
+        "background-color": "#111111",
+        ":focus": {
+          "background-color": "#1d1d1d"
         }
       }
     },
@@ -235,6 +244,15 @@
           "margin-left": "0px",
           "margin-bottom": "0px"
         }
+      },
+      "button": {
+        ":hover": {
+          "background-color": "#1d1d1d"
+        },
+        "background-color": "#111111",
+        ":focus": {
+          "background-color": "#1d1d1d"
+        }
       }
     },
     "text": {
@@ -243,12 +261,36 @@
   },
   "option": {},
   "cart": {
+    "styles": {
+      "button": {
+        ":hover": {
+          "background-color": "#1d1d1d"
+        },
+        "background-color": "#111111",
+        ":focus": {
+          "background-color": "#1d1d1d"
+        }
+      }
+    },
     "text": {
       "total": "Subtotal",
       "button": "Checkout"
-    }
+    },
+    "popup": false
   },
-  "toggle": {}
+  "toggle": {
+    "styles": {
+      "toggle": {
+        "background-color": "#111111",
+        ":hover": {
+          "background-color": "#1d1d1d"
+        },
+        ":focus": {
+          "background-color": "#1d1d1d"
+        }
+      }
+    }
+  }
 },
       });
     });
