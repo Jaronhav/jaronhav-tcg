@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Mega Evolution Pack | Jaronhav TCG</title>
+  <title>Mega Evolution Pack | Jaronhav TCG</title>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -39,7 +40,7 @@
       margin: 60px auto;
       background-color: white;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding: 40px;
     }
 
@@ -53,21 +54,6 @@
       max-width: 400px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .cert-link {
-      font-size: 13px;
-      color: #555;
-      margin-top: 8px;
-    }
-
-    .cert-link a {
-      color: #555;
-      text-decoration: none;
-    }
-
-    .cert-link a:hover {
-      text-decoration: underline;
     }
 
     .product-details {
@@ -95,7 +81,7 @@
       line-height: 1.6;
     }
 
-    /* ✅ ADDED */
+    /* MATCH CHARIZARD LAYOUT */
     .inventory-buy-row {
       display: flex;
       align-items: center;
@@ -104,10 +90,35 @@
     }
 
     #inventory-count {
-      color: red;
+      font-size: 18px;
       font-weight: bold;
-      font-size: 16px;
-      white-space: nowrap;
+      color: #e53935;
+      margin: 0;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #555;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .socials a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
     }
 
     @media (max-width: 768px) {
@@ -118,14 +129,15 @@
       .product-details {
         text-align: center;
       }
-      /* ✅ ADDED */
       .inventory-buy-row {
         justify-content: center;
       }
     }
   </style>
 </head>
+
 <body>
+
   <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
   <header>
@@ -138,7 +150,7 @@
 
   <div class="product-container">
     <div class="product-image">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_packs.png" alt="Mega Evolutions Packs">
+      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_packs.png" alt="Mega Evolution Packs">
     </div>
 
     <div class="product-details">
@@ -148,91 +160,111 @@
         Sealed Mega Evolution Single Pack (Random Art)
       </p>
 
-      <!-- ✅ ADDED WRAPPER -->
+      <!-- Inventory + Buy Button (MATCHES CHARIZARD PAGE) -->
       <div class="inventory-buy-row">
         <p id="inventory-count">Loading inventory...</p>
-        <div id='product-component-1769910677556'></div>
+        <div id="product-component-1769910677556"></div>
       </div>
 
-<script type="text/javascript">
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'pxq5yx-ka.myshopify.com',
-      storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
-    });
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: '7819175362638',
-        node: document.getElementById('product-component-1769910677556'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-          "product": {
-            "styles": {
-              "button": {
-                ":hover": { "background-color": "#1d1d1d" },
-                "background-color": "#111111",
-                ":focus": { "background-color": "#1d1d1d" }
-              }
-            },
-            "contents": {
-              "img": false,
-              "title": false,
-              "price": false
-            },
-            "text": {
-              "button": "Add to cart"
-            }
+      <!-- Shopify Buy Button Script (UNCHANGED STRUCTURE) -->
+      <script type="text/javascript">
+      (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) {
+            ShopifyBuyInit();
+          } else {
+            loadScript();
           }
+        } else {
+          loadScript();
         }
-      });
-    });
-  }
-})();
-</script>
+        function loadScript() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = scriptURL;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+          script.onload = ShopifyBuyInit;
+        }
+        function ShopifyBuyInit() {
+          var client = ShopifyBuy.buildClient({
+            domain: 'pxq5yx-ka.myshopify.com',
+            storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+          });
+          ShopifyBuy.UI.onReady(client).then(function (ui) {
+            ui.createComponent('product', {
+              id: '7819175362638',
+              node: document.getElementById('product-component-1769910677556'),
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: {
+                "product": {
+                  "styles": {
+                    "product": {
+                      "@media (min-width: 601px)": {
+                        "max-width": "calc(25% - 20px)",
+                        "margin-left": "20px",
+                        "margin-bottom": "50px"
+                      }
+                    },
+                    "button": {
+                      "background-color": "#111111",
+                      ":hover": { "background-color": "#1d1d1d" },
+                      ":focus": { "background-color": "#1d1d1d" }
+                    }
+                  },
+                  "contents": {
+                    "img": false,
+                    "title": false,
+                    "price": false
+                  },
+                  "text": { "button": "Add to cart" }
+                },
+                "modalProduct": {
+                  "contents": {
+                    "img": false,
+                    "imgWithCarousel": true,
+                    "button": false,
+                    "buttonWithQuantity": true
+                  }
+                },
+                "cart": {
+                  "text": { "total": "Subtotal", "button": "Checkout" },
+                  "styles": {
+                    "button": {
+                      "background-color": "#111111",
+                      ":hover": { "background-color": "#1d1d1d" }
+                    }
+                  },
+                  "popup": false
+                }
+              }
+            });
+          });
+        }
+      })();
+      </script>
 
-<!-- ✅ ADDED INVENTORY SCRIPT -->
-<script>
-fetch("https://pxq5yx-ka.myshopify.com/api/2023-07/graphql.json", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "X-Shopify-Storefront-Access-Token": "61a50ca3e8975eccf13765c349333cc3"
-  },
-  body: JSON.stringify({
-    query: `
-      {
-        product(id: "gid://shopify/Product/7819175362638") {
-          totalInventory
-        }
-      }
-    `
-  })
-})
-.then(res => res.json())
-.then(data => {
-  const qty = data.data.product.totalInventory;
-  document.getElementById("inventory-count").textContent =
-    qty > 0 ? `${qty} available` : "Out of stock";
-});
-</script>
+      <!-- Inventory Fetch Script (MATCHED) -->
+      <script>
+        const productId = "7819175362638";
+        const inventoryEl = document.getElementById('inventory-count');
+
+        fetch(`/api/inventory?id=${productId}`)
+          .then(res => res.json())
+          .then(data => {
+            if (!data.variants || !data.variants.length) {
+              inventoryEl.innerText = 'Inventory unavailable';
+              return;
+            }
+            const totalQty = data.variants.reduce((sum, v) => sum + v.inventory_quantity, 0);
+            inventoryEl.innerText = totalQty === 0
+              ? 'Sold Out'
+              : `Quantity available: ${totalQty}`;
+          })
+          .catch(() => {
+            inventoryEl.innerText = 'Inventory unavailable';
+          });
+      </script>
 
       <a class="back-link" href="index.html">← Back to Home</a>
     </div>
@@ -245,5 +277,7 @@ fetch("https://pxq5yx-ka.myshopify.com/api/2023-07/graphql.json", {
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </footer>
+
 </body>
 </html>
+
