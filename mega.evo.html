@@ -95,35 +95,19 @@
       line-height: 1.6;
     }
 
-    #product-component-1762040382197 {
+    /* ✅ ADDED */
+    .inventory-buy-row {
       display: flex;
-      justify-content: center;
-      margin-top: 10px;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 30px;
-      text-decoration: none;
-      color: #555;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      padding: 15px 0;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .socials a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
+    #inventory-count {
+      color: red;
+      font-weight: bold;
+      font-size: 16px;
+      white-space: nowrap;
     }
 
     @media (max-width: 768px) {
@@ -133,6 +117,10 @@
       }
       .product-details {
         text-align: center;
+      }
+      /* ✅ ADDED */
+      .inventory-buy-row {
+        justify-content: center;
       }
     }
   </style>
@@ -157,13 +145,16 @@
       <h2 class="product-title">Mega Evolution Pack</h2>
       <p class="price">$7</p>
       <p class="description">
-      Sealed Mega Evolution Single Pack (Random Art)
+        Sealed Mega Evolution Single Pack (Random Art)
       </p>
 
-      <!-- Shopify Buy Button -->
-    <div id='product-component-1769910677556'></div>
+      <!-- ✅ ADDED WRAPPER -->
+      <div class="inventory-buy-row">
+        <p id="inventory-count">Loading inventory...</p>
+        <div id='product-component-1769910677556'></div>
+      </div>
+
 <script type="text/javascript">
-/*<![CDATA[*/
 (function () {
   var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
   if (window.ShopifyBuy) {
@@ -193,110 +184,54 @@
         node: document.getElementById('product-component-1769910677556'),
         moneyFormat: '%24%7B%7Bamount%7D%7D',
         options: {
-  "product": {
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "calc(25% - 20px)",
-          "margin-left": "20px",
-          "margin-bottom": "50px"
+          "product": {
+            "styles": {
+              "button": {
+                ":hover": { "background-color": "#1d1d1d" },
+                "background-color": "#111111",
+                ":focus": { "background-color": "#1d1d1d" }
+              }
+            },
+            "contents": {
+              "img": false,
+              "title": false,
+              "price": false
+            },
+            "text": {
+              "button": "Add to cart"
+            }
+          }
         }
-      },
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "contents": {
-      "img": false,
-      "title": false,
-      "price": false
-    },
-    "text": {
-      "button": "Add to cart"
-    }
-  },
-  "productSet": {
-    "styles": {
-      "products": {
-        "@media (min-width: 601px)": {
-          "margin-left": "-20px"
-        }
-      }
-    }
-  },
-  "modalProduct": {
-    "contents": {
-      "img": false,
-      "imgWithCarousel": true,
-      "button": false,
-      "buttonWithQuantity": true
-    },
-    "styles": {
-      "product": {
-        "@media (min-width: 601px)": {
-          "max-width": "100%",
-          "margin-left": "0px",
-          "margin-bottom": "0px"
-        }
-      },
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "text": {
-      "button": "Add to cart"
-    }
-  },
-  "option": {},
-  "cart": {
-    "styles": {
-      "button": {
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        "background-color": "#111111",
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    },
-    "text": {
-      "total": "Subtotal",
-      "button": "Checkout"
-    },
-    "popup": false
-  },
-  "toggle": {
-    "styles": {
-      "toggle": {
-        "background-color": "#111111",
-        ":hover": {
-          "background-color": "#1d1d1d"
-        },
-        ":focus": {
-          "background-color": "#1d1d1d"
-        }
-      }
-    }
-  }
-},
       });
     });
   }
 })();
-/*]]>*/
+</script>
+
+<!-- ✅ ADDED INVENTORY SCRIPT -->
+<script>
+fetch("https://pxq5yx-ka.myshopify.com/api/2023-07/graphql.json", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "X-Shopify-Storefront-Access-Token": "61a50ca3e8975eccf13765c349333cc3"
+  },
+  body: JSON.stringify({
+    query: `
+      {
+        product(id: "gid://shopify/Product/7819175362638") {
+          totalInventory
+        }
+      }
+    `
+  })
+})
+.then(res => res.json())
+.then(data => {
+  const qty = data.data.product.totalInventory;
+  document.getElementById("inventory-count").textContent =
+    qty > 0 ? `${qty} available` : "Out of stock";
+});
 </script>
 
       <a class="back-link" href="index.html">← Back to Home</a>
