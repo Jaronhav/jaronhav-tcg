@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Graded Cards | Jaronhav TCG</title>
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -14,7 +13,16 @@
       text-align: center;
     }
 
-    /* ===== TOP NAV ===== */
+    /* ===== Banner ===== */
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    /* ===== Top Nav ===== */
     .top-nav {
       position: sticky;
       top: 0;
@@ -53,24 +61,21 @@
     .nav-center {
       flex: 1;
       display: flex;
-      justify-content: center;   /* centers the menu horizontally */
-      align-items: center;       /* centers vertically inside the top-nav */
+      justify-content: center;
+      align-items: center;
     }
 
     .nav-menu {
       display: flex;
       gap: 25px;
-      font-weight: 700;          /* bold menu items */
-      align-items: center;
-    }
-
+      font-weight: 700;
     }
 
     .nav-menu a {
       color: white;
       text-decoration: none;
       font-size: 15px;
-      font-weight: 500;
+      font-weight: 700;
       position: relative;
     }
 
@@ -89,14 +94,7 @@
       width: 100%;
     }
 
-    .banner {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      padding: 10px;
-      text-transform: uppercase;
-    }
-
+    /* ===== Graded Cards Section ===== */
     .section-title {
       margin-top: 40px;
       font-size: 24px;
@@ -131,6 +129,19 @@
       border-radius: 8px 8px 0 0;
     }
 
+    .coming-soon-banner {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(128, 128, 128, 0.8);
+      color: white;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 2;
+    }
+
     .card a {
       text-decoration: none;
       color: inherit;
@@ -138,13 +149,6 @@
 
     .card a:hover h3 {
       text-decoration: underline;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      padding: 15px 0;
-      margin-top: 30px;
     }
 
     .image-container {
@@ -172,14 +176,30 @@
       text-align: center;
       white-space: nowrap;
     }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    .footer-socials a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer-socials a:hover {
+      color: white;
+    }
   </style>
 </head>
-
 <body>
 
   <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-  <!-- ===== TOP NAV ===== -->
+  <!-- ===== Top Navigation ===== -->
   <div class="top-nav">
     <div class="nav-left">
       <div class="brand">Jaronhav TCG</div>
@@ -191,20 +211,19 @@
 
     <div class="nav-center">
       <div class="nav-menu">
-        <a href="graded_card.html">Graded Cards</a>
-        <a href="index.html#sealed">Sealed</a>
-        <a href="index.html#foreign">Foreign Language Sealed</a>
-        <a href="index.html#singles">Singles</a>
-        <a href="index.html#mtg">Magic The Gathering</a>
-        <a href="index.html#accessories">Accessories</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="graded_cards.html">Graded Cards</a>
+        <a href="#sealed">Sealed</a>
+        <a href="#foreign">Foreign Language Sealed</a>
+        <a href="#singles">Singles</a>
+        <a href="#mtg">Magic The Gathering</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </div>
 
-  <!-- ===== GRADED CARDS ONLY SECTION ===== -->
-  <h2 class="section-title">Graded Cards</h2>
-
+  <!-- Graded Cards Section -->
+  <h2 class="section-title" id="graded">Graded Cards</h2>
   <div class="card-container">
 
     <!-- CGC 10 Hitmontop -->
@@ -215,8 +234,8 @@
       </a>
       <p>$30</p>
     </div>
-
-    <!-- CGC 9 Rowlet -->
+    
+    <!-- CGC 9 Rowlet Black Star Promo -->
     <div class="card">
       <a href="rowlet.html">
         <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg" alt="CGC 9 Rowlet Black Star Promo">
@@ -225,7 +244,7 @@
       <p>$10</p>
     </div>
 
-    <!-- PSA 8 Shining Magikarp -->
+    <!-- PSA 8 Shining Magikarp (SOLD) -->
     <div class="card">
       <a href="magikarp.html">
         <div class="image-container">
@@ -237,7 +256,7 @@
       <p>$650</p>
     </div>
 
-    <!-- PSA 5 Mew Delta Error -->
+    <!-- PSA 5 Mew Delta Species Error -->
     <div class="card">
       <a href="mew_delta_error.html">
         <div class="image-container">
@@ -249,7 +268,7 @@
       <p>$380</p>
     </div>
 
-    <!-- PSA 1 Dark Blastoise -->
+    <!-- PSA 1 Dark Blastoise (SOLD) -->
     <div class="card">
       <a href="dark_blastoise.html">
         <div class="image-container">
@@ -265,7 +284,7 @@
 
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
-    <div class="socials">
+    <div class="footer-socials">
       <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
