@@ -23,76 +23,82 @@
     }
 
     /* ===== Top Nav ===== */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: #111;
-      color: white;
-      padding: 14px 30px;
-      display: flex;
-      align-items: center;
-    }
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #111;
+  color: white;
+  padding: 14px 30px;
+  display: flex;
+  align-items: center;
+}
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      min-width: 260px;
-    }
+/* Left side with brand and socials */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 260px;
+}
 
-    .brand {
-      font-size: 20px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
 
-    .brand-socials a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 14px;
-      margin-left: 8px;
-    }
+.brand-socials a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  margin-left: 8px;
+}
 
-    .brand-socials a:hover {
-      color: white;
-    }
+.brand-socials a:hover {
+  color: white;
+}
 
-    .nav-center {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+/* Centered menu */
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 
-    .nav-menu {
-      display: flex;
-      gap: 25px;
-      font-weight: 700;
-    }
+.nav-menu {
+  position: absolute;     /* this centers the menu on the page */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+  font-weight: 700;
+  align-items: center;
+}
 
-    .nav-menu a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
-      position: relative;
-    }
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  position: relative;
+}
 
-    .nav-menu a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0%;
-      height: 2px;
-      background: red;
-      transition: 0.3s;
-    }
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: red;
+  transition: 0.3s;
+}
 
-    .nav-menu a:hover::after {
-      width: 100%;
-    }
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
 
     /* ===== Graded Cards Section ===== */
     .section-title {
