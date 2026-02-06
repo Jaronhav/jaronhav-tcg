@@ -14,32 +14,30 @@
     }
 
     /* ===== TOP NAV ===== */
-       .top-nav {
+   .top-nav {
       position: sticky;
       top: 0;
       z-index: 999;
       background: #111;
       color: white;
       display: flex;
-      justify-content: space-between; /* keep brand left, menu centered visually */
-      align-items: center; /* vertically center all items */
+      align-items: center; /* vertical centering */
+      justify-content: center; /* centers menu and left section container */
       padding: 0 30px;
-      height: 60px; /* fixed height for proper vertical centering */
+      height: 60px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
       gap: 15px;
-      min-width: 260px;
+      margin-right: auto; /* push menu to center */
     }
 
     .nav-center {
-      position: absolute; /* allow perfect horizontal center */
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
-      align-items: center; /* vertical centering */
+      justify-content: center;
+      flex: 1;
     }
 
     .nav-menu {
@@ -47,6 +45,7 @@
       gap: 25px;
       font-weight: 700;
     }
+
 
 
     .nav-menu a {
