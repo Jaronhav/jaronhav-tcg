@@ -113,37 +113,151 @@
       padding: 15px 0;
       margin-top: 30px;
     }
+
     .image-container {
-  position: relative;           /* for overlay positioning */
-  display: inline-block;        /* shrink-wrap around image */
-  width: 100%;                  /* match image width */
-}
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
 
-.image-container img {
-  display: block;               /* remove inline spacing below image */
-  width: 100%;                  /* keep responsive */
-  height: auto;
-}
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-.sold-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  font-size: 60px;              /* bigger text */
-  font-weight: bold;
-  color: rgba(50, 50, 50, 0.9); /* darker gray */
-  pointer-events: none;
-  z-index: 10;
-  text-align: center;
-  white-space: nowrap;
-}
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 60px;
+      font-weight: bold;
+      color: rgba(50, 50, 50, 0.9);
+      pointer-events: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+    }
 
+    /* ===== TOP MENU (ADDED) ===== */
+    .site-header{
+      background:#111;
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
 
+    .nav-container{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px 25px;
+    }
+
+    .logo{
+      font-size:22px;
+      font-weight:700;
+    }
+
+    .nav-list{
+      list-style:none;
+      display:flex;
+      gap:25px;
+      margin:0;
+      padding:0;
+    }
+
+    .nav-list li a{
+      text-decoration:none;
+      color:#fff;
+      font-weight:500;
+      position:relative;
+      padding:6px 0;
+    }
+
+    .nav-list li a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:2px;
+      background:#fff;
+      transition:0.3s;
+    }
+
+    .nav-list li a:hover::after{
+      width:100%;
+    }
+
+    .hamburger{
+      display:none;
+      font-size:26px;
+      cursor:pointer;
+      color:white;
+    }
+
+    @media(max-width:900px){
+      .hamburger{display:block;}
+
+      .nav{
+        position:absolute;
+        top:60px;
+        left:0;
+        width:100%;
+        background:#111;
+        display:none;
+        flex-direction:column;
+      }
+
+      .nav.active{display:flex;}
+
+      .nav-list{
+        flex-direction:column;
+        gap:0;
+      }
+
+      .nav-list li{
+        border-top:1px solid #222;
+      }
+
+      .nav-list li a{
+        display:block;
+        padding:15px 25px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+  <!-- ===== TOP MENU (ADDED) ===== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="logo">Jaronhav TCG</div>
+
+      <div class="hamburger" id="hamburger">☰</div>
+
+      <nav class="nav" id="navMenu">
+        <ul class="nav-list">
+          <li><a href="graded.html">Graded Cards</a></li>
+          <li><a href="sealed.html">Sealed</a></li>
+          <li><a href="foreign-sealed.html">Foreign Language Sealed</a></li>
+          <li><a href="singles.html">Singles</a></li>
+          <li><a href="mtg.html">Magic The Gathering</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- ===== END MENU ===== -->
 
   <header>
     <h1>Jaronhav TCG</h1>
@@ -152,6 +266,8 @@
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </header>
+
+  <!-- (REST OF YOUR FILE IS UNCHANGED BELOW) -->
 
   <!-- Graded Cards Section -->
   <h2 class="section-title">Graded Cards</h2>
