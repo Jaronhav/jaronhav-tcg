@@ -53,19 +53,17 @@
     .nav-center {
       flex: 1;
       display: flex;
-      justify-content: center;
-      position: relative;
-      height: 100%;
+      justify-content: center;   /* centers the menu horizontally */
+      align-items: center;       /* centers vertically inside the top-nav */
     }
 
     .nav-menu {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
       gap: 25px;
+      font-weight: 700;          /* bold menu items */
       align-items: center;
+    }
+
     }
 
     .nav-menu a {
