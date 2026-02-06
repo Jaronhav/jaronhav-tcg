@@ -13,10 +13,74 @@
       text-align: center;
     }
 
-    header {
-      background-color: #222;
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #111;
       color: white;
-      padding: 20px 0;
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 260px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand-socials a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .brand-socials a:hover {
+      color: white;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
     }
 
     .banner {
@@ -25,20 +89,6 @@
       font-weight: bold;
       padding: 10px;
       text-transform: uppercase;
-    }
-
-    .socials {
-      margin-top: 10px;
-    }
-
-    .socials a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    h1 {
-      margin: 0;
     }
 
     .section-title {
@@ -139,134 +189,31 @@
       text-align: center;
       white-space: nowrap;
     }
-
-    /* ===== TOP MENU (ADDED) ===== */
-    .site-header{
-      background:#111;
-      color:#fff;
-      position:sticky;
-      top:0;
-      z-index:1000;
-    }
-
-    .nav-container{
-      max-width:1200px;
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:15px 25px;
-    }
-
-    .logo{
-      font-size:22px;
-      font-weight:700;
-    }
-
-    .nav-list{
-      list-style:none;
-      display:flex;
-      gap:25px;
-      margin:0;
-      padding:0;
-    }
-
-    .nav-list li a{
-      text-decoration:none;
-      color:#fff;
-      font-weight:500;
-      position:relative;
-      padding:6px 0;
-    }
-
-    .nav-list li a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:0;
-      width:0;
-      height:2px;
-      background:#fff;
-      transition:0.3s;
-    }
-
-    .nav-list li a:hover::after{
-      width:100%;
-    }
-
-    .hamburger{
-      display:none;
-      font-size:26px;
-      cursor:pointer;
-      color:white;
-    }
-
-    @media(max-width:900px){
-      .hamburger{display:block;}
-
-      .nav{
-        position:absolute;
-        top:60px;
-        left:0;
-        width:100%;
-        background:#111;
-        display:none;
-        flex-direction:column;
-      }
-
-      .nav.active{display:flex;}
-
-      .nav-list{
-        flex-direction:column;
-        gap:0;
-      }
-
-      .nav-list li{
-        border-top:1px solid #222;
-      }
-
-      .nav-list li a{
-        display:block;
-        padding:15px 25px;
-      }
-    }
   </style>
 </head>
-
 <body>
 
   <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-  <!-- ===== TOP MENU (ADDED) ===== -->
-  <header class="site-header">
-    <div class="nav-container">
-      <div class="logo">Jaronhav TCG</div>
-
-      <div class="hamburger" id="hamburger">☰</div>
-
-      <nav class="nav" id="navMenu">
-        <ul class="nav-list">
-          <li><a href="graded.html">Graded Cards</a></li>
-          <li><a href="sealed.html">Sealed</a></li>
-          <li><a href="foreign-sealed.html">Foreign Language Sealed</a></li>
-          <li><a href="singles.html">Singles</a></li>
-          <li><a href="mtg.html">Magic The Gathering</a></li>
-          <li><a href="accessories.html">Accessories</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
+  <!-- ===== NEW TOP NAV ===== -->
+  <div class="top-nav">
+    <div class="nav-left">
+      <div class="brand">Jaronhav TCG</div>
+      <div class="brand-socials">
+        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+      </div>
     </div>
-  </header>
-  <!-- ===== END MENU ===== -->
 
-  <header>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    <div class="nav-center">
+      <div class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="#graded">Graded</a>
+        <a href="#boxes">Boxes</a>
+        <a href="#packs">Packs</a>
+      </div>
     </div>
-  </header>
-
-  <!-- (REST OF YOUR FILE IS UNCHANGED BELOW) -->
+  </div>
 
   <!-- Graded Cards Section -->
   <h2 class="section-title">Graded Cards</h2>
