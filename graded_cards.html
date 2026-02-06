@@ -33,30 +33,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 30px;
       height: 60px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
       min-width: 260px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .brand a {
       color: white;
       text-decoration: none;
-      font-size: 20px;
-      font-weight: 700;
-      white-space: nowrap;
     }
 
     .brand-socials a {
       color: #ccc;
       text-decoration: none;
       font-size: 14px;
-      margin-left: 6px;
+      margin-left: 8px;
     }
 
     .brand-socials a:hover {
@@ -67,6 +70,7 @@
       flex: 1;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .nav-menu {
@@ -100,19 +104,10 @@
     /* ===== HAMBURGER ===== */
     .hamburger {
       display: none;
-      flex-direction: column;
-      justify-content: center;
+      font-size: 28px;
       cursor: pointer;
-      margin-left: 15px;
-    }
-
-    .hamburger span {
-      height: 3px;
-      width: 26px;
-      background: white;
-      margin: 4px 0;
-      border-radius: 2px;
-      transition: 0.3s;
+      user-select: none;
+      padding-left: 20px; /* spacing from socials */
     }
 
     /* ===== MOBILE MENU ===== */
@@ -122,18 +117,17 @@
       background: #111;
       position: absolute;
       top: 60px;
-      left: 0;
+      right: 0;
       width: 100%;
       z-index: 998;
-      border-top: 1px solid #222;
     }
 
     .mobile-menu a {
       color: white;
       text-decoration: none;
       padding: 15px;
-      border-bottom: 1px solid #222;
-      font-weight: 600;
+      border-top: 1px solid #222;
+      font-weight: 700;
     }
 
     .mobile-menu a:hover {
@@ -157,6 +151,7 @@
       display: inline-block;
       margin: 15px;
       text-align: center;
+      vertical-align: top;
       background: white;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -170,12 +165,29 @@
 
     .card img {
       width: 250px;
+      height: auto;
       border-radius: 8px 8px 0 0;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
     }
 
     .image-container {
       position: relative;
+      display: inline-block;
       width: 100%;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .sold-overlay {
@@ -188,6 +200,7 @@
       color: rgba(50, 50, 50, 0.9);
       pointer-events: none;
       z-index: 10;
+      text-align: center;
       white-space: nowrap;
     }
 
@@ -198,18 +211,18 @@
       margin-top: 30px;
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== COLOR FIX ===== */
+    .card h3 { color: #111 !important; }
+    .card p { color: #000 !important; }
+
+    /* ===== MOBILE RULES ===== */
     @media (max-width: 900px) {
       .nav-center {
         display: none;
       }
 
       .hamburger {
-        display: flex;
-      }
-
-      .mobile-menu.show {
-        display: flex;
+        display: block;
       }
     }
   </style>
@@ -225,7 +238,6 @@
     <div class="brand">
       <a href="index.html">Jaronhav TCG</a>
     </div>
-
     <div class="brand-socials">
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
       <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
@@ -246,14 +258,10 @@
   </div>
 
   <!-- Hamburger -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
 
-<!-- ===== MOBILE MENU ===== -->
+<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="graded_cards.html">Graded Cards</a>
   <a href="sealed.html">Sealed</a>
@@ -296,6 +304,30 @@
     <p>$650</p>
   </div>
 
+  <div class="card">
+    <a href="mew_delta_error.html">
+      <div class="image-container">
+        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg">
+        <div class="sold-overlay">SOLD</div>
+      </div>
+      <h3>PSA 5 Mew Delta Species Error</h3>
+    </a>
+    <p>$380</p>
+  </div>
+
+  <div class="card">
+    <a href="dark_blastoise.html">
+      <div class="image-container">
+        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg">
+        <div class="sold-overlay">SOLD</div>
+      </div>
+      <h3>PSA 1 Dark Blastoise Unlimited</h3>
+    </a>
+    <p>$140</p>
+  </div>
+
+
+  
 </div>
 
 <footer>
@@ -306,11 +338,11 @@
   </div>
 </footer>
 
-<!-- ===== SCRIPT ===== -->
+<!-- ===== JS ===== -->
 <script>
   function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
-    menu.classList.toggle("show");
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
   }
 </script>
 
