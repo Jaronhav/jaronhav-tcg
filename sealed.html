@@ -22,15 +22,15 @@
       color: white;
       display: flex;
       align-items: center;
-      justify-content: center;
       height: 60px;
+      padding: 0 30px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
       gap: 15px;
-      margin-right: 20px; /* small spacing to separate title from menu */
+      flex-shrink: 0;
     }
 
     .brand {
@@ -56,15 +56,17 @@
     }
 
     .nav-center {
-      display: flex;
-      justify-content: center;
-      flex: 1;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .nav-menu {
       display: flex;
       gap: 25px;
       font-weight: 700;
+      align-items: center;
+      height: 60px; /* vertically center links in navbar */
     }
 
     .nav-menu a {
