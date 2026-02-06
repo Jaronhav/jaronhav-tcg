@@ -79,10 +79,12 @@
       transition: 0.3s;
     }
 
+    /* === ONLY CHANGE IS HERE === */
     .nav-menu {
       position: absolute;
       left: 50%;
-      transform: translateX(-50%);
+      top: 50%;
+      transform: translate(-50%, -50%);
       display: flex;
       gap: 25px;
       align-items: center;
@@ -212,16 +214,22 @@
 
     <div class="nav-center">
       <div class="nav-menu">
-      <a href="#graded">Graded Cards</a>
-      <a href="#sealed">Sealed</a>
-      <a href="#foreign">Foreign Language Sealed</a>
-      <a href="#singles">Singles</a>
-      <a href="#mtg">Magic The Gathering</a>
-      <a href="#accessories">Accessories</a>
-      <a href="#contact">Contact</a>
+        <a href="#graded">Graded Cards</a>
+        <a href="#sealed">Sealed</a>
+        <a href="#foreign">Foreign Language Sealed</a>
+        <a href="#singles">Singles</a>
+        <a href="#mtg">Magic The Gathering</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </div>
+
+  <!-- rest of your page unchanged -->
+
+</body>
+</html>
+
 
   <!-- Graded Cards Section -->
   <h2 class="section-title">Graded Cards</h2>
