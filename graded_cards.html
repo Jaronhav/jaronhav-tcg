@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jaronhav TCG</title>
+  <title>Graded Cards | Jaronhav TCG</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -20,15 +20,15 @@
       z-index: 999;
       background: #111;
       color: white;
-      height: 60px; /* fixed height for vertical centering */
-      padding: 0 30px;
       display: flex;
-      align-items: center; /* vertical centering */
+      align-items: center;
+      padding: 14px 30px;
+      height: 60px;
     }
 
     .nav-left {
       display: flex;
-      align-items: center; /* vertical centering */
+      align-items: center;
       gap: 15px;
       min-width: 260px;
     }
@@ -37,6 +37,11 @@
       font-size: 20px;
       font-weight: 700;
       white-space: nowrap;
+    }
+
+    .brand a {
+      color: white;
+      text-decoration: none;
     }
 
     .brand-socials a {
@@ -54,24 +59,19 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center; /* vertical centering */
+      align-items: center;
     }
 
     .nav-menu {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       gap: 25px;
-      font-weight: 700; /* bold menu links */
-      align-items: center; /* vertical centering */
+      font-weight: 700;
     }
 
     .nav-menu a {
       color: white;
       text-decoration: none;
       font-size: 15px;
-      font-weight: 700;
       position: relative;
     }
 
@@ -84,6 +84,10 @@
       height: 2px;
       background: red;
       transition: 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
     }
 
     .banner {
@@ -128,12 +132,6 @@
       border-radius: 8px 8px 0 0;
     }
 
-    .sealed-img {
-      width: 250px;
-      height: auto;
-      border-radius: 8px 8px 0 0;
-    }
-
     .coming-soon-banner {
       position: absolute;
       top: 10px;
@@ -145,10 +143,6 @@
       border-radius: 5px;
       font-size: 14px;
       z-index: 2;
-    }
-
-    .card.sealed {
-      position: relative;
     }
 
     .card a {
@@ -201,7 +195,9 @@
   <!-- ===== TOP NAV ===== -->
   <div class="top-nav">
     <div class="nav-left">
-      <div class="brand">Jaronhav TCG</div>
+      <div class="brand">
+        <a href="index.html">Jaronhav TCG</a>
+      </div>
       <div class="brand-socials">
         <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
         <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
@@ -222,9 +218,9 @@
   </div>
 
   <!-- Graded Cards Section -->
-  <h2 class="section-title">Graded Cards</h2>
+  <h2 class="section-title" id="graded">Graded Cards</h2>
   <div class="card-container">
-    <!-- Cards here, same as before -->
+    <!-- CGC 10 Hitmontop -->
     <div class="card">
       <a href="hitmontop.html">
         <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp" alt="CGC 10 Hitmontop">
@@ -232,6 +228,8 @@
       </a>
       <p>$30</p>
     </div>
+    
+    <!-- CGC 9 Rowlet Black Star Promo -->
     <div class="card">
       <a href="rowlet.html">
         <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg" alt="CGC 9 Rowlet Black Star Promo">
@@ -239,6 +237,8 @@
       </a>
       <p>$10</p>
     </div>
+
+    <!-- PSA 8 Shining Magikarp (SOLD) -->
     <div class="card">
       <a href="magikarp.html">
         <div class="image-container">
@@ -250,34 +250,30 @@
       <p>$650</p>
     </div>
 
-     <!-- PSA 5 Mew Delta Species Error -->
+    <!-- PSA 5 Mew Delta Species Error -->
     <div class="card">
       <a href="mew_delta_error.html">
         <div class="image-container">
           <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg" alt="PSA 5 Mew Delta Species Error">
           <div class="sold-overlay">SOLD</div>
         </div>
-          <h3>PSA 5 Mew Delta Species Error</h3>
+        <h3>PSA 5 Mew Delta Species Error</h3>
       </a>
       <p>$380</p>
     </div>
-    
-         <!-- PSA 1 Dark Blastoise (SOLD) -->
+
+    <!-- PSA 1 Dark Blastoise (SOLD) -->
     <div class="card">
-    <a href="dark_blastoise.html">
-      <div class="image-container">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg" alt="PSA 1 Dark Blastoise Unlimited">
-        <div class="sold-overlay">SOLD</div>
-      </div>
+      <a href="dark_blastoise.html">
+        <div class="image-container">
+          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg" alt="PSA 1 Dark Blastoise Unlimited">
+          <div class="sold-overlay">SOLD</div>
+        </div>
         <h3>PSA 1 Dark Blastoise Unlimited</h3>
       </a>
       <p>$140</p>
     </div>
-    
   </div>
-
-  <!-- Sealed Section, Packs, Footer remain unchanged -->
-  <!-- ... (everything else remains exactly the same as your previous code) ... -->
 
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
@@ -286,5 +282,6 @@
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </footer>
+
 </body>
 </html>
