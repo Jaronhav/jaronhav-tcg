@@ -79,8 +79,13 @@
       transition: 0.3s;
     }
 
-    .nav-menu a:hover::after {
-      width: 100%;
+    .nav-menu {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 25px;
+      align-items: center;
     }
 
     .banner {
