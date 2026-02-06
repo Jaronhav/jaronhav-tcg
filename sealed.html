@@ -18,7 +18,7 @@
       background-color: red;
       color: white;
       font-weight: bold;
-      padding: 10px;
+      padding: 10px 0;
       text-transform: uppercase;
     }
 
@@ -30,8 +30,10 @@
       background: #111;
       color: white;
       display: flex;
-      align-items: center;   /* vertical centering */
+      align-items: center;
+      justify-content: space-between;
       padding: 0 30px;
+      height: 60px; /* match graded_cards.html */
     }
 
     .nav-left {
@@ -129,19 +131,6 @@
       width: 250px;
       height: auto;
       border-radius: 8px 8px 0 0;
-    }
-
-    .coming-soon-banner {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(128, 128, 128, 0.8);
-      color: white;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 2;
     }
 
     .card.sealed {
@@ -343,5 +332,6 @@
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </footer>
+
 </body>
 </html>
