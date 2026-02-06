@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaronhav TCG</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #111;
+      color: white;
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 260px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand-socials a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .brand-socials a:hover {
+      color: white;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
+
+    /* === ONLY CHANGE IS HERE === */
+    .nav-menu {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin-top: 40px;
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px;
+    }
+
+    .card {
+      display: inline-block;
+      margin: 15px;
+      text-align: center;
+      vertical-align: top;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .sealed-img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .coming-soon-banner {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(128, 128, 128, 0.8);
+      color: white;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 2;
+    }
+
+    .card.sealed {
+      position: relative;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    .image-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 60px;
+      font-weight: bold;
+      color: rgba(50, 50, 50, 0.9);
+      pointer-events: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+  <!-- ===== NEW TOP NAV ===== -->
+  <div class="top-nav">
+    <div class="nav-left">
+      <div class="brand">Jaronhav TCG</div>
+      <div class="brand-socials">
+        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-menu">
+        <a href="graded_cards.html">Graded Cards</a>
+        <a href="sealed.html">Sealed</a>
+        <a href="foreign.sealed.html">Foreign Language Sealed</a>
+        <a href="singles.html">Singles</a>
+        <a href="mtg.html">Magic The Gathering</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+    <!-- MTG -->
+<h3 style="margin-top:30px;">MTG</h3>
+
+<div class="card-container">
+
+    <div class="card sealed">
+    <a href="Final.Fantasy.Siege.Alexandria.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_The_Siege_of_Alexandria.png"
+        alt="Final Fantasy - Scene Box (The Siege of Alexandria)">
+      <h3>Final Fantasy - Scene Box (The Siege of Alexandria)</h3>
+    </a>
+    <p>$50</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="lord.of.the.rings.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_Lord_of_The_Rings.png"
+        alt="Lord of The Rings Sleeved Set Booster Pack">
+      <h3>Lord of The Rings Sleeved Set Booster Pack</h3>
+    </a>
+    <p>$10</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="final_fantasy.play.booster.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_Play_Booster.png"
+        alt="Final Fantasy - Play Booster Pack">
+      <h3>Final Fantasy - Play Booster Pack</h3>
+    </a>
+    <p>$5</p>
+  </div>
+  
+</div>
+
+  <footer>
+    <p>&copy; 2026 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+</body>
+</html>
