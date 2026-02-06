@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Graded Cards | Jaronhav TCG</title>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -11,6 +12,15 @@
       padding: 0;
       background-color: #f9f9f9;
       text-align: center;
+    }
+
+    /* ===== BANNER ===== */
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
     }
 
     /* ===== TOP NAV ===== */
@@ -22,33 +32,31 @@
       color: white;
       display: flex;
       align-items: center;
-      padding: 14px 30px;
+      justify-content: space-between;
+      padding: 0 20px;
       height: 60px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       min-width: 260px;
-    }
-
-    .brand {
-      font-size: 20px;
-      font-weight: 700;
-      white-space: nowrap;
     }
 
     .brand a {
       color: white;
       text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .brand-socials a {
       color: #ccc;
       text-decoration: none;
       font-size: 14px;
-      margin-left: 8px;
+      margin-left: 6px;
     }
 
     .brand-socials a:hover {
@@ -59,7 +67,6 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
     }
 
     .nav-menu {
@@ -90,14 +97,50 @@
       width: 100%;
     }
 
-    .banner {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      padding: 10px;
-      text-transform: uppercase;
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 15px;
     }
 
+    .hamburger span {
+      height: 3px;
+      width: 26px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      z-index: 998;
+      border-top: 1px solid #222;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-bottom: 1px solid #222;
+      font-weight: 600;
+    }
+
+    .mobile-menu a:hover {
+      background: #1a1a1a;
+    }
+
+    /* ===== CONTENT ===== */
     .section-title {
       margin-top: 40px;
       font-size: 24px;
@@ -114,7 +157,6 @@
       display: inline-block;
       margin: 15px;
       text-align: center;
-      vertical-align: top;
       background: white;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -128,49 +170,12 @@
 
     .card img {
       width: 250px;
-      height: auto;
       border-radius: 8px 8px 0 0;
-    }
-
-    .coming-soon-banner {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(128, 128, 128, 0.8);
-      color: white;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 2;
-    }
-
-    .card a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .card a:hover h3 {
-      text-decoration: underline;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      padding: 15px 0;
-      margin-top: 30px;
     }
 
     .image-container {
       position: relative;
-      display: inline-block;
       width: 100%;
-    }
-
-    .image-container img {
-      display: block;
-      width: 100%;
-      height: auto;
     }
 
     .sold-overlay {
@@ -183,105 +188,131 @@
       color: rgba(50, 50, 50, 0.9);
       pointer-events: none;
       z-index: 10;
-      text-align: center;
       white-space: nowrap;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .nav-center {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+<div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-  <!-- ===== TOP NAV ===== -->
-  <div class="top-nav">
-    <div class="nav-left">
-      <div class="brand">
-        <a href="index.html">Jaronhav TCG</a>
-      </div>
-      <div class="brand-socials">
-        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
-        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
-      </div>
+<!-- ===== TOP NAV ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <div class="brand">
+      <a href="index.html">Jaronhav TCG</a>
     </div>
 
-    <div class="nav-center">
-      <div class="nav-menu">
-        <a href="graded_cards.html">Graded Cards</a>
-        <a href="sealed.html">Sealed</a>
-        <a href="foreign.sealed.html">Foreign Language Sealed</a>
-        <a href="singles.html">Singles</a>
-        <a href="mtg.html">Magic The Gathering</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="contact.html">Contact</a>
-      </div>
+    <div class="brand-socials">
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
     </div>
   </div>
 
-  <!-- Graded Cards Section -->
-  <h2 class="section-title" id="graded">Graded Cards</h2>
-  <div class="card-container">
-    <!-- CGC 10 Hitmontop -->
-    <div class="card">
-      <a href="hitmontop.html">
-        <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp" alt="CGC 10 Hitmontop">
-        <h3>CGC 10 Hitmontop</h3>
-      </a>
-      <p>$30</p>
-    </div>
-    
-    <!-- CGC 9 Rowlet Black Star Promo -->
-    <div class="card">
-      <a href="rowlet.html">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg" alt="CGC 9 Rowlet Black Star Promo">
-        <h3>CGC 9 Rowlet Black Star Promo</h3>
-      </a>
-      <p>$10</p>
-    </div>
-
-    <!-- PSA 8 Shining Magikarp (SOLD) -->
-    <div class="card">
-      <a href="magikarp.html">
-        <div class="image-container">
-          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg" alt="PSA 8 Shining Magikarp Unlimited">
-          <div class="sold-overlay">SOLD</div>
-        </div>
-        <h3>PSA 8 Shining Magikarp Unlimited</h3>
-      </a>
-      <p>$650</p>
-    </div>
-
-    <!-- PSA 5 Mew Delta Species Error -->
-    <div class="card">
-      <a href="mew_delta_error.html">
-        <div class="image-container">
-          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg" alt="PSA 5 Mew Delta Species Error">
-          <div class="sold-overlay">SOLD</div>
-        </div>
-        <h3>PSA 5 Mew Delta Species Error</h3>
-      </a>
-      <p>$380</p>
-    </div>
-
-    <!-- PSA 1 Dark Blastoise (SOLD) -->
-    <div class="card">
-      <a href="dark_blastoise.html">
-        <div class="image-container">
-          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg" alt="PSA 1 Dark Blastoise Unlimited">
-          <div class="sold-overlay">SOLD</div>
-        </div>
-        <h3>PSA 1 Dark Blastoise Unlimited</h3>
-      </a>
-      <p>$140</p>
+  <!-- Desktop Menu -->
+  <div class="nav-center">
+    <div class="nav-menu">
+      <a href="graded_cards.html">Graded Cards</a>
+      <a href="sealed.html">Sealed</a>
+      <a href="foreign.sealed.html">Foreign Language Sealed</a>
+      <a href="singles.html">Singles</a>
+      <a href="mtg.html">Magic The Gathering</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2026 Jaronhav TCG</p>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-    </div>
-  </footer>
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="graded_cards.html">Graded Cards</a>
+  <a href="sealed.html">Sealed</a>
+  <a href="foreign.sealed.html">Foreign Language Sealed</a>
+  <a href="singles.html">Singles</a>
+  <a href="mtg.html">Magic The Gathering</a>
+  <a href="accessories.html">Accessories</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<h2 class="section-title" id="graded">Graded Cards</h2>
+
+<div class="card-container">
+
+  <div class="card">
+    <a href="hitmontop.html">
+      <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp">
+      <h3>CGC 10 Hitmontop</h3>
+    </a>
+    <p>$30</p>
+  </div>
+
+  <div class="card">
+    <a href="rowlet.html">
+      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg">
+      <h3>CGC 9 Rowlet Black Star Promo</h3>
+    </a>
+    <p>$10</p>
+  </div>
+
+  <div class="card">
+    <a href="magikarp.html">
+      <div class="image-container">
+        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg">
+        <div class="sold-overlay">SOLD</div>
+      </div>
+      <h3>PSA 8 Shining Magikarp Unlimited</h3>
+    </a>
+    <p>$650</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 Jaronhav TCG</p>
+  <div class="socials">
+    <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</footer>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("show");
+  }
+</script>
 
 </body>
 </html>
