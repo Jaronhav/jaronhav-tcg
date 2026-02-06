@@ -33,7 +33,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 30px;
-      height: 60px; /* match graded_cards.html */
+      height: 60px;
     }
 
     .nav-left {
@@ -81,15 +81,38 @@
       position: relative;
     }
 
-    .nav-menu a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0%;
-      height: 2px;
-      background: red;
-      transition: 0.3s;
+    /* ===== MOBILE MENU ===== */
+    .menu-toggle{
+      display:none;
+      font-size:28px;
+      cursor:pointer;
+      margin-left:auto;
+      padding-left:30px; /* space from socials */
+    }
+
+    .mobile-menu{
+      display:none;
+      flex-direction:column;
+      background:#111;
+      padding:15px 30px;
+    }
+
+    .mobile-menu a{
+      color:white;
+      text-decoration:none;
+      padding:12px 0;
+      font-weight:bold;
+      border-bottom:1px solid #333;
+    }
+
+    @media (max-width: 900px){
+      .nav-menu{
+        display:none;
+      }
+
+      .menu-toggle{
+        display:block;
+      }
     }
 
     /* ===== SECTIONS ===== */
@@ -194,6 +217,9 @@
       </div>
     </div>
 
+    <!-- ☰ MOBILE BUTTON -->
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
     <div class="nav-center">
       <div class="nav-menu">
         <a href="graded_cards.html">Graded Cards</a>
@@ -206,6 +232,27 @@
       </div>
     </div>
   </div>
+
+  <!-- MOBILE DROPDOWN -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="graded_cards.html">Graded Cards</a>
+    <a href="sealed.html">Sealed</a>
+    <a href="foreign.sealed.html">Foreign Language Sealed</a>
+    <a href="#singles">Singles</a>
+    <a href="mtg.html">Magic The Gathering</a>
+    <a href="#accessories">Accessories</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("mobileMenu");
+
+    toggle.addEventListener("click", () => {
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    });
+  </script>
 
   <!-- Sealed Products Section -->
   <h2 class="section-title" id="sealed">Boxes</h2>
