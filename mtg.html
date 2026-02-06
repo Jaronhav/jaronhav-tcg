@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jaronhav TCG</title>
+  <title>Jaronhav TCG - Sealed</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -13,6 +13,15 @@
       text-align: center;
     }
 
+    /* ===== BANNER ===== */
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px 0;
+      text-transform: uppercase;
+    }
+
     /* ===== TOP NAV ===== */
     .top-nav {
       position: sticky;
@@ -20,9 +29,11 @@
       z-index: 999;
       background: #111;
       color: white;
-      padding: 14px 30px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px; /* match graded_cards.html */
     }
 
     .nav-left {
@@ -32,10 +43,11 @@
       min-width: 260px;
     }
 
-    .brand {
+    .brand a {
       font-size: 20px;
       font-weight: 700;
-      white-space: nowrap;
+      color: white;
+      text-decoration: none;
     }
 
     .brand-socials a {
@@ -57,14 +69,15 @@
 
     .nav-menu {
       display: flex;
-      gap: 30px;
+      gap: 25px;
+      align-items: center;
     }
 
     .nav-menu a {
       color: white;
       text-decoration: none;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: bold;
       position: relative;
     }
 
@@ -79,25 +92,7 @@
       transition: 0.3s;
     }
 
-    /* === ONLY CHANGE IS HERE === */
-    .nav-menu {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
-
-    .banner {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      padding: 10px;
-      text-transform: uppercase;
-    }
-
+    /* ===== SECTIONS ===== */
     .section-title {
       margin-top: 40px;
       font-size: 24px;
@@ -136,19 +131,6 @@
       width: 250px;
       height: auto;
       border-radius: 8px 8px 0 0;
-    }
-
-    .coming-soon-banner {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(128, 128, 128, 0.8);
-      color: white;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 2;
     }
 
     .card.sealed {
@@ -202,10 +184,10 @@
 
   <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-  <!-- ===== NEW TOP NAV ===== -->
+  <!-- ===== TOP NAV ===== -->
   <div class="top-nav">
     <div class="nav-left">
-      <div class="brand">Jaronhav TCG</div>
+      <div class="brand"><a href="index.html">Jaronhav TCG</a></div>
       <div class="brand-socials">
         <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
         <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
@@ -216,21 +198,16 @@
       <div class="nav-menu">
         <a href="graded_cards.html">Graded Cards</a>
         <a href="sealed.html">Sealed</a>
-        <a href="foreign.sealed.html">Foreign Language Sealed</a>
-        <a href="singles.html">Singles</a>
+        <a href="foreign.seal.html">Foreign Language Sealed</a>
+        <a href="#singles">Singles</a>
         <a href="mtg.html">Magic The Gathering</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="contact.html">Contact</a>
-
+        <a href="#accessories">Accessories</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </div>
 
-</body>
-</html>
-
-
-    <!-- MTG -->
+ <!-- MTG -->
 <h3 style="margin-top:30px;">MTG</h3>
 
 <div class="card-container">
@@ -266,7 +243,6 @@
   </div>
   
 </div>
-
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
     <div class="socials">
@@ -274,5 +250,6 @@
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </footer>
+
 </body>
 </html>
