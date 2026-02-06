@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sealed Products | Jaronhav TCG</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 14px 30px;
+      height: 60px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 260px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .brand-socials a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .brand-socials a:hover {
+      color: white;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+      font-weight: 700;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin-top: 40px;
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px;
+    }
+
+    .card {
+      display: inline-block;
+      margin: 15px;
+      text-align: center;
+      vertical-align: top;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
+    }
+
+    .sealed-img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card.sealed {
+      position: relative;
+    }
+
+    .image-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 60px;
+      font-weight: bold;
+      color: rgba(50, 50, 50, 0.9);
+      pointer-events: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+  <!-- ===== TOP NAV ===== -->
+  <div class="top-nav">
+    <div class="nav-left">
+      <div class="brand">
+        <a href="index.html">Jaronhav TCG</a>
+      </div>
+      <div class="brand-socials">
+        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-menu">
+        <a href="graded_cards.html">Graded Cards</a>
+        <a href="sealed.html">Sealed</a>
+        <a href="#foreign">Foreign Language Sealed</a>
+        <a href="#singles">Singles</a>
+        <a href="#mtg">Magic The Gathering</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sealed Products Section -->
+  <h2 class="section-title" id="sealed">Boxes</h2>
+  <div class="card-container">
+    <div class="card sealed">
+      <a href="charizard_upc.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Charizard_UPC2.jpg" alt="Charizard Ultra Premium Collection">
+        <h3>Mega Charizard UPC</h3>
+      </a>
+      <p>$140</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="mega.portfolio.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Mega_Portfolios1.jpg" alt="Mega Evolution Mini portfolio Sealed Box">
+        <h3>Mega Evolution Mini Portfolio Sealed Box</h3>
+      </a>
+      <p>$95</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="2pack.blister.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/2_Pack_Blister1.png" alt="2-Pack Blister (Raikou)">
+        <h3>2-Pack Blister (Raikou)</h3>
+      </a>
+      <p>$14</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="knock_out_suicune.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_suicune.jpg" alt="Knock Out Collection (Suicune)">
+        <h3>Knock Out Collection (Suicune)</h3>
+      </a>
+      <p>$14</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="knock.out.kyogre.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_kyogre.jpg" alt="Knock Out Collection (Kyogre)">
+        <h3>Knock Out Collection (Kyogre)</h3>
+      </a>
+      <p>$14</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="phantasmal.flames.single.pack.blister.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Single_Pack_Blister.png" alt="Phantasmal Flames Single Pack Blister (Whimsicott)">
+        <h3>Phantasmal Flames Single Pack Blister (Whimsicott)</h3>
+      </a>
+      <p>$7</p>
+    </div>
+  </div>
+
+  <h2 class="section-title" id="packs">Packs</h2>
+  <div class="card-container">
+    <div class="card sealed">
+      <a href="Destined.Rivals.Sleeved.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Destined_Sleeved.png" alt="Destined Rivals Sleeved Pack">
+        <h3>Destined Rivals Sleeved Pack</h3>
+      </a>
+      <p>$7</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="phantasmal.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Flames_Packs.jpg" alt="Phantasmal Flames Packs">
+        <h3>Phantasmal Flames Pack</h3>
+      </a>
+      <p>$6</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="mega.evo.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_packs.png" alt="Mega Evolutions Pack">
+        <h3>Mega Evolution Pack</h3>
+      </a>
+      <p>$6</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="journey.together.pack.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/journey_packs.png" alt="Journey Together Pack">
+        <h3>Journey Together Pack</h3>
+      </a>
+      <p>$6</p>
+    </div>
+
+    <div class="card sealed">
+      <a href="surging.sparks.html">
+        <img class="sealed-img" src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Surging_Sparks_Packs.jpg" alt="Surging Sparks Packs">
+        <h3>Surging Sparks Pack</h3>
+      </a>
+      <p>$6</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+
+</body>
+</html>
