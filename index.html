@@ -207,29 +207,23 @@
       margin-left:auto;
     }
 
-    @media (max-width: 900px){
-      .menu-toggle{
-        display:block;
+    @media (max-width: 768px) {
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px; /* space between title, ebay, instagram */
       }
 
-      .nav-menu{
-        position:absolute;
-        top:60px;
-        left:0;
-        transform:none;
-        width:100%;
-        background:#111;
-        flex-direction:column;
-        align-items:center;
-        gap:20px;
-        padding:20px 0;
-        display:none;
+      .menu-toggle {
+        margin-left: auto;   /* pushes menu button to far right */
+        padding: 10px 14px;  /* increases tap area */
       }
 
-      .nav-menu.active{
-        display:flex;
+      .menu-toggle button {
+        padding: 10px 14px;
       }
     }
+
   </style>
 </head>
 <body>
