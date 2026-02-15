@@ -178,6 +178,24 @@
       text-align: center;
       white-space: nowrap;
     }
+
+    .sold-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(180, 0, 0, 0.95);
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
   </style>
 </head>
 <body>
@@ -215,9 +233,12 @@
   
  <div class="card sealed">
     <a href="black.crystal.blaze.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
-        alt="Black Crystal Blaze Simplified Chinese Pack">
+       <div class="image-container">
+        <img class="sealed-img"
+          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
+          alt="Black Crystal Blaze Simplified Chinese Pack">
+        <div class="sold-label">Sold Out</div>
+      </div>           
       <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
     </a>
     <p>$2</p>
