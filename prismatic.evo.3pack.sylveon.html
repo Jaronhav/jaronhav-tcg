@@ -191,6 +191,24 @@
 /*]]>*/
 </script>
 
+    <!-- Inventory fetch -->
+    <script>
+      const productId = "7836927426638";
+      const inventoryEl = document.getElementById('inventory-count');
+
+      fetch(`/api/inventory?id=${productId}`)
+        .then(res => res.json())
+        .then(data => {
+          const qty = data.variants.reduce((s,v)=>s+v.inventory_quantity,0);
+          inventoryEl.textContent = qty === 0 ? 'Sold Out' : `Quantity available: ${qty}`;
+        })
+        .catch(() => inventoryEl.textContent = 'Inventory unavailable');
+    </script>
+
+    <a class="back-link" href="index.html">← Back to Home</a>
+  </div>
+</div>
+
 <footer>
   <p>&copy; 2026 Jaronhav TCG</p>
 </footer>
