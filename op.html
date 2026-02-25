@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaronhav TCG - Sealed</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    /* ===== BANNER ===== */
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px 0;
+      text-transform: uppercase;
+    }
+
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px; /* match graded_cards.html */
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 260px;
+    }
+
+    .brand a {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .brand-socials a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .brand-socials a:hover {
+      color: white;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section-title {
+      margin-top: 40px;
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px;
+    }
+
+    .card {
+      display: inline-block;
+      margin: 15px;
+      text-align: center;
+      vertical-align: top;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .sealed-img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card.sealed {
+      position: relative;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
+
+    .image-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 60px;
+      font-weight: bold;
+      color: rgba(50, 50, 50, 0.9);
+      pointer-events: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+  <!-- ===== TOP NAV ===== -->
+  <div class="top-nav">
+    <div class="nav-left">
+      <div class="brand"><a href="index.html">Jaronhav TCG</a></div>
+      <div class="brand-socials">
+        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="nav-menu">
+        <a href="graded_cards.html">Graded Cards</a>
+        <a href="sealed.html">Sealed</a>
+        <a href="foreign.sealed.html">Foreign Language Sealed</a>
+        <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
+        <a href="mtg.html">Magic The Gathering</a>
+        <a href="op.html">One Piece</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+ <!-- MTG -->
+<h3 style="margin-top:30px;">One Piece</h3>
+
+<div class="card-container">
+
+       <div class="card sealed">
+    <a href="op.illustration.box.vol.5.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/OP_illustration_vol.5.png"
+        alt="One Piece Illustration Box Vol.5">           
+      <h3>One Piece Illustration Box Vol.5</h3>
+    </a>
+    <p>$48</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="op.illustration.box.vol.6.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_illustration_vol.6.png"
+        alt="One Piece Illustration Box Vol.6">           
+      <h3>One Piece Illustration Box Vol.6</h3>
+    </a>
+    <p>$48</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="op.tin.portgas.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2.portgas.png"
+        alt="One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace">           
+      <h3>One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace</h3>
+    </a>
+    <p>$26</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="op.tin.sabo.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2_sabo.png"
+        alt="One Piece Tin Pack Set Vol. 2 - Sabo">           
+      <h3>One Piece Tin Pack Set Vol. 2 - Sabo </h3>
+    </a>
+    <p>$26</p>
+  </div>
+  
+    <div class="card sealed">
+    <a href="op.heroines.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_heroines.png"
+        alt="One Piece Heroines Edition Sleeved Booster Pack">           
+      <h3>One Piece Heroines Edition Sleeved Booster Pack</h3>
+    </a>
+    <p>$14</p>
+  </div>
+
+    <div class="card sealed">
+    <a href="the.azure.seas.seven.html">
+      <img class="sealed-img"
+        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_the_azure.png"
+        alt="The Azure Sea's Seven Sleeved Booster Pack">           
+      <h3>The Azure Sea's Seven Sleeved Booster Pack</h3>
+    </a>
+    <p>$7</p>
+  </div>
+  
+</div>
+  <footer>
+    <p>&copy; 2026 Jaronhav TCG</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+    </div>
+  </footer>
+
+</body>
+</html>
