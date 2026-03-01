@@ -1,4 +1,4 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,6 +12,11 @@ body {
   padding: 0;
   background-color: #f9f9f9;
   text-align: center;
+
+  /* ===== Footer lock ===== */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== HEADER ===== */
@@ -228,12 +233,11 @@ body {
   pointer-events: none;
 }
 
-  
+/* ===== Footer ===== */
 footer {
   background-color: #222;
   color: white;
   padding: 15px 0;
-  margin-top: 30px;
 }
 
 footer a {
@@ -242,10 +246,9 @@ footer a {
 }
 
 footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
+  color: #ccc;
+  text-decoration: underline;
 }
-
 
 /* ===== Singles Dropdown ===== */
 .dropdown {
@@ -263,7 +266,7 @@ footer a:hover {
   z-index: 2000;
   border-radius: 6px;
   overflow: hidden;
-  padding-top: 5px;   /* hover buffer */
+  padding-top: 5px;
 }
 
 .dropdown-content a {
@@ -279,12 +282,15 @@ footer a:hover {
   background: #222;
 }
 
-/* THIS is the important part */
 .dropdown:hover .dropdown-content,
 .dropdown-content:hover {
   display: block;
 }
-  
+
+/* ===== Footer Lock Container ===== */
+.page-content{
+  flex:1;
+}
 </style>
 </head>
 
@@ -308,13 +314,13 @@ footer a:hover {
       <a href="graded_cards.html">Graded Cards</a>
       <a href="sealed.html">Sealed</a>
       <a href="foreign.sealed.html">Foreign Language Sealed</a>
-<div class="dropdown">
-  <a href="#">Singles ▾</a>
-  <div class="dropdown-content">
-    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
-    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-  </div>
-</div>
+      <div class="dropdown">
+        <a href="#">Singles ▾</a>
+        <div class="dropdown-content">
+          <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+          <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+        </div>
+      </div>
       <a href="mtg.html">Magic The Gathering</a>
       <a href="op.html">One Piece</a>
       <a href="contact.html">Contact</a>
@@ -337,11 +343,8 @@ footer a:hover {
 </div>
 
 <!-- ================= CONTENT ================= -->
+<div class="page-content">
 
-
-<!-- Sealed -->
-
-  <!-- Packs -->
 <h2 class="section-title">Packs</h2>
 
 <div class="card-container">
@@ -360,28 +363,26 @@ footer a:hover {
   </div>
 
 </div>
-  
-  <footer>
-    <p>&copy; 2026 Jaronhav TCG</p>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-    </div>
-  </footer>
 
-  <!-- ✅ MOBILE MENU TOGGLE SCRIPT -->
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const mobileMenu = document.getElementById("mobileMenu");
+</div> <!-- END page-content -->
 
-    menuToggle.addEventListener("click", () => {
-      if (mobileMenu.style.display === "flex") {
-        mobileMenu.style.display = "none";
-      } else {
-        mobileMenu.style.display = "flex";
-      }
-    });
-  </script>
+<footer>
+  <p>&copy; 2026 Jaronhav TCG</p>
+  <div class="socials">
+    <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</footer>
+
+<!-- MOBILE MENU TOGGLE -->
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuToggle.addEventListener("click", () => {
+  mobileMenu.style.display = (mobileMenu.style.display === "flex") ? "none" : "flex";
+});
+</script>
 
 </body>
 </html>
