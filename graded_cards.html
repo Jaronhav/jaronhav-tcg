@@ -6,10 +6,13 @@
   <title>Graded Cards | Jaronhav TCG</title>
 
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
       text-align: center;
     }
@@ -107,7 +110,7 @@
       font-size: 28px;
       cursor: pointer;
       user-select: none;
-      padding-left: 20px; /* spacing from socials */
+      padding-left: 20px;
     }
 
     /* ===== MOBILE MENU ===== */
@@ -134,7 +137,11 @@
       background: #1a1a1a;
     }
 
-    /* ===== CONTENT ===== */
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+    }
+
     .section-title {
       margin-top: 40px;
       font-size: 24px;
@@ -208,22 +215,18 @@
       background-color: #222;
       color: white;
       padding: 15px 0;
-      margin-top: 30px;
+      margin-top: auto;
     }
 
-footer a {
-  color: white;
-  text-decoration: none;
-}
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-    
-    /* ===== COLOR FIX ===== */
-    .card h3 { color: #111 !important; }
-    .card p { color: #000 !important; }
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
+    }
 
     /* ===== MOBILE RULES ===== */
     @media (max-width: 900px) {
@@ -278,74 +281,74 @@ footer a:hover {
   <a href="foreign.sealed.html">Foreign Language Sealed</a>
   <a href="singles.html">Singles</a>
   <a href="mtg.html">Magic The Gathering</a>
-  <a href="accessories.html">Accessories</a>
+  <a href="op.html">One Piece</a>
   <a href="contact.html">Contact</a>
 </div>
 
-<!-- ===== CONTENT ===== -->
-<h2 class="section-title" id="graded">Graded Cards</h2>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+  <h2 class="section-title" id="graded">Graded Cards</h2>
 
-<div class="card-container">
+  <div class="card-container">
 
-<div class="card">
-  <a href="abra.legendary.html">
-    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA7_Abra_Legendary.png"">
-    <h3>PSA 7 Abra Rev Foil Legendary Collection</h3>
-  </a>
-  <p>$140</p>
-</div>
-  
-  <div class="card">
-    <a href="hitmontop.html">
-      <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp">
-      <h3>CGC 10 Hitmontop</h3>
-    </a>
-    <p>$30</p>
+    <div class="card">
+      <a href="abra.legendary.html">
+        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA7_Abra_Legendary.png">
+        <h3>PSA 7 Abra Rev Foil Legendary Collection</h3>
+      </a>
+      <p>$140</p>
+    </div>
+      
+    <div class="card">
+      <a href="hitmontop.html">
+        <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp">
+        <h3>CGC 10 Hitmontop</h3>
+      </a>
+      <p>$30</p>
+    </div>
+
+    <div class="card">
+      <a href="rowlet.html">
+        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg">
+        <h3>CGC 9 Rowlet Black Star Promo</h3>
+      </a>
+      <p>$10</p>
+    </div>
+
+    <div class="card">
+      <a href="magikarp.html">
+        <div class="image-container">
+          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg">
+          <div class="sold-overlay">SOLD</div>
+        </div>
+        <h3>PSA 8 Shining Magikarp Unlimited</h3>
+      </a>
+      <p>$650</p>
+    </div>
+
+    <div class="card">
+      <a href="mew_delta_error.html">
+        <div class="image-container">
+          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg">
+          <div class="sold-overlay">SOLD</div>
+        </div>
+        <h3>PSA 5 Mew Delta Species Error</h3>
+      </a>
+      <p>$380</p>
+    </div>
+
+    <div class="card">
+      <a href="dark_blastoise.html">
+        <div class="image-container">
+          <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg">
+          <div class="sold-overlay">SOLD</div>
+        </div>
+        <h3>PSA 1 Dark Blastoise Unlimited</h3>
+      </a>
+      <p>$140</p>
+    </div>
+
   </div>
-
-  <div class="card">
-    <a href="rowlet.html">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg">
-      <h3>CGC 9 Rowlet Black Star Promo</h3>
-    </a>
-    <p>$10</p>
-  </div>
-
-  <div class="card">
-    <a href="magikarp.html">
-      <div class="image-container">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg">
-        <div class="sold-overlay">SOLD</div>
-      </div>
-      <h3>PSA 8 Shining Magikarp Unlimited</h3>
-    </a>
-    <p>$650</p>
-  </div>
-
-  <div class="card">
-    <a href="mew_delta_error.html">
-      <div class="image-container">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg">
-        <div class="sold-overlay">SOLD</div>
-      </div>
-      <h3>PSA 5 Mew Delta Species Error</h3>
-    </a>
-    <p>$380</p>
-  </div>
-
-  <div class="card">
-    <a href="dark_blastoise.html">
-      <div class="image-container">
-        <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg">
-        <div class="sold-overlay">SOLD</div>
-      </div>
-      <h3>PSA 1 Dark Blastoise Unlimited</h3>
-    </a>
-    <p>$140</p>
-  </div>
-
-
-  
 </div>
 
 <footer>
