@@ -2,19 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | Jaronhav TCG</title>
-
-<!-- Shopify-compatible hCaptcha -->
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-  text-align: center;
+  margin:0;
+  padding:0;
+  background:#f9f9f9;
+  text-align:center;
 }
 
 /* ===== HEADER ===== */
@@ -55,16 +52,6 @@ body {
   font-size:18px;
 }
 
-.social-links a {
-  color:#ccc;
-  text-decoration:none;
-  font-size:14px;
-}
-
-.social-links a:hover {
-  color:white;
-}
-
 .nav-menu {
   display:flex;
   gap:26px;
@@ -94,109 +81,51 @@ body {
   width:100%;
 }
 
-.menu-toggle {
-  position:absolute;
-  right:20px;
-  font-size:28px;
-  cursor:pointer;
-  display:none;
-  user-select:none;
-  padding:10px 14px;
-}
-
-.mobile-menu {
-  display:none;
-  flex-direction:column;
-  background:#111;
-  width:100%;
-  position:absolute;
-  top:64px;
-  left:0;
-  z-index:999;
-}
-
-.mobile-menu a {
-  color:white;
-  text-decoration:none;
-  padding:16px 20px;
-  border-top:1px solid rgba(255,255,255,0.1);
-  font-weight:700;
-}
-
-@media (max-width: 900px) {
-  .nav-menu { display:none; }
-  .menu-toggle { display:block; }
-}
-
-/* ===== UI ===== */
-.banner {
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  padding: 10px;
-  text-transform: uppercase;
-}
-
-/* ===== CONTACT ===== */
-.contact-wrapper{
+/* ===== CONTACT SECTION ===== */
+.contact-container {
   max-width:700px;
-  margin:60px auto;
+  margin:80px auto;
   background:white;
+  padding:50px 40px;
   border-radius:12px;
-  padding:40px;
   box-shadow:0 4px 12px rgba(0,0,0,0.08);
-  text-align:left;
 }
 
-.contact-wrapper h2{
-  text-align:center;
-  margin-bottom:10px;
+.contact-container h2 {
+  margin-bottom:15px;
+  font-size:28px;
 }
 
-.contact-wrapper p{
-  text-align:center;
-  color:#666;
-  margin-bottom:30px;
+.contact-container p {
+  font-size:16px;
+  color:#444;
+  line-height:1.6;
 }
 
-.contact-form{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-
-.contact-form input,
-.contact-form textarea,
-.contact-form select{
-  padding:14px;
-  border-radius:8px;
+input, textarea {
+  padding:12px;
+  font-size:15px;
+  border-radius:6px;
   border:1px solid #ccc;
-  font-family:inherit;
-  font-size:14px;
+  font-family:'Poppins', sans-serif;
+  width:100%;
+  box-sizing:border-box;
 }
 
-.contact-form textarea{
-  min-height:140px;
-  resize:vertical;
-}
-
-.contact-form button{
+button {
+  padding:14px;
   background:#111;
   color:white;
   border:none;
-  padding:14px;
   border-radius:8px;
   font-weight:700;
   cursor:pointer;
-  transition:.2s;
+  margin-top:10px;
+  transition:0.2s;
 }
 
-.contact-form button:hover{
-  background:black;
-}
-
-.h-captcha{
-  margin:12px 0;
+button:hover {
+  background:#000;
 }
 
 /* ===== FOOTER ===== */
@@ -211,81 +140,46 @@ footer a {
   color:white;
   text-decoration:none;
 }
-
-footer a:hover {
-  color:#ccc;
-}
 </style>
 </head>
 
 <body>
 
-<div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
-
+<!-- HEADER -->
 <header class="site-header">
   <div class="header-inner">
-
     <div class="header-left">
       <a href="index.html" class="site-title">Jaronhav TCG</a>
-      <div class="social-links">
-        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
-        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
-      </div>
     </div>
 
     <nav class="nav-menu">
-      <a href="graded_cards.html">Graded Cards</a>
-      <a href="sealed.html">Sealed</a>
-      <a href="foreign.sealed.html">Foreign Language Sealed</a>
-      <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
-      <a href="mtg.html">Magic The Gathering</a>
-      <a href="op.html">One Piece</a>
+      <a href="index.html">Home</a>
       <a href="contact.html">Contact</a>
     </nav>
-
-    <div class="menu-toggle" id="menuToggle">☰</div>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="graded_cards.html">Graded Cards</a>
-  <a href="sealed.html">Sealed</a>
-  <a href="foreign.sealed.html">Foreign Language Sealed</a>
-  <a href="singles.html">Singles</a>
-  <a href="mtg.html">Magic The Gathering</a>
-  <a href="op.html">One Piece</a>
-  <a href="contact.html">Contact</a>
-</div>
+<!-- CONTACT CONTENT -->
+<div class="contact-container">
+  <h2>Contact Jaronhav TCG</h2>
+  <p>
+    Have any questions or concerns? Fill out the form below and I’ll get back to you as soon as possible.
+  </p>
 
-<!-- CONTACT FORM -->
-<div class="contact-wrapper">
-  <h2>Contact Us</h2>
-  <p>Questions about orders, inventory, restocks, or partnerships? Send us a message.</p>
+  <form action="https://formspree.io/f/xdalvggz" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 
-  <form 
-    class="contact-form"
-    method="post"
-    action="https://jaronhav-tcg.myshopify.com/contact"
-  >
-    <input type="text" name="contact[name]" placeholder="Your Name" required>
-    <input type="email" name="contact[email]" placeholder="Your Email" required>
-
-    <select name="contact[topic]">
-      <option value="General">General Inquiry</option>
-      <option value="Order">Order Support</option>
-      <option value="Wholesale">Wholesale / Partnerships</option>
-      <option value="Inventory">Inventory Question</option>
-    </select>
-
-    <textarea name="contact[body]" placeholder="Your Message" required></textarea>
-
-    <!-- SHOPIFY hCAPTCHA (REQUIRED) -->
-    <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
+    <!-- Optional hidden settings -->
+    <input type="hidden" name="_subject" value="New Contact Message from Website">
+    <input type="hidden" name="_captcha" value="true">
 
     <button type="submit">Send Message</button>
   </form>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <p>&copy; 2026 Jaronhav TCG</p>
   <div class="socials">
@@ -293,16 +187,6 @@ footer a:hover {
     <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
   </div>
 </footer>
-
-<script>
-const menuToggle = document.getElementById("menuToggle");
-const mobileMenu = document.getElementById("mobileMenu");
-
-menuToggle.addEventListener("click", () => {
-  mobileMenu.style.display = 
-    mobileMenu.style.display === "flex" ? "none" : "flex";
-});
-</script>
 
 </body>
 </html>
