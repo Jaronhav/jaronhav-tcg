@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MTG | Jaronhav TCG</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
       text-align: center;
     }
@@ -33,7 +36,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 30px;
-      height: 60px; /* match graded_cards.html */
+      height: 60px;
     }
 
     .nav-left {
@@ -90,6 +93,11 @@
       height: 2px;
       background: red;
       transition: 0.3s;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
     }
 
     /* ===== SECTIONS ===== */
@@ -150,19 +158,19 @@
       background-color: #222;
       color: white;
       padding: 15px 0;
-      margin-top: 30px;
+      margin-top: auto;
     }
 
-footer a {
-  color: white;
-  text-decoration: none;
-}
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-    
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
+    }
+
     .image-container {
       position: relative;
       display: inline-block;
@@ -188,6 +196,24 @@ footer a:hover {
       text-align: center;
       white-space: nowrap;
     }
+
+    .sold-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(180, 0, 0, 0.95);
+      color: white;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      z-index: 10;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
   </style>
 </head>
 <body>
@@ -217,45 +243,45 @@ footer a:hover {
     </div>
   </div>
 
- <!-- MTG -->
-<h3 style="margin-top:30px;">MTG</h3>
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+    <h3 style="margin-top:30px;">MTG</h3>
+    <div class="card-container">
+      <div class="card sealed">
+        <a href="lord.of.the.rings.html">
+          <img class="sealed-img"
+               src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_Lord_of_The_Rings.png"
+               alt="Lord of The Rings Sleeved Set Booster Pack">
+          <h3>Lord of The Rings Sleeved Set Booster Pack</h3>
+        </a>
+        <p>$10</p>
+      </div>
 
-<div class="card-container">
+      <div class="card sealed">
+        <a href="final_fantasy.play.booster.html">
+          <img class="sealed-img"
+               src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_Play_Booster.png"
+               alt="Final Fantasy - Play Booster Pack">
+          <h3>Final Fantasy - Play Booster Pack</h3>
+        </a>
+        <p>$5</p>
+      </div>
 
-    <div class="card sealed">
-    <a href="lord.of.the.rings.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_Lord_of_The_Rings.png"
-        alt="Lord of The Rings Sleeved Set Booster Pack">
-      <h3>Lord of The Rings Sleeved Set Booster Pack</h3>
-    </a>
-    <p>$10</p>
+      <div class="card sealed">
+        <a href="Final.Fantasy.Siege.Alexandria.html">
+          <div class="image-container">
+            <img class="sealed-img"
+                 src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_The_Siege_of_Alexandria.png"
+                 alt="Final Fantasy - Scene Box (The Siege of Alexandria)">
+            <div class="sold-label">Sold Out</div>
+          </div>
+          <h3>Final Fantasy - Scene Box (The Siege of Alexandria)</h3>
+        </a>
+        <p>$50</p>
+      </div>
+    </div>
   </div>
 
-    <div class="card sealed">
-    <a href="final_fantasy.play.booster.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_Play_Booster.png"
-        alt="Final Fantasy - Play Booster Pack">
-      <h3>Final Fantasy - Play Booster Pack</h3>
-    </a>
-    <p>$5</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="Final.Fantasy.Siege.Alexandria.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_The_Siege_of_Alexandria.png"
-          alt="Final Fantasy - Scene Box (The Siege of Alexandria)">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Final Fantasy - Scene Box (The Siege of Alexandria)</h3>
-    </a>
-    <p>$50</p>
-  </div>
-  
-</div>
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
     <div class="socials">
