@@ -181,17 +181,17 @@ footer a {
   text-decoration: none;
 }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-
 /* ===== Singles Dropdown ===== */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
+.dropdown > a {
+  cursor: pointer;
+}
+
+/* Desktop dropdown */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -218,9 +218,26 @@ footer a:hover {
   background: #222;
 }
 
-.dropdown:hover .dropdown-content,
-.dropdown-content:hover {
-  display: block;
+/* Desktop hover */
+@media (min-width: 901px) {
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+
+/* Mobile behavior */
+@media (max-width: 900px) {
+  .dropdown-content {
+    position: static;
+    display: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
 }
     
     .image-container {
@@ -291,7 +308,8 @@ footer a:hover {
         <a href="sealed.html">Sealed</a>
         <a href="foreign.sealed.html">Foreign Language Sealed</a>
         <div class="dropdown">
-  <a href="#">Singles ▾</a>
+<div class="dropdown" id="singlesDropdown">
+  <a onclick="toggleSingles()">Singles ▾</a>
   <div class="dropdown-content">
     <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
     <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
@@ -309,8 +327,8 @@ footer a:hover {
     <a href="graded_cards.html">Graded Cards</a>
     <a href="sealed.html">Sealed</a>
     <a href="foreign.sealed.html">Foreign Language Sealed</a>
-<div class="dropdown">
-  <a href="#">Singles ▾</a>
+<div class="dropdown" id="singlesDropdown">
+  <a onclick="toggleSingles()">Singles ▾</a>
   <div class="dropdown-content">
     <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
     <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
@@ -584,5 +602,15 @@ footer a:hover {
     </div>
   </footer>
 
+<script>
+function toggleSingles() {
+  // Only run on mobile
+  if (window.innerWidth <= 900) {
+    const dropdown = document.getElementById("singlesDropdown");
+    dropdown.classList.toggle("active");
+  }
+}
+</script>
+    
 </body>
 </html>
