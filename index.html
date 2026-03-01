@@ -245,6 +245,41 @@ footer a:hover {
   color: #ccc; /* optional hover effect */
   text-decoration: underline; /* optional */
 }
+
+
+/* ===== Singles Dropdown ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background: #111;
+  min-width: 150px;
+  z-index: 2000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {
+  background: #222;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
   
 </style>
 </head>
@@ -269,7 +304,13 @@ footer a:hover {
       <a href="graded_cards.html">Graded Cards</a>
       <a href="sealed.html">Sealed</a>
       <a href="foreign.sealed.html">Foreign Language Sealed</a>
-      <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
+<div class="dropdown">
+  <a href="#">Singles ▾</a>
+  <div class="dropdown-content">
+    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</div>
       <a href="mtg.html">Magic The Gathering</a>
       <a href="op.html">One Piece</a>
       <a href="contact.html">Contact</a>
