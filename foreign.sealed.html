@@ -1,251 +1,251 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Foreign | Jaronhav TCG</title>
-  <style>
-    html, body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foreign | Jaronhav TCG</title>
 
-    /* ===== BANNER ===== */
-    .banner {
-      background-color: red;
-      color: white;
-      font-weight: bold;
-      padding: 10px 0;
-      text-transform: uppercase;
-    }
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  text-align: center;
+}
 
-    /* ===== TOP NAV ===== */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: #111;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
-      height: 60px;
-    }
+/* ===== HEADER ===== */
+.site-header {
+  background:#111;
+  color:white;
+  height:64px;
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      min-width: 260px;
-    }
+.header-inner {
+  width:100%;
+  max-width:1600px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:0 20px;
+}
 
-    .brand a {
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
-    }
+/* LEFT */
+.header-left {
+  position:absolute;
+  left:20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
 
-    .brand-socials a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 14px;
-      margin-left: 8px;
-    }
+.site-title {
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+}
 
-    .brand-socials a:hover {
-      color: white;
-    }
+.social-links a {
+  color:#ccc;
+  text-decoration:none;
+  font-size:14px;
+}
 
-    .nav-center {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
+.social-links a:hover {
+  color:white;
+}
 
-    .nav-menu {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
+/* CENTER MENU */
+.nav-menu {
+  display:flex;
+  gap:26px;
+  align-items:center;
+  font-weight:700;
+}
 
-    .nav-menu a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: bold;
-      position: relative;
-    }
+.nav-menu a {
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+  position:relative;
+}
 
-    .nav-menu a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0%;
-      height: 2px;
-      background: red;
-      transition: 0.3s;
-    }
+.nav-menu a::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:red;
+  transition:.3s;
+}
 
-    /* ===== MOBILE MENU ===== */
-    .menu-toggle{
-      display:none;
-      font-size:28px;
-      cursor:pointer;
-      margin-left:auto;
-      padding-left:30px;
-    }
+.nav-menu a:hover::after {
+  width:100%;
+}
 
-    .mobile-menu{
-      display:none;
-      flex-direction:column;
-      background:#111;
-      padding:15px 30px;
-    }
+/* HAMBURGER */
+.menu-toggle {
+  position:absolute;
+  right:20px;
+  font-size:28px;
+  cursor:pointer;
+  display:none;
+  user-select:none;
+  padding:10px 14px;
+}
 
-    .mobile-menu a{
-      color:white;
-      text-decoration:none;
-      padding:12px 0;
-      font-weight:bold;
-      border-bottom:1px solid #333;
-    }
+/* MOBILE MENU */
+.mobile-menu {
+  display:none;
+  flex-direction:column;
+  background:#111;
+  width:100%;
+  position:absolute;
+  top:64px;
+  left:0;
+  z-index:999;
+}
 
-    @media (max-width: 900px){
-      .nav-menu{
-        display:none;
-      }
-      .menu-toggle{
-        display:block;
-      }
-    }
+.mobile-menu a {
+  color:white;
+  text-decoration:none;
+  padding:16px 20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-weight:700;
+}
 
-    /* ===== MAIN CONTENT ===== */
-    .main-content {
-      flex: 1;
-    }
+/* MOBILE */
+@media (max-width: 900px) {
+  .nav-menu {
+    display:none;
+  }
 
-    /* ===== SECTIONS ===== */
-    .section-title {
-      margin-top: 40px;
-      font-size: 24px;
-    }
+  .menu-toggle {
+    display:block;
+  }
+}
 
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 30px;
-    }
+/* ===== UI ===== */
+.banner {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+}
 
-    .card {
-      display: inline-block;
-      margin: 15px;
-      text-align: center;
-      vertical-align: top;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      width: 250px;
-      transition: transform 0.2s ease-in-out;
-    }
+.section-title {
+  margin-top: 40px;
+  font-size: 24px;
+}
 
-    .card:hover {
-      transform: scale(1.03);
-    }
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px;
+}
 
-    .card img {
-      width: 250px;
-      height: auto;
-      border-radius: 8px 8px 0 0;
-    }
+.card {
+  display: inline-block;
+  margin: 15px;
+  text-align: center;
+  vertical-align: top;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  transition: transform 0.2s ease-in-out;
+}
 
-    .sealed-img {
-      width: 250px;
-      height: auto;
-      border-radius: 8px 8px 0 0;
-    }
+.card:hover {
+  transform: scale(1.03);
+}
 
-    .card.sealed {
-      position: relative;
-    }
+.card img {
+  width: 250px;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
 
-    .card a {
-      text-decoration: none;
-      color: inherit;
-    }
+.sealed-img {
+  width: 250px;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
 
-    .card a:hover h3 {
-      text-decoration: underline;
-    }
+.card a {
+  text-decoration: none;
+  color: inherit;
+}
 
-    footer {
-      background-color: #222;
-      color: white;
-      padding: 15px 0;
-      margin-top: auto;
-    }
+.card a:hover h3 {
+  text-decoration: underline;
+}
 
-    footer a {
-      color: white;
-      text-decoration: none;
-    }
+.image-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
 
-    footer a:hover {
-      color: #ccc;
-      text-decoration: underline;
-    }
+.sold-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 60px;
+  font-weight: bold;
+  color: rgba(50, 50, 50, 0.9);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+}
 
-    .image-container {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
+.sold-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(180, 0, 0, 0.9);
+  color: white;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
 
-    .image-container img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
+  
+footer {
+  background-color: #222;
+  color: white;
+  padding: 15px 0;
+  margin-top: 30px;
+}
 
-    .sold-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 60px;
-      font-weight: bold;
-      color: rgba(50, 50, 50, 0.9);
-      pointer-events: none;
-      z-index: 10;
-      text-align: center;
-      white-space: nowrap;
-    }
+footer a {
+  color: white;
+  text-decoration: none;
+}
 
-    .sold-label {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(180, 0, 0, 0.95);
-      color: white;
-      font-weight: 800;
-      font-size: 13px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      z-index: 10;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      pointer-events: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
+footer a:hover {
+  color: #ccc; /* optional hover effect */
+  text-decoration: underline; /* optional */
+}
+
 
 /* ===== Singles Dropdown ===== */
 .dropdown {
@@ -263,7 +263,7 @@
   z-index: 2000;
   border-radius: 6px;
   overflow: hidden;
-  padding-top: 5px;
+  padding-top: 5px;   /* hover buffer */
 }
 
 .dropdown-content a {
@@ -279,84 +279,88 @@
   background: #222;
 }
 
+/* THIS is the important part */
 .dropdown:hover .dropdown-content,
 .dropdown-content:hover {
   display: block;
 }
-    
-  </style>
+  
+</style>
 </head>
+
 <body>
 
-  <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+<div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-  <!-- ===== TOP NAV ===== -->
-  <div class="top-nav">
-    <div class="nav-left">
-      <div class="brand"><a href="index.html">Jaronhav TCG</a></div>
-      <div class="brand-socials">
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="header-left">
+      <a href="index.html" class="site-title">Jaronhav TCG</a>
+      <div class="social-links">
         <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
         <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
       </div>
     </div>
 
+    <nav class="nav-menu">
+      <a href="graded_cards.html">Graded Cards</a>
+      <a href="sealed.html">Sealed</a>
+      <a href="foreign.sealed.html">Foreign Language Sealed</a>
+<div class="dropdown">
+  <a href="#">Singles ▾</a>
+  <div class="dropdown-content">
+    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</div>
+      <a href="mtg.html">Magic The Gathering</a>
+      <a href="op.html">One Piece</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
     <div class="menu-toggle" id="menuToggle">☰</div>
 
-    <div class="nav-center">
-      <div class="nav-menu">
-        <a href="graded_cards.html">Graded Cards</a>
-        <a href="sealed.html">Sealed</a>
-        <a href="foreign.sealed.html">Foreign Language Sealed</a>
-<div class="dropdown">
-  <a href="#">Singles ▾</a>
-  <div class="dropdown-content">
-    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
-    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
   </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="graded_cards.html">Graded Cards</a>
+  <a href="sealed.html">Sealed</a>
+  <a href="foreign.sealed.html">Foreign Language Sealed</a>
+  <a href="singles.html">Singles</a>
+  <a href="mtg.html">Magic The Gathering</a>
+  <a href="op.html">One Piece</a>
+  <a href="contact.html">Contact</a>
 </div>
-        <a href="mtg.html">Magic The Gathering</a>
-        <a href="op.html">One Piece</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
+
+<!-- ================= CONTENT ================= -->
+
+
+<!-- Sealed -->
+
+  <!-- Packs -->
+<h2 class="section-title">Packs</h2>
+
+<div class="card-container">
+  
+ <div class="card sealed">
+    <a href="black.crystal.blaze.html">
+       <div class="image-container">
+        <img class="sealed-img"
+          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
+          alt="Black Crystal Blaze Simplified Chinese Pack">
+        <div class="sold-label">Sold Out</div>
+      </div>           
+      <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
+    </a>
+    <p>$2</p>
   </div>
 
-  <!-- MOBILE DROPDOWN -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="graded_cards.html">Graded Cards</a>
-    <a href="sealed.html">Sealed</a>
-    <a href="foreign.sealed.html">Foreign Language Sealed</a>
-<div class="dropdown">
-  <a href="#">Singles ▾</a>
-  <div class="dropdown-content">
-    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
-    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-  </div>
 </div>
-    <a href="mtg.html">Magic The Gathering</a>
-    <a href="op.html">One Piece</a>
-    <a href="contact.html">Contact</a>
-  </div>
-
-  <!-- ===== MAIN CONTENT ===== -->
-  <div class="main-content">
-    <h3 style="margin-top:30px;">Packs</h3>
-    <div class="card-container">
-      <div class="card sealed">
-        <a href="black.crystal.blaze.html">
-          <div class="image-container">
-            <img class="sealed-img"
-                 src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
-                 alt="Black Crystal Blaze Simplified Chinese Pack">
-            <div class="sold-label">Sold Out</div>
-          </div>
-          <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
-        </a>
-        <p>$2</p>
-      </div>
-    </div>
-  </div>
-
+  
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
     <div class="socials">
@@ -365,12 +369,17 @@
     </div>
   </footer>
 
+  <!-- ✅ MOBILE MENU TOGGLE SCRIPT -->
   <script>
-    const toggle = document.getElementById("menuToggle");
-    const menu = document.getElementById("mobileMenu");
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-    toggle.addEventListener("click", () => {
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    menuToggle.addEventListener("click", () => {
+      if (mobileMenu.style.display === "flex") {
+        mobileMenu.style.display = "none";
+      } else {
+        mobileMenu.style.display = "flex";
+      }
     });
   </script>
 
