@@ -6,10 +6,13 @@
   <title>Sealed | Jaronhav TCG</title>
 
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
       text-align: center;
     }
@@ -19,7 +22,7 @@
       background-color: red;
       color: white;
       font-weight: bold;
-      padding: 10px 0;
+      padding: 10px;
       text-transform: uppercase;
     }
 
@@ -44,9 +47,13 @@
       min-width: 260px;
     }
 
-    .brand a {
+    .brand {
       font-size: 20px;
       font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand a {
       color: white;
       text-decoration: none;
     }
@@ -66,49 +73,133 @@
       flex: 1;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .nav-menu {
       display: flex;
       gap: 25px;
-      align-items: center;
+      font-weight: 700;
     }
 
     .nav-menu a {
       color: white;
       text-decoration: none;
       font-size: 15px;
-      font-weight: bold;
       position: relative;
     }
 
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+      padding-left: 20px;
+    }
+
     /* ===== MOBILE MENU ===== */
-    .menu-toggle{
-      display:none;
-      font-size:28px;
-      cursor:pointer;
-      margin-left:auto;
-      padding-left:30px;
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      z-index: 998;
     }
 
-    .mobile-menu{
-      display:none;
-      flex-direction:column;
-      background:#111;
-      padding:15px 30px;
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      border-top: 1px solid #222;
+      font-weight: 700;
     }
 
-    .mobile-menu a{
-      color:white;
-      text-decoration:none;
-      padding:12px 0;
-      font-weight:bold;
-      border-bottom:1px solid #333;
+    .mobile-menu a:hover {
+      background: #1a1a1a;
     }
 
-    @media (max-width: 900px){
-      .nav-menu{ display:none; }
-      .menu-toggle{ display:block; }
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+    }
+
+    .section-title {
+      margin-top: 40px;
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px;
+    }
+
+    .card {
+      display: inline-block;
+      margin: 15px;
+      text-align: center;
+      vertical-align: top;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card a:hover h3 {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
     }
 
     /* ===== Singles Dropdown ===== */
@@ -116,8 +207,6 @@
       position: relative;
       display: inline-block;
     }
-
-    .dropdown > a { cursor:pointer; }
 
     .dropdown-content {
       display: none;
@@ -129,6 +218,7 @@
       z-index: 2000;
       border-radius: 6px;
       overflow: hidden;
+      padding-top: 5px;
     }
 
     .dropdown-content a {
@@ -140,122 +230,25 @@
       white-space: nowrap;
     }
 
-    .dropdown-content a:hover { background:#222; }
-
-    /* Desktop hover */
-    @media (min-width: 901px) {
-      .dropdown:hover .dropdown-content { display:block; }
+    .dropdown-content a:hover {
+      background: #222;
     }
 
-    /* Mobile tap */
+    .dropdown:hover .dropdown-content,
+    .dropdown-content:hover {
+      display: block;
+    }
+
+    /* ===== MOBILE RULES ===== */
     @media (max-width: 900px) {
-      .dropdown-content {
-        position: static;
+      .nav-center {
         display: none;
-        box-shadow:none;
-        border-radius:0;
       }
 
-      .dropdown.active .dropdown-content {
-        display:block;
+      .hamburger {
+        display: block;
       }
     }
-
-    /* ===== CARDS ===== */
-    .card-container {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin:30px;
-    }
-
-    .card {
-      margin:15px;
-      background:white;
-      border-radius:10px;
-      box-shadow:0 2px 6px rgba(0,0,0,0.1);
-      width:250px;
-      transition:transform .2s;
-    }
-
-/* ===== Dropdown underline animation (same as nav links) ===== */
-.dropdown > a {
-  color: white;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 700;
-  position: relative;
-}
-
-.dropdown > a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 2px;
-  background: red;
-  transition: 0.3s;
-}
-
-.dropdown > a:hover::after {
-  width: 100%;
-}
-    
-    .card:hover { transform:scale(1.03); }
-
-    .sealed-img {
-      width:250px;
-      border-radius:8px 8px 0 0;
-    }
-
-    .image-container {
-      position:relative;
-    }
-
-    .sold-label {
-      position:absolute;
-      top:10px;
-      right:10px;
-      background:rgba(180,0,0,0.95);
-      color:white;
-      font-weight:800;
-      font-size:13px;
-      padding:6px 12px;
-      border-radius:6px;
-      text-transform:uppercase;
-      box-shadow:0 2px 6px rgba(0,0,0,.3);
-    }
-
-    footer {
-      background:#222;
-      color:white;
-      padding:15px 0;
-      margin-top:30px;
-    }
-
-    footer a {
-      color:white;
-      text-decoration:none;
-    }
-
-/* Product links only */
-.product a,
-.card a,
-.sealed a,
-.product-card a {
-  color: black;
-  text-decoration: none;
-}
-
-.product a:hover,
-.card a:hover,
-.sealed a:hover,
-.product-card a:hover {
-  color: black;
-  text-decoration: none;
-}
-    
   </style>
 </head>
 
@@ -266,24 +259,24 @@
 <!-- ===== TOP NAV ===== -->
 <div class="top-nav">
   <div class="nav-left">
-    <div class="brand"><a href="index.html">Jaronhav TCG</a></div>
+    <div class="brand">
+      <a href="index.html">Jaronhav TCG</a>
+    </div>
     <div class="brand-socials">
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
       <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
     </div>
   </div>
 
-  <div class="menu-toggle" id="menuToggle">☰</div>
-
+  <!-- Desktop Menu -->
   <div class="nav-center">
     <div class="nav-menu">
       <a href="graded_cards.html">Graded Cards</a>
       <a href="sealed.html">Sealed</a>
       <a href="foreign.sealed.html">Foreign Language Sealed</a>
 
-      <!-- Singles -->
-      <div class="dropdown" id="singlesDropdown">
-        <a onclick="toggleSingles()">Singles ▾</a>
+      <div class="dropdown">
+        <a href="#">Singles ▾</a>
         <div class="dropdown-content">
           <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
           <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
@@ -295,16 +288,19 @@
       <a href="contact.html">Contact</a>
     </div>
   </div>
+
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
 
-<!-- ===== MOBILE MENU ===== -->
+<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="graded_cards.html">Graded Cards</a>
   <a href="sealed.html">Sealed</a>
   <a href="foreign.sealed.html">Foreign Language Sealed</a>
 
-  <div class="dropdown" id="singlesDropdownMobile">
-    <a onclick="toggleSinglesMobile()">Singles ▾</a>
+  <div class="dropdown">
+    <a href="#">Singles ▾</a>
     <div class="dropdown-content">
       <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
@@ -315,26 +311,6 @@
   <a href="op.html">One Piece</a>
   <a href="contact.html">Contact</a>
 </div>
-
-<!-- ===== JS ===== -->
-<script>
-const toggle = document.getElementById("menuToggle");
-const menu = document.getElementById("mobileMenu");
-
-toggle.addEventListener("click", () => {
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-});
-
-function toggleSingles(){
-  if(window.innerWidth <= 900){
-    document.getElementById("singlesDropdown").classList.toggle("active");
-  }
-}
-
-function toggleSinglesMobile(){
-  document.getElementById("singlesDropdownMobile").classList.toggle("active");
-}
-</script>
 
  <!-- Sealed -->
 <h3 style="margin-top:30px;">Boxes</h3>
@@ -588,6 +564,14 @@ function toggleSinglesMobile(){
     <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
   </div>
 </footer>
+
+<!-- ===== JS ===== -->
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
+</script>
 
 </body>
 </html>
