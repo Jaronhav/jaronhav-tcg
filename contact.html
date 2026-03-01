@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Jaronhav TCG</title>
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  background:#111;
+  color:white;
+  height:64px;
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.header-inner {
+  width:100%;
+  max-width:1600px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:0 20px;
+}
+
+/* LEFT */
+.header-left {
+  position:absolute;
+  left:20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.site-title {
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+}
+
+.social-links a {
+  color:#ccc;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.social-links a:hover {
+  color:white;
+}
+
+/* CENTER MENU */
+.nav-menu {
+  display:flex;
+  gap:26px;
+  align-items:center;
+  font-weight:700;
+}
+
+.nav-menu a {
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+  position:relative;
+}
+
+.nav-menu a::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:red;
+  transition:.3s;
+}
+
+.nav-menu a:hover::after {
+  width:100%;
+}
+
+/* HAMBURGER */
+.menu-toggle {
+  position:absolute;
+  right:20px;
+  font-size:28px;
+  cursor:pointer;
+  display:none;
+  user-select:none;
+  padding:10px 14px;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display:none;
+  flex-direction:column;
+  background:#111;
+  width:100%;
+  position:absolute;
+  top:64px;
+  left:0;
+  z-index:999;
+}
+
+.mobile-menu a {
+  color:white;
+  text-decoration:none;
+  padding:16px 20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-weight:700;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .nav-menu { display:none; }
+  .menu-toggle { display:block; }
+}
+
+/* ===== UI ===== */
+.banner {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+/* ===== CONTACT ===== */
+.contact-wrapper{
+  max-width:700px;
+  margin:60px auto;
+  background:white;
+  border-radius:12px;
+  padding:40px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  text-align:left;
+}
+
+.contact-wrapper h2{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.contact-wrapper p{
+  text-align:center;
+  color:#666;
+  margin-bottom:30px;
+}
+
+.contact-form{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select{
+  padding:14px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-family:inherit;
+  font-size:14px;
+}
+
+.contact-form textarea{
+  min-height:140px;
+  resize:vertical;
+}
+
+.contact-form button{
+  background:#111;
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.contact-form button:hover{
+  background:black;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #222;
+  color: white;
+  padding: 15px 0;
+  margin-top: 60px;
+}
+
+footer a {
+  color:white;
+  text-decoration:none;
+}
+
+footer a:hover {
+  color:#ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="header-left">
+      <a href="index.html" class="site-title">Jaronhav TCG</a>
+      <div class="social-links">
+        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+      </div>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="graded_cards.html">Graded Cards</a>
+      <a href="sealed.html">Sealed</a>
+      <a href="foreign.sealed.html">Foreign Language Sealed</a>
+      <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
+      <a href="mtg.html">Magic The Gathering</a>
+      <a href="op.html">One Piece</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="graded_cards.html">Graded Cards</a>
+  <a href="sealed.html">Sealed</a>
+  <a href="foreign.sealed.html">Foreign Language Sealed</a>
+  <a href="singles.html">Singles</a>
+  <a href="mtg.html">Magic The Gathering</a>
+  <a href="op.html">One Piece</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ===== CONTACT CONTENT ===== -->
+
+<div class="contact-wrapper">
+  <h2>Contact Us</h2>
+  <p>Questions about orders, inventory, restocks, or partnerships? Send us a message.</p>
+
+  <form 
+    class="contact-form"
+    method="post"
+    action="https://jaronhav-tcg.myshopify.com/contact"
+  >
+    <input type="text" name="contact[name]" placeholder="Your Name" required>
+    <input type="email" name="contact[email]" placeholder="Your Email" required>
+
+    <select name="contact[topic]">
+      <option value="General">General Inquiry</option>
+      <option value="Order">Order Support</option>
+      <option value="Wholesale">Wholesale / Partnerships</option>
+      <option value="Inventory">Inventory Question</option>
+    </select>
+
+    <textarea name="contact[body]" placeholder="Your Message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<footer>
+  <p>&copy; 2026 Jaronhav TCG</p>
+  <div class="socials">
+    <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</footer>
+
+<!-- MOBILE MENU SCRIPT -->
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuToggle.addEventListener("click", () => {
+  mobileMenu.style.display = 
+    mobileMenu.style.display === "flex" ? "none" : "flex";
+});
+</script>
+
+</body>
+</html>
