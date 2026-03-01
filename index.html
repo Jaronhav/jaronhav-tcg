@@ -1,735 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jaronhav TCG</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaronhav TCG</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
 
-<style>
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-  text-align: center;
-}
+    /* ===== BANNER ===== */
+    .banner {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px 0;
+      text-transform: uppercase;
+    }
 
-/* ===== HEADER ===== */
-.site-header {
-  background:#111;
-  color:white;
-  height:64px;
-  display:flex;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
+    /* ===== TOP NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: #111;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px;
+    }
 
-.header-inner {
-  width:100%;
-  max-width:1600px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  padding:0 20px;
-}
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 260px;
+    }
 
-/* LEFT */
-.header-left {
-  position:absolute;
-  left:20px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
+    .brand a {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
 
-.site-title {
-  color:white;
-  text-decoration:none;
-  font-weight:700;
-  font-size:18px;
-}
+    .brand-socials a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 8px;
+    }
 
-.social-links a {
-  color:#ccc;
-  text-decoration:none;
-  font-size:14px;
-}
+    .brand-socials a:hover {
+      color: white;
+    }
 
-.social-links a:hover {
-  color:white;
-}
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
 
-/* CENTER MENU */
-.nav-menu {
-  display:flex;
-  gap:26px;
-  align-items:center;
-  font-weight:700;
-}
+    .nav-menu {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
 
-.nav-menu a {
-  color:white;
-  text-decoration:none;
-  font-size:15px;
-  position:relative;
-}
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+      position: relative;
+    }
 
-.nav-menu a::after {
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0%;
-  height:2px;
-  background:red;
-  transition:.3s;
-}
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: red;
+      transition: 0.3s;
+    }
 
-.nav-menu a:hover::after {
-  width:100%;
-}
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
 
-/* HAMBURGER */
-.menu-toggle {
-  position:absolute;
-  right:20px;
-  font-size:28px;
-  cursor:pointer;
-  display:none;
-  user-select:none;
-  padding:10px 14px;
-}
+    /* ===== DROPDOWN ===== */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-/* MOBILE MENU */
-.mobile-menu {
-  display:none;
-  flex-direction:column;
-  background:#111;
-  width:100%;
-  position:absolute;
-  top:64px;
-  left:0;
-  z-index:999;
-}
+    .dropdown a {
+      cursor: pointer;
+    }
 
-.mobile-menu a {
-  color:white;
-  text-decoration:none;
-  padding:16px 20px;
-  border-top:1px solid rgba(255,255,255,0.1);
-  font-weight:700;
-}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #111;
+      min-width: 150px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      z-index: 1000;
+      flex-direction: column;
+    }
 
-/* MOBILE */
-@media (max-width: 900px) {
-  .nav-menu {
-    display:none;
-  }
+    .dropdown-content a {
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      font-weight: 700;
+    }
 
-  .menu-toggle {
-    display:block;
-  }
-}
+    .dropdown-content a:hover {
+      background-color: #222;
+    }
 
-/* ===== UI ===== */
-.banner {
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  padding: 10px;
-  text-transform: uppercase;
-}
+    .dropdown:hover .dropdown-content {
+      display: flex;
+      flex-direction: column;
+    }
 
-.section-title {
-  margin-top: 40px;
-  font-size: 24px;
-}
+    /* ===== SECTIONS ===== */
+    .section-title {
+      margin-top: 40px;
+      font-size: 24px;
+    }
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 30px;
-}
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px;
+    }
 
-.card {
-  display: inline-block;
-  margin: 15px;
-  text-align: center;
-  vertical-align: top;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  transition: transform 0.2s ease-in-out;
-}
+    .card {
+      display: inline-block;
+      margin: 15px;
+      text-align: center;
+      vertical-align: top;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      transition: transform 0.2s ease-in-out;
+    }
 
-.card:hover {
-  transform: scale(1.03);
-}
+    .card:hover {
+      transform: scale(1.03);
+    }
 
-.card img {
-  width: 250px;
-  height: auto;
-  border-radius: 8px 8px 0 0;
-}
+    .card img {
+      width: 250px;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
 
-.sealed-img {
-  width: 250px;
-  height: auto;
-  border-radius: 8px 8px 0 0;
-}
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.card a {
-  text-decoration: none;
-  color: inherit;
-}
+    .card a:hover h3 {
+      text-decoration: underline;
+    }
 
-.card a:hover h3 {
-  text-decoration: underline;
-}
+    .image-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
 
-.image-container {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-.sold-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  font-size: 60px;
-  font-weight: bold;
-  color: rgba(50, 50, 50, 0.9);
-  pointer-events: none;
-  z-index: 10;
-  white-space: nowrap;
-}
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 60px;
+      font-weight: bold;
+      color: rgba(50, 50, 50, 0.9);
+      pointer-events: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+    }
 
-.sold-label {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(180, 0, 0, 0.9);
-  color: white;
-  font-weight: 800;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  z-index: 10;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  pointer-events: none;
-}
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
 
-  
-footer {
-  background-color: #222;
-  color: white;
-  padding: 15px 0;
-  margin-top: 30px;
-}
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
 
-footer a {
-  color: white;
-  text-decoration: none;
-}
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
+    }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-  
-</style>
+    .card h3 { color: #111 !important; }
+    .card p { color: #000 !important; }
+  </style>
 </head>
 
 <body>
 
 <div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-inner">
-
-    <div class="header-left">
-      <a href="index.html" class="site-title">Jaronhav TCG</a>
-      <div class="social-links">
-        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
-        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
-      </div>
+<!-- ===== TOP NAV ===== -->
+<div class="top-nav">
+  <div class="nav-left">
+    <div class="brand"><a href="index.html">Jaronhav TCG</a></div>
+    <div class="brand-socials">
+      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
     </div>
+  </div>
 
-    <nav class="nav-menu">
+  <div class="nav-center">
+    <div class="nav-menu">
       <a href="graded_cards.html">Graded Cards</a>
       <a href="sealed.html">Sealed</a>
       <a href="foreign.sealed.html">Foreign Language Sealed</a>
-      <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
+
+      <!-- Singles Dropdown -->
+      <div class="dropdown">
+        <a href="#">Singles ▼</a>
+        <div class="dropdown-content">
+          <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+          <a href="https://www.ebay.com/sch/i.html?_nkw=pokemon+cards&_sop=12&_ipg=50&seller=jaronhav" target="_blank">eBay</a>
+        </div>
+      </div>
+
       <a href="mtg.html">Magic The Gathering</a>
       <a href="op.html">One Piece</a>
       <a href="contact.html">Contact</a>
-    </nav>
-
-    <div class="menu-toggle" id="menuToggle">☰</div>
-
-  </div>
-</header>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="graded_cards.html">Graded Cards</a>
-  <a href="sealed.html">Sealed</a>
-  <a href="foreign.sealed.html">Foreign Language Sealed</a>
-  <a href="singles.html">Singles</a>
-  <a href="mtg.html">Magic The Gathering</a>
-  <a href="op.html">One Piece</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-<!-- ================= CONTENT ================= -->
-
-<h2 class="section-title">Graded Cards</h2>
-<div class="card-container">
-
-<div class="card">
-  <a href="abra.legendary.html">
-    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA7_Abra_Legendary.png"">
-    <h3>PSA 7 Abra Rev Foil Legendary Collection</h3>
-  </a>
-  <p>$140</p>
-</div>
-  
-<div class="card">
-  <a href="hitmontop.html">
-    <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp">
-    <h3>CGC 10 Hitmontop</h3>
-  </a>
-  <p>$30</p>
-</div>
-
-<div class="card">
-  <a href="rowlet.html">
-    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg">
-    <h3>CGC 9 Rowlet Black Star Promo</h3>
-  </a>
-  <p>$10</p>
-</div>
-
-<div class="card">
-  <a href="magikarp.html">
-    <div class="image-container">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg">
-      <div class="sold-overlay">SOLD</div>
     </div>
-    <h3>PSA 8 Shining Magikarp Unlimited</h3>
-  </a>
-  <p>$650</p>
+  </div>
+
+  <!-- Hamburger -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
 
-<div class="card">
-  <a href="mew_delta_error.html">
-    <div class="image-container">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg">
-      <div class="sold-overlay">SOLD</div>
-    </div>
-    <h3>PSA 5 Mew Delta Species Error</h3>
-  </a>
-  <p>$380</p>
-</div>
+<!-- ===== CONTENT ===== -->
+<h2 class="section-title">Welcome to Jaronhav TCG</h2>
+<p>Check out graded cards, sealed packs, and singles!</p>
 
-<div class="card">
-  <a href="dark_blastoise.html">
-    <div class="image-container">
-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg">
-      <div class="sold-overlay">SOLD</div>
-    </div>
-    <h3>PSA 1 Dark Blastoise Unlimited</h3>
-  </a>
-  <p>$140</p>
-</div>
-
-</div>
-
-<!-- Sealed -->
-<h2 class="section-title">Boxes</h2>
-<div class="card-container">
-<!-- (boxes preserved exactly) -->
-
-
-  <div class="card sealed">
-    <a href="charizard_upc.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Charizard_UPC2.jpg"
-        alt="Charizard Ultra Premium Collection">
-      <h3>Mega Charizard UPC</h3>
-    </a>
-    <p>$150</p>
+<footer>
+  <p>&copy; 2026 Jaronhav TCG</p>
+  <div class="socials">
+    <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
   </div>
+</footer>
 
-  <div class="card sealed">
-    <a href="prismatic.evo.3pack.sylveon.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/prismatic_3pack_sylveon.png"
-        alt="Prismatic Evolutions Tech Sticker Collection (Sylveon)">
-      <h3>Prismatic Evolutions Tech Sticker Collection (Sylveon)</h3>
-    </a>
-    <p>$28</p>
-  </div>
-
-  <div class="card sealed">
-    <a href="prismatic.evo.3pack.glaceon.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/prismatic_3pack_glaceon.png"
-        alt="Prismatic Evolutions Tech Sticker Collection (Glaceon)">
-      <h3>Prismatic Evolutions Tech Sticker Collection (Glaceon)</h3>
-    </a>
-    <p>$28</p>
-  </div>
-  
-  <div class="card sealed">
-    <a href="ascened.heroes.tin.riolu.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/ascended_heroes_tin1.png"
-        alt="Ascended Heroes Mini Tin (Riolu & Darumaka)">
-      <h3>Ascended Heroes Mini Tin (Riolu & Darumaka)</h3>
-    </a>
-    <p>$20</p>
-  </div>
-
-  <div class="card sealed">
-    <a href="ascened.heroes.tin.clefairy.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/ascended_heroes_tin2.png"
-        alt="Ascended Heroes Mini Tin (Clefairy & Chikorita)">
-      <h3>Ascended Heroes Mini Tin (Clefairy & Chikorita)</h3>
-    </a>
-    <p>$20</p>
-  </div>
-  
-<div class="card sealed">
-    <a href="2pack.blister.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/2_Pack_Blister1.png"
-        alt="2-Pack Blister (Raikou)">
-      <h3>2-Pack Blister (Raikou)</h3>
-    </a>
-    <p>$14</p>
-  </div>
-
-  <div class="card sealed">
-    <a href="knock.out.kyogre.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_kyogre.jpg"
-        alt="Knock Out Collection (Kyogre)">          
-      <h3>Knock Out Collection (Kyogre)</h3>
-    </a>
-    <p>$14</p>
-  </div>
-  
-<div class="card sealed">
-    <a href="mega.portfolio.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Mega_Portfolios1.jpg"
-          alt="Mega Evolution Mini portfolio Sealed Box">
-        <div class="sold-label">Sold Out</div>
-      </div>        
-      <h3>Mega Evolution Mini Portfolio Sealed Box</h3>
-    </a>
-    <p>$95</p>
-  </div>
-
-<div class="card sealed">
-    <a href="ascended_heroes_gastly.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Ascended_Heroes_Sticker_Gengar.png"
-          alt="Ascended Heroes Tech Sticker Collection (Gastly)">
-        <div class="sold-label">Sold Out</div>
-      </div>
-      <h3>Ascended Heroes Tech Sticker Collection (Gastly)</h3>
-    </a>
-    <p>$34</p>
-  </div>
-
-<div class="card sealed">
-  <a href="ascended.heroes.charmander.html">
-    <div class="image-container">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Ascended_Heroes_Sticker_Charmander.png"
-        alt="Ascended Heroes Tech Sticker Collection (Charmander)">
-      <div class="sold-label">Sold Out</div>
-    </div>
-    <h3>Ascended Heroes Tech Sticker Collection (Charmander)</h3>
-  </a>
-  <p>$34</p>
-</div>
-
-
-<div class="card sealed">
-    <a href="pokemon.day.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Pokemon_Day.png"
-          alt="Pokemon Day 2026 Collection Box">
-        <div class="sold-label">Sold Out</div>
-      </div>
-      <h3>Pokemon Day 2026 Collection</h3>
-    </a>
-    <p>$24</p>
-  </div>
-  
-  
-  <div class="card sealed">
-    <a href="knock_out_suicune.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_suicune.jpg"
-          alt="Knock Out Collection (Suicune)">
-        <div class="sold-label">Sold Out</div>
-      </div>        
-      <h3>Knock Out Collection (Suicune)</h3>
-    </a>
-    <p>$14</p>
-  </div>
-
-
-    <div class="card sealed">
-    <a href="phantasmal.flames.single.pack.blister.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Single_Pack_Blister.png"
-          alt="Phantasmal Flames Single Pack Blister (Whimsicott))">
-        <div class="sold-label">Sold Out</div>
-      </div>         
-      <h3>Phantasmal Flames Single Pack Blister (Whimsicott)</h3>
-    </a>
-    <p>$7</p>
-  </div>
-
-</div>
-
-
-  <!-- Packs -->
-<h2 class="section-title">Packs</h2>
-
-<div class="card-container">
-
-<div class="card sealed">
-  <a href="phantasmal.html">
-    <img
-      class="sealed-img"
-      src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Flames_Packs.jpg"
-      alt="Phantasmal Flames Packs"
-    >
-    <h3>Phantasmal Flames Sleeved Pack</h3>
-  </a>
-  <p>$6</p>
-</div>
-  
-    <div class="card sealed">
-    <a href="Destined.Rivals.Sleeved.html">
-       <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Destined_Sleeved.png"
-          alt="Destined Rivals Sleeved Pack">
-        <div class="sold-label">Sold Out</div>
-      </div>         
-      <h3>Destined Rivals Sleeved Pack</h3>
-    </a>
-    <p>$7</p>
-  </div>
-  
-
-  <div class="card sealed">
-    <a href="mega.evo.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_packs.png"
-          alt="Mega Evolutions Pack">
-        <div class="sold-label">Sold Out</div>
-      </div>            
-      <h3>Mega Evolution Pack</h3>
-    </a>
-    <p>$6</p>
-  </div>
-
-  <div class="card sealed">
-    <a href="journey.together.pack.html">
-       <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/journey_packs.png"
-          alt="Journey Together Pack">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Journey Together Pack</h3>
-    </a>
-    <p>$6</p>
-  </div>
-
-  <div class="card sealed">
-    <a href="surging.sparks.html">
-       <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Surging_Sparks_Packs.jpg"
-          alt="Surging Sparks Packs">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Surging Sparks Pack</h3>
-    </a>
-    <p>$6</p>
-  </div>
-  
- <div class="card sealed">
-    <a href="black.crystal.blaze.html">
-       <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
-          alt="Black Crystal Blaze Simplified Chinese Pack">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
-    </a>
-    <p>$2</p>
-  </div>
-
-</div>
-
-    <!-- MTG -->
-<h2 class="section-title">MTG</h2>
-
-<div class="card-container">
-
-    <div class="card sealed">
-    <a href="lord.of.the.rings.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_Lord_of_The_Rings.png"
-        alt="Lord of The Rings Sleeved Set Booster Pack">
-      <h3>Lord of The Rings Sleeved Set Booster Pack</h3>
-    </a>
-    <p>$10</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="final_fantasy.play.booster.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_Play_Booster.png"
-        alt="Final Fantasy - Play Booster Pack">
-      <h3>Final Fantasy - Play Booster Pack</h3>
-    </a>
-    <p>$5</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="Final.Fantasy.Siege.Alexandria.html">
-      <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_The_Siege_of_Alexandria.png"
-          alt="Final Fantasy - Scene Box (The Siege of Alexandria)">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Final Fantasy - Scene Box (The Siege of Alexandria)</h3>
-    </a>
-    <p>$50</p>
-  </div>
-  
-</div>
-
- <!-- OP -->
-<h2 class="section-title">One Piece</h2>
-
-<div class="card-container">
-
-
-    <div class="card sealed">
-    <a href="op.illustration.box.vol.5.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/OP_illustration_vol.5.png"
-        alt="One Piece Illustration Box Vol.5">           
-      <h3>One Piece Illustration Box Vol.5</h3>
-    </a>
-    <p>$48</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="op.illustration.box.vol.6.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_illustration_vol.6.png"
-        alt="One Piece Illustration Box Vol.6">           
-      <h3>One Piece Illustration Box Vol.6</h3>
-    </a>
-    <p>$48</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="op.tin.portgas.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2.portgas.png"
-        alt="One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace">           
-      <h3>One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace</h3>
-    </a>
-    <p>$26</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="op.tin.sabo.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2_sabo.png"
-        alt="One Piece Tin Pack Set Vol. 2 - Sabo">           
-      <h3>One Piece Tin Pack Set Vol. 2 - Sabo </h3>
-    </a>
-    <p>$26</p>
-  </div>
-  
-    <div class="card sealed">
-    <a href="op.heroines.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_heroines.png"
-        alt="One Piece Heroines Edition Sleeved Booster Pack">           
-      <h3>One Piece Heroines Edition Sleeved Booster Pack</h3>
-    </a>
-    <p>$14</p>
-  </div>
-
-    <div class="card sealed">
-    <a href="the.azure.seas.seven.html">
-      <img class="sealed-img"
-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_the_azure.png"
-        alt="The Azure Sea's Seven Sleeved Booster Pack">           
-      <h3>The Azure Sea's Seven Sleeved Booster Pack</h3>
-    </a>
-    <p>$7</p>
-  </div>
-  
-</div>
-  
-  <footer>
-    <p>&copy; 2026 Jaronhav TCG</p>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-    </div>
-  </footer>
-
-  <!-- ✅ MOBILE MENU TOGGLE SCRIPT -->
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    menuToggle.addEventListener("click", () => {
-      if (mobileMenu.style.display === "flex") {
-        mobileMenu.style.display = "none";
-      } else {
-        mobileMenu.style.display = "flex";
-      }
-    });
-  </script>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    if(menu) menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
+</script>
 
 </body>
 </html>
-
