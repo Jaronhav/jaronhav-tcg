@@ -228,6 +228,43 @@
       text-decoration: underline;
     }
 
+/* ===== Singles Dropdown ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111;
+  min-width: 160px;
+  z-index: 2000;
+  border-radius: 6px;
+  overflow: hidden;
+  padding-top: 5px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+  background: #222;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+  display: block;
+}
+    
     /* ===== MOBILE RULES ===== */
     @media (max-width: 900px) {
       .nav-center {
@@ -263,7 +300,13 @@
       <a href="graded_cards.html">Graded Cards</a>
       <a href="sealed.html">Sealed</a>
       <a href="foreign.sealed.html">Foreign Language Sealed</a>
-      <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon">Singles</a>
+<div class="dropdown">
+  <a href="#">Singles ▾</a>
+  <div class="dropdown-content">
+    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</div>
       <a href="mtg.html">Magic The Gathering</a>
       <a href="op.html">One Piece</a>
       <a href="contact.html">Contact</a>
@@ -279,7 +322,13 @@
   <a href="graded_cards.html">Graded Cards</a>
   <a href="sealed.html">Sealed</a>
   <a href="foreign.sealed.html">Foreign Language Sealed</a>
-  <a href="singles.html">Singles</a>
+<div class="dropdown">
+  <a href="#">Singles ▾</a>
+  <div class="dropdown-content">
+    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</div>
   <a href="mtg.html">Magic The Gathering</a>
   <a href="op.html">One Piece</a>
   <a href="contact.html">Contact</a>
