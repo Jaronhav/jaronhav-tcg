@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>One Piece | Jaronhav TCG</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
       text-align: center;
+    }
+
+    body > .card-container, body > h3 {
+      flex: 1;
     }
 
     /* ===== BANNER ===== */
@@ -33,7 +40,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 30px;
-      height: 60px; /* match graded_cards.html */
+      height: 60px;
     }
 
     .nav-left {
@@ -150,19 +157,19 @@
       background-color: #222;
       color: white;
       padding: 15px 0;
-      margin-top: 30px;
+      margin-top: auto; /* push footer to bottom */
     }
 
-footer a {
-  color: white;
-  text-decoration: none;
-}
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-    
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
+    }
+
     .image-container {
       position: relative;
       display: inline-block;
@@ -217,12 +224,12 @@ footer a:hover {
     </div>
   </div>
 
- <!-- MTG -->
+ <!-- One Piece -->
 <h3 style="margin-top:30px;">One Piece</h3>
 
 <div class="card-container">
 
-       <div class="card sealed">
+  <div class="card sealed">
     <a href="op.illustration.box.vol.5.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/OP_illustration_vol.5.png"
@@ -232,7 +239,7 @@ footer a:hover {
     <p>$48</p>
   </div>
 
-    <div class="card sealed">
+  <div class="card sealed">
     <a href="op.illustration.box.vol.6.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_illustration_vol.6.png"
@@ -242,7 +249,7 @@ footer a:hover {
     <p>$48</p>
   </div>
 
-    <div class="card sealed">
+  <div class="card sealed">
     <a href="op.tin.portgas.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2.portgas.png"
@@ -252,7 +259,7 @@ footer a:hover {
     <p>$26</p>
   </div>
 
-    <div class="card sealed">
+  <div class="card sealed">
     <a href="op.tin.sabo.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2_sabo.png"
@@ -262,7 +269,7 @@ footer a:hover {
     <p>$26</p>
   </div>
   
-    <div class="card sealed">
+  <div class="card sealed">
     <a href="op.heroines.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_heroines.png"
@@ -272,7 +279,7 @@ footer a:hover {
     <p>$14</p>
   </div>
 
-    <div class="card sealed">
+  <div class="card sealed">
     <a href="the.azure.seas.seven.html">
       <img class="sealed-img"
         src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_the_azure.png"
@@ -283,13 +290,14 @@ footer a:hover {
   </div>
   
 </div>
-  <footer>
-    <p>&copy; 2026 Jaronhav TCG</p>
-    <div class="socials">
-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
-    </div>
-  </footer>
+
+<footer>
+  <p>&copy; 2026 Jaronhav TCG</p>
+  <div class="socials">
+    <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+  </div>
+</footer>
 
 </body>
 </html>
