@@ -33,7 +33,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 30px;
-      height: 60px; /* match graded_cards.html */
+      height: 60px;
     }
 
     .nav-left {
@@ -90,6 +90,39 @@
       height: 2px;
       background: red;
       transition: 0.3s;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .menu-toggle{
+      display:none;
+      font-size:28px;
+      cursor:pointer;
+      margin-left:auto;
+      padding-left:30px;
+    }
+
+    .mobile-menu{
+      display:none;
+      flex-direction:column;
+      background:#111;
+      padding:15px 30px;
+    }
+
+    .mobile-menu a{
+      color:white;
+      text-decoration:none;
+      padding:12px 0;
+      font-weight:bold;
+      border-bottom:1px solid #333;
+    }
+
+    @media (max-width: 900px){
+      .nav-menu{
+        display:none;
+      }
+      .menu-toggle{
+        display:block;
+      }
     }
 
     /* ===== SECTIONS ===== */
@@ -153,16 +186,16 @@
       margin-top: 30px;
     }
 
-footer a {
-  color: white;
-  text-decoration: none;
-}
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
 
-footer a:hover {
-  color: #ccc; /* optional hover effect */
-  text-decoration: underline; /* optional */
-}
-    
+    footer a:hover {
+      color: #ccc;
+      text-decoration: underline;
+    }
+
     .image-container {
       position: relative;
       display: inline-block;
@@ -190,21 +223,21 @@ footer a:hover {
     }
 
     .sold-label {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(180, 0, 0, 0.95);
-  color: white;
-  font-weight: 800;
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  z-index: 10;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  pointer-events: none;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(180, 0, 0, 0.95);
+      color: white;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      z-index: 10;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
 
   </style>
 </head>
@@ -222,6 +255,9 @@ footer a:hover {
       </div>
     </div>
 
+    <!-- ☰ MOBILE BUTTON -->
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
     <div class="nav-center">
       <div class="nav-menu">
         <a href="graded_cards.html">Graded Cards</a>
@@ -235,26 +271,34 @@ footer a:hover {
     </div>
   </div>
 
-  <!-- Sealed Products Section -->
-<!-- Packs -->
-<h3 style="margin-top:30px;">Packs</h3>
-
-<div class="card-container">
-  
- <div class="card sealed">
-    <a href="black.crystal.blaze.html">
-       <div class="image-container">
-        <img class="sealed-img"
-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
-          alt="Black Crystal Blaze Simplified Chinese Pack">
-        <div class="sold-label">Sold Out</div>
-      </div>           
-      <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
-    </a>
-    <p>$2</p>
+  <!-- MOBILE DROPDOWN -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="graded_cards.html">Graded Cards</a>
+    <a href="sealed.html">Sealed</a>
+    <a href="foreign.sealed.html">Foreign Language Sealed</a>
+    <a href="#singles">Singles</a>
+    <a href="mtg.html">Magic The Gathering</a>
+    <a href="op.html">One Piece</a>
+    <a href="contact.html">Contact</a>
   </div>
-  
-</div>
+
+  <!-- Sealed Products Section -->
+  <h3 style="margin-top:30px;">Packs</h3>
+  <div class="card-container">
+    <div class="card sealed">
+      <a href="black.crystal.blaze.html">
+        <div class="image-container">
+          <img class="sealed-img"
+               src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
+               alt="Black Crystal Blaze Simplified Chinese Pack">
+          <div class="sold-label">Sold Out</div>
+        </div>
+        <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
+      </a>
+      <p>$2</p>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Jaronhav TCG</p>
     <div class="socials">
@@ -262,6 +306,16 @@ footer a:hover {
       <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
     </div>
   </footer>
+
+  <!-- JS for Mobile Menu -->
+  <script>
+    const toggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("mobileMenu");
+
+    toggle.addEventListener("click", () => {
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    });
+  </script>
 
 </body>
 </html>
