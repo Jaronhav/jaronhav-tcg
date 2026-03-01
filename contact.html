@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | Jaronhav TCG</title>
 
+<!-- hCaptcha script required by Shopify -->
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
 <style>
 body {
   font-family: 'Poppins', sans-serif;
@@ -197,6 +200,11 @@ body {
   background:black;
 }
 
+/* CAPTCHA spacing */
+.h-captcha {
+  margin: 10px 0;
+}
+
 /* ===== FOOTER ===== */
 footer {
   background-color: #222;
@@ -280,6 +288,9 @@ footer a:hover {
     </select>
 
     <textarea name="contact[body]" placeholder="Your Message" required></textarea>
+
+    <!-- CAPTCHA REQUIRED BY SHOPIFY -->
+    <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
 
     <button type="submit">Send Message</button>
   </form>
