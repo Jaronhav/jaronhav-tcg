@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Foreign | Jaronhav TCG</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
       text-align: center;
     }
@@ -125,6 +128,11 @@
       }
     }
 
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      flex: 1;
+    }
+
     /* ===== SECTIONS ===== */
     .section-title {
       margin-top: 40px;
@@ -183,7 +191,7 @@
       background-color: #222;
       color: white;
       padding: 15px 0;
-      margin-top: 30px;
+      margin-top: auto;
     }
 
     footer a {
@@ -255,7 +263,6 @@
       </div>
     </div>
 
-    <!-- ☰ MOBILE BUTTON -->
     <div class="menu-toggle" id="menuToggle">☰</div>
 
     <div class="nav-center">
@@ -282,20 +289,22 @@
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Sealed Products Section -->
-  <h3 style="margin-top:30px;">Packs</h3>
-  <div class="card-container">
-    <div class="card sealed">
-      <a href="black.crystal.blaze.html">
-        <div class="image-container">
-          <img class="sealed-img"
-               src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
-               alt="Black Crystal Blaze Simplified Chinese Pack">
-          <div class="sold-label">Sold Out</div>
-        </div>
-        <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
-      </a>
-      <p>$2</p>
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+    <h3 style="margin-top:30px;">Packs</h3>
+    <div class="card-container">
+      <div class="card sealed">
+        <a href="black.crystal.blaze.html">
+          <div class="image-container">
+            <img class="sealed-img"
+                 src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
+                 alt="Black Crystal Blaze Simplified Chinese Pack">
+            <div class="sold-label">Sold Out</div>
+          </div>
+          <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
+        </a>
+        <p>$2</p>
+      </div>
     </div>
   </div>
 
@@ -307,7 +316,6 @@
     </div>
   </footer>
 
-  <!-- JS for Mobile Menu -->
   <script>
     const toggle = document.getElementById("menuToggle");
     const menu = document.getElementById("mobileMenu");
