@@ -20,15 +20,11 @@
     .back-link { display:inline-block; margin-top:30px; text-decoration:none; color:#555; }
     footer { background:#222; color:white; padding:15px 0; text-align:center; margin-top:40px; }
 
-    /* Force Shopify quantity + button inline */
-    .shopify-buy__product {
-      width: 100% !important;
-    }
-
+    /* Force quantity + button inline */
     .shopify-buy__btn-wrapper {
-      display: flex !important;
-      align-items: center !important;
-      gap: 12px !important;
+      display:flex !important;
+      align-items:center !important;
+      gap:12px !important;
     }
   </style>
 </head>
@@ -51,98 +47,78 @@
     <p class="price">$88</p>
 
     <p class="description">
-     Sealed Ascended Heroes Elite Trainer Box
+      Sealed Ascended Heroes Elite Trainer Box
     </p>
 
-    <!-- Inventory + Buy Button Wrapper -->
-    <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px; width:100%;">
+    <!-- Inventory + Buy Button -->
+    <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px;">
       <p id="inventory-count">Loading inventory...</p>
-      <div id="product-component-1772506063766" style="flex:1;"></div>
+      <div id="product-component-ascended"></div>
     </div>
 
     <!-- Shopify Buy Button -->
-<script type="text/javascript">
-(function () {
-  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-  if (window.ShopifyBuy) {
-    if (window.ShopifyBuy.UI) {
-      ShopifyBuyInit();
-    } else {
-      loadScript();
-    }
-  } else {
-    loadScript();
-  }
-  function loadScript() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = scriptURL;
-    document.head.appendChild(script);
-    script.onload = ShopifyBuyInit;
-  }
-  function ShopifyBuyInit() {
-    var client = ShopifyBuy.buildClient({
-      domain: 'pxq5yx-ka.myshopify.com',
-      storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
-    });
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
-      ui.createComponent('product', {
-        id: '7842458075214',
-        node: document.getElementById('product-component-1772506063766'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-          "product": {
-            "styles": {
-              "product": {
-                "width": "100%",
-                "max-width": "100%",
-                "margin": "0"
+    <script type="text/javascript">
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        document.body.appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+
+      if (!window.ShopifyBuy) {
+        loadScript();
+      } else if (!window.ShopifyBuy.UI) {
+        loadScript();
+      } else {
+        ShopifyBuyInit();
+      }
+
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'pxq5yx-ka.myshopify.com',
+          storefrontAccessToken: '61a50ca3e8975eccf13765c349333cc3',
+        });
+
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('product', {
+            id: '7842458075214',
+            node: document.getElementById('product-component-ascended'),
+            options: {
+              product: {
+                styles: {
+                  button: {
+                    "background-color": "#111111",
+                    ":hover": { "background-color": "#1d1d1d" },
+                    ":focus": { "background-color": "#1d1d1d" }
+                  }
+                },
+                contents: {
+                  img: false,
+                  title: false,
+                  price: false,
+                  buttonWithQuantity: true
+                },
+                text: { button: "Add to cart" }
               },
-              "button": {
-                ":hover": { "background-color": "#1d1d1d" },
-                "background-color": "#111111",
-                ":focus": { "background-color": "#1d1d1d" }
-              }
-            },
-            "contents": {
-              "img": false,
-              "title": false,
-              "price": false,
-              "buttonWithQuantity": true
-            },
-            "text": {
-              "button": "Add to cart"
-            }
-          },
-          "cart": {
-            "styles": {
-              "button": {
-                ":hover": { "background-color": "#1d1d1d" },
-                "background-color": "#111111",
-                ":focus": { "background-color": "#1d1d1d" }
-              }
-            },
-            "text": {
-              "total": "Subtotal",
-              "button": "Checkout"
-            },
-            "popup": false
-          },
-          "toggle": {
-            "styles": {
-              "toggle": {
-                "background-color": "#111111",
-                ":hover": { "background-color": "#1d1d1d" },
-                ":focus": { "background-color": "#1d1d1d" }
+              cart: {
+                styles: {
+                  button: {
+                    "background-color": "#111111",
+                    ":hover": { "background-color": "#1d1d1d" }
+                  }
+                },
+                popup: false
               }
             }
-          }
-        },
-      });
-    });
-  }
-})();
-</script>
+          });
+        });
+      }
+    })();
+    </script>
 
     <!-- Inventory fetch -->
     <script>
