@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Jaronhav TCG — Add a Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0B0E13;
+    --surface:#151A22;
+    --surface-raised:#1D232E;
+    --line:#2A3140;
+    --text:#EDEAE3;
+    --muted:#8B92A0;
+    --gold:#C9A24B;
+    --gold-bright:#E6C673;
+    --danger:#D96C5F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--void);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    font-weight:600;
+    color:var(--text);
+  }
+  .logo span{ color:var(--gold); }
+  #logoutBtn{
+    background:none; border:1px solid var(--line); color:var(--muted);
+    font-family:'Barlow Condensed', sans-serif; font-weight:600; letter-spacing:0.05em;
+    text-transform:uppercase; font-size:0.8rem; padding:8px 14px; border-radius:4px; cursor:pointer;
+    display:none;
+  }
+  #logoutBtn:hover{ color:var(--text); border-color:var(--gold); }
+
+  main{ max-width:720px; margin:0 auto; padding:50px 24px 100px; }
+
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);
+    font-size:0.78rem; font-weight:600; margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.9rem; margin-bottom:30px;
+  }
+
+  .panel{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:28px; margin-bottom:24px;
+  }
+
+  label{
+    display:block; font-family:'Barlow Condensed', sans-serif; font-size:0.8rem;
+    letter-spacing:0.06em; text-transform:uppercase; color:var(--muted);
+    margin-bottom:6px; margin-top:16px;
+  }
+  label:first-child{ margin-top:0; }
+  input[type="text"], input[type="password"], input[type="email"]{
+    width:100%; background:var(--void); border:1px solid var(--line); color:var(--text);
+    padding:11px 13px; border-radius:4px; font-family:'Inter', sans-serif; font-size:0.95rem;
+  }
+  input:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
+
+  button{
+    font-family:'Barlow Condensed', sans-serif; font-weight:700; letter-spacing:0.05em;
+    text-transform:uppercase; cursor:pointer; border-radius:4px; border:none;
+  }
+  .btn-primary{
+    background:var(--gold); color:#1A1406; padding:12px 22px; font-size:0.9rem; margin-top:20px;
+  }
+  .btn-primary:hover{ background:var(--gold-bright); }
+  .btn-primary:disabled{ opacity:0.5; cursor:not-allowed; }
+  .btn-secondary{
+    background:transparent; color:var(--muted); border:1px solid var(--line);
+    padding:11px 20px; font-size:0.9rem;
+  }
+  .btn-secondary:hover{ color:var(--text); border-color:var(--gold); }
+
+  .status{
+    margin-top:14px; font-family:'Barlow Condensed', sans-serif; font-size:0.88rem;
+    letter-spacing:0.02em; padding:10px 12px; border-radius:4px; display:none;
+  }
+  .status.show{ display:block; }
+  .status.error{ background:rgba(217,108,95,0.12); color:var(--danger); }
+  .status.success{ background:rgba(201,162,75,0.12); color:var(--gold-bright); }
+  .status.info{ background:rgba(139,146,160,0.12); color:var(--muted); }
+
+  /* ---------- Tile preview (matches index.html exactly) ---------- */
+  .preview-wrap{ display:none; }
+  .preview-wrap.show{ display:block; }
+  .preview-label{
+    font-family:'Barlow Condensed', sans-serif; font-size:0.78rem; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:14px;
+  }
+  .tile-preview{
+    max-width:260px; background:var(--surface-raised); border:1px solid var(--line);
+    border-radius:6px; overflow:hidden; margin-bottom:24px;
+  }
+  .art{
+    aspect-ratio:4/5; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(155deg, #232A36 0%, #171B22 55%, #10131A 100%);
+    overflow:hidden;
+  }
+  .art .mark{
+    font-family:'Fraunces', serif; font-size:2.6rem; color:rgba(237,234,227,0.14);
+  }
+  .art img{ width:100%; height:100%; object-fit:cover; }
+  .tag{
+    position:absolute; top:14px; right:-8px;
+    background:linear-gradient(120deg, var(--gold-bright), var(--gold));
+    color:#1A1406; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:1rem;
+    padding:5px 16px 5px 14px; border-radius:3px 0 0 3px; box-shadow:0 6px 14px -4px rgba(0,0,0,0.5);
+  }
+  .grade-chip{
+    position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem; color:var(--void); background:var(--text); padding:3px 8px; border-radius:3px;
+  }
+  .tile-preview .info{ padding:16px; }
+  .tile-preview h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.08rem; margin-bottom:6px; }
+  .tile-preview .meta{
+    font-family:'Barlow Condensed', sans-serif; font-size:0.85rem; letter-spacing:0.04em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  .image-picker{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .image-picker img{
+    width:56px; height:56px; object-fit:cover; border-radius:4px; cursor:pointer;
+    border:2px solid var(--line); opacity:0.6;
+  }
+  .image-picker img.selected{ border-color:var(--gold); opacity:1; }
+
+  .aspects{
+    margin-top:20px; padding-top:16px; border-top:1px solid var(--line);
+  }
+  .aspects summary{
+    font-family:'Barlow Condensed', sans-serif; font-size:0.8rem; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--muted); cursor:pointer;
+  }
+  .aspects table{ width:100%; margin-top:10px; font-size:0.85rem; border-collapse:collapse; }
+  .aspects td{ padding:4px 8px 4px 0; border-bottom:1px solid var(--line); color:var(--muted); }
+  .aspects td:first-child{ color:var(--text); white-space:nowrap; }
+
+  .actions{ display:flex; gap:12px; margin-top:24px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Jaronhav<span>TCG</span> <span style="color:var(--muted); font-size:0.9rem; font-weight:400;">— Add a Card</span></div>
+  <button id="logoutBtn">Log out</button>
+</header>
+
+<main>
+
+  <div class="panel" id="loginPanel">
+    <div class="eyebrow">Admin</div>
+    <h1 style="font-size:1.4rem; margin-bottom:20px;">Enter password</h1>
+    <label for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" autocomplete="current-password">
+    <button class="btn-primary" id="loginBtn">Log in</button>
+    <div class="status" id="loginStatus"></div>
+  </div>
+
+  <div id="toolWrap" style="display:none;">
+    <div class="eyebrow">Not listed here?</div>
+    <h1>Add a card to the request grid</h1>
+
+    <div class="panel">
+      <label for="lookupInput">eBay item ID or listing URL</label>
+      <input type="text" id="lookupInput" placeholder="e.g. 276481039215 or https://www.ebay.com/itm/...">
+      <button class="btn-primary" id="lookupBtn">Look Up</button>
+      <div class="status" id="lookupStatus"></div>
+    </div>
+
+    <div class="preview-wrap" id="previewWrap">
+      <div class="preview-label">Preview — edit anything before approving</div>
+
+      <div class="tile-preview">
+        <div class="art">
+          <span class="grade-chip" id="previewGradeChip">—</span>
+          <span class="tag" id="previewTag">—</span>
+          <span class="mark" id="previewMark" style="display:none;">?</span>
+          <img id="previewImg" style="display:none;">
+        </div>
+        <div class="info">
+          <h3 id="previewTitle">—</h3>
+          <div class="meta" id="previewMeta">—</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <label for="fieldTitle">Title</label>
+        <input type="text" id="fieldTitle">
+
+        <label for="fieldPrice">Price</label>
+        <input type="text" id="fieldPrice" placeholder="$1,250">
+
+        <label for="fieldGrade">Grade</label>
+        <input type="text" id="fieldGrade" placeholder="PSA 10">
+
+        <label for="fieldSet">Set</label>
+        <input type="text" id="fieldSet" placeholder="Champion's Path">
+
+        <label>Image</label>
+        <div class="image-picker" id="imagePicker"></div>
+
+        <label for="fieldEbayId">eBay item ID</label>
+        <input type="text" id="fieldEbayId" readonly style="opacity:0.6;">
+
+        <details class="aspects" id="aspectsWrap">
+          <summary>Raw item specifics from eBay (reference)</summary>
+          <table id="aspectsTable"></table>
+        </details>
+
+        <div class="actions">
+          <button class="btn-primary" id="approveBtn" style="margin-top:0;">Approve &amp; Add</button>
+          <button class="btn-secondary" id="discardBtn">Discard</button>
+        </div>
+        <div class="status" id="approveStatus"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const loginPanel = document.getElementById('loginPanel');
+  const toolWrap = document.getElementById('toolWrap');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const loginStatus = document.getElementById('loginStatus');
+
+  function showStatus(el, message, type){
+    el.textContent = message;
+    el.className = `status show ${type}`;
+  }
+  function hideStatus(el){
+    el.className = 'status';
+  }
+
+  function showTool(){
+    loginPanel.style.display = 'none';
+    toolWrap.style.display = 'block';
+    logoutBtn.style.display = 'inline-block';
+  }
+  function showLogin(){
+    loginPanel.style.display = 'block';
+    toolWrap.style.display = 'none';
+    logoutBtn.style.display = 'none';
+  }
+
+  // ---- Session check on load ----
+  fetch('/api/admin-login')
+    .then((res) => { if (res.ok) showTool(); else showLogin(); })
+    .catch(() => showLogin());
+
+  // ---- Login ----
+  document.getElementById('loginBtn').addEventListener('click', async () => {
+    const password = document.getElementById('passwordInput').value;
+    hideStatus(loginStatus);
+    try {
+      const res = await fetch('/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        showTool();
+      } else {
+        showStatus(loginStatus, 'Wrong password.', 'error');
+      }
+    } catch (err) {
+      showStatus(loginStatus, 'Something went wrong.', 'error');
+    }
+  });
+  document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('loginBtn').click();
+  });
+
+  // ---- Logout ----
+  logoutBtn.addEventListener('click', async () => {
+    await fetch('/api/admin-login', { method: 'DELETE' });
+    showLogin();
+  });
+
+  // ---- Lookup ----
+  const lookupBtn = document.getElementById('lookupBtn');
+  const lookupStatus = document.getElementById('lookupStatus');
+  const previewWrap = document.getElementById('previewWrap');
+  let currentImages = [];
+  let selectedImage = '';
+
+  lookupBtn.addEventListener('click', async () => {
+    const input = document.getElementById('lookupInput').value.trim();
+    if (!input) return;
+    hideStatus(lookupStatus);
+    lookupBtn.disabled = true;
+    lookupBtn.textContent = 'Looking up…';
+
+    try {
+      const res = await fetch('/api/ebay-lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showStatus(lookupStatus, data.error || 'Lookup failed.', 'error');
+        previewWrap.classList.remove('show');
+        return;
+      }
+
+      populatePreview(data);
+      previewWrap.classList.add('show');
+    } catch (err) {
+      showStatus(lookupStatus, 'Something went wrong.', 'error');
+    } finally {
+      lookupBtn.disabled = false;
+      lookupBtn.textContent = 'Look Up';
+    }
+  });
+  document.getElementById('lookupInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') lookupBtn.click();
+  });
+
+  function populatePreview(data){
+    document.getElementById('fieldTitle').value = data.title || '';
+    document.getElementById('fieldPrice').value = data.price || '';
+    document.getElementById('fieldGrade').value = data.guesses?.grade || '';
+    document.getElementById('fieldSet').value = data.guesses?.set || '';
+    document.getElementById('fieldEbayId').value = data.ebayItemId || '';
+
+    currentImages = data.images || [];
+    selectedImage = currentImages[0] || '';
+    renderImagePicker();
+
+    const aspectsTable = document.getElementById('aspectsTable');
+    aspectsTable.innerHTML = (data.aspects || [])
+      .map((a) => `<tr><td>${escapeHtml(a.name)}</td><td>${escapeHtml(a.value)}</td></tr>`)
+      .join('');
+
+    updateTilePreview();
+  }
+
+  function renderImagePicker(){
+    const picker = document.getElementById('imagePicker');
+    picker.innerHTML = currentImages
+      .map((url) => `<img src="${url}" class="${url === selectedImage ? 'selected' : ''}" data-url="${url}">`)
+      .join('');
+    picker.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('click', () => {
+        selectedImage = img.dataset.url;
+        renderImagePicker();
+        updateTilePreview();
+      });
+    });
+  }
+
+  function monogram(title){
+    const words = (title || '').replace(/[—–-]/g, ' ').split(/\s+/).filter(Boolean);
+    return (words.slice(0, 2).map((w) => w[0]).join('') || '?').toUpperCase();
+  }
+
+  function updateTilePreview(){
+    const title = document.getElementById('fieldTitle').value || '—';
+    const price = document.getElementById('fieldPrice').value || '—';
+    const grade = document.getElementById('fieldGrade').value || '—';
+    const set = document.getElementById('fieldSet').value || '—';
+
+    document.getElementById('previewTitle').textContent = title;
+    document.getElementById('previewTag').textContent = price;
+    document.getElementById('previewGradeChip').textContent = grade;
+    document.getElementById('previewMeta').textContent = set;
+
+    const img = document.getElementById('previewImg');
+    const mark = document.getElementById('previewMark');
+    if (selectedImage) {
+      img.src = selectedImage;
+      img.style.display = 'block';
+      mark.style.display = 'none';
+    } else {
+      img.style.display = 'none';
+      mark.style.display = 'block';
+      mark.textContent = monogram(title);
+    }
+  }
+
+  ['fieldTitle', 'fieldPrice', 'fieldGrade', 'fieldSet'].forEach((id) => {
+    document.getElementById(id).addEventListener('input', updateTilePreview);
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ---- Approve / Discard ----
+  const approveBtn = document.getElementById('approveBtn');
+  const approveStatus = document.getElementById('approveStatus');
+
+  approveBtn.addEventListener('click', async () => {
+    hideStatus(approveStatus);
+    approveBtn.disabled = true;
+    approveBtn.textContent = 'Adding…';
+
+    const card = {
+      title: document.getElementById('fieldTitle').value.trim(),
+      price: document.getElementById('fieldPrice').value.trim(),
+      grade: document.getElementById('fieldGrade').value.trim(),
+      set: document.getElementById('fieldSet').value.trim(),
+      image: selectedImage,
+      ebayItemId: document.getElementById('fieldEbayId').value.trim(),
+    };
+
+    try {
+      const res = await fetch('/api/cards-add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(card),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showStatus(approveStatus, data.error || 'Failed to add card.', 'error');
+        return;
+      }
+
+      showStatus(approveStatus, 'Added — live on the site in a minute or so.', 'success');
+      setTimeout(resetTool, 1800);
+    } catch (err) {
+      showStatus(approveStatus, 'Something went wrong.', 'error');
+    } finally {
+      approveBtn.disabled = false;
+      approveBtn.textContent = 'Approve & Add';
+    }
+  });
+
+  document.getElementById('discardBtn').addEventListener('click', resetTool);
+
+  function resetTool(){
+    document.getElementById('lookupInput').value = '';
+    previewWrap.classList.remove('show');
+    hideStatus(lookupStatus);
+    hideStatus(approveStatus);
+    currentImages = [];
+    selectedImage = '';
+  }
+</script>
+
+</body>
+</html>
