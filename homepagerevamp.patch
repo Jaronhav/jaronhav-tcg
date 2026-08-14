@@ -1,0 +1,1567 @@
+From 54f249b0307ea416d2c4efbde3fcdab9324f4f74 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 14 Aug 2026 02:08:22 +0000
+Subject: [PATCH] Replace homepage with curated card request page
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Adds a JSON-driven tile grid for select high-end eBay singles with
+live search, a "Request This Card" modal, and a general request panel
+for unlisted cards — both posting to Formspree. Sealed/box/pack pages
+and their Shopify checkout are untouched.
+---
+ cards.json  |   50 ++
+ index.html  | 1415 +++++++++++++++++++++++----------------------------
+ vercel.json |    8 +
+ 3 files changed, 686 insertions(+), 787 deletions(-)
+ create mode 100644 cards.json
+
+diff --git a/cards.json b/cards.json
+new file mode 100644
+index 0000000..f690e6b
+--- /dev/null
++++ b/cards.json
+@@ -0,0 +1,50 @@
++[
++  {
++    "title": "Charizard VMAX — Alt Art",
++    "price": "$1,250",
++    "grade": "PSA 10",
++    "set": "Champion's Path",
++    "image": "",
++    "ebayItemId": "276481039215"
++  },
++  {
++    "title": "Umbreon Gold Star",
++    "price": "$640",
++    "grade": "CGC 9.5",
++    "set": "POP Series 5",
++    "image": "",
++    "ebayItemId": "286104472930"
++  },
++  {
++    "title": "Blastoise ex",
++    "price": "$410",
++    "grade": "PSA 9",
++    "set": "Base Set — Shadowless",
++    "image": "",
++    "ebayItemId": "256039871144"
++  },
++  {
++    "title": "Rayquaza VMAX — Alt Art",
++    "price": "$980",
++    "grade": "PSA 10",
++    "set": "Evolving Skies",
++    "image": "",
++    "ebayItemId": "296611287053"
++  },
++  {
++    "title": "Mew — Delta Species Error",
++    "price": "$380",
++    "grade": "PSA 5",
++    "set": "Holon Phantoms — Misprint",
++    "image": "https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg",
++    "ebayItemId": "266552910387"
++  },
++  {
++    "title": "Lugia — 1st Edition",
++    "price": "$720",
++    "grade": "PSA 8",
++    "set": "Neo Genesis — Holo",
++    "image": "",
++    "ebayItemId": "245719803362"
++  }
++]
+diff --git a/index.html b/index.html
+index bbc78f3..310abf8 100644
+--- a/index.html
++++ b/index.html
+@@ -3,837 +3,678 @@
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-<title>Jaronhav TCG</title>
+-
++<title>Jaronhav TCG — Request a Card</title>
++<link rel="preconnect" href="https://fonts.googleapis.com">
++<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+ <style>
+-body {
+-  font-family: 'Poppins', sans-serif;
+-  margin: 0;
+-  padding: 0;
+-  background-color: #f9f9f9;
+-  text-align: center;
+-}
+-
+-/* ===== HEADER ===== */
+-.site-header {
+-  background:#111;
+-  color:white;
+-  height:64px;
+-  display:flex;
+-  align-items:center;
+-  position:sticky;
+-  top:0;
+-  z-index:1000;
+-}
+-
+-.header-inner {
+-  width:100%;
+-  max-width:1600px;
+-  margin:0 auto;
+-  display:flex;
+-  align-items:center;
+-  justify-content:center;
+-  position:relative;
+-  padding:0 20px;
+-}
+-
+-/* LEFT */
+-.header-left {
+-  position:absolute;
+-  left:20px;
+-  display:flex;
+-  align-items:center;
+-  gap:14px;
+-}
+-
+-.site-title {
+-  color:white;
+-  text-decoration:none;
+-  font-weight:700;
+-  font-size:18px;
+-}
+-
+-.social-links a {
+-  color:#ccc;
+-  text-decoration:none;
+-  font-size:14px;
+-}
+-
+-.social-links a:hover {
+-  color:white;
+-}
+-
+-/* CENTER MENU */
+-.nav-menu {
+-  display:flex;
+-  gap:26px;
+-  align-items:center;
+-  font-weight:700;
+-}
+-
+-.nav-menu a {
+-  color:white;
+-  text-decoration:none;
+-  font-size:15px;
+-  position:relative;
+-}
+-
+-.nav-menu a::after {
+-  content:"";
+-  position:absolute;
+-  left:0;
+-  bottom:-6px;
+-  width:0%;
+-  height:2px;
+-  background:red;
+-  transition:.3s;
+-}
+-
+-.nav-menu a:hover::after {
+-  width:100%;
+-}
+-
+-/* HAMBURGER */
+-.menu-toggle {
+-  position:absolute;
+-  right:20px;
+-  font-size:28px;
+-  cursor:pointer;
+-  display:none;
+-  user-select:none;
+-  padding:10px 14px;
+-}
+-
+-/* MOBILE MENU */
+-.mobile-menu {
+-  display:none;
+-  flex-direction:column;
+-  background:#111;
+-  width:100%;
+-  position:absolute;
+-  top:64px;
+-  left:0;
+-  z-index:999;
+-}
+-
+-.mobile-menu a {
+-  color:white;
+-  text-decoration:none;
+-  padding:16px 20px;
+-  border-top:1px solid rgba(255,255,255,0.1);
+-  font-weight:700;
+-}
+-
+-/* MOBILE */
+-@media (max-width: 900px) {
+-  .nav-menu {
+-    display:none;
++  :root{
++    --void:#0B0E13;
++    --surface:#151A22;
++    --surface-raised:#1D232E;
++    --line:#2A3140;
++    --text:#EDEAE3;
++    --muted:#8B92A0;
++    --gold:#C9A24B;
++    --gold-bright:#E6C673;
+   }
+-
+-  .menu-toggle {
+-    display:block;
++  *{box-sizing:border-box; margin:0; padding:0;}
++  body{
++    background:var(--void);
++    color:var(--text);
++    font-family:'Inter', sans-serif;
++    -webkit-font-smoothing:antialiased;
+   }
+-}
+-
+-/* ===== UI ===== */
+-.banner {
+-  background-color: red;
+-  color: white;
+-  font-weight: bold;
+-  padding: 10px;
+-  text-transform: uppercase;
+-}
+-
+-.section-title {
+-  margin-top: 40px;
+-  font-size: 24px;
+-}
+-
+-.card-container {
+-  display: flex;
+-  flex-wrap: wrap;
+-  justify-content: center;
+-  margin: 30px;
+-}
+-
+-.card {
+-  display: inline-block;
+-  margin: 15px;
+-  text-align: center;
+-  vertical-align: top;
+-  background: white;
+-  border-radius: 10px;
+-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+-  width: 250px;
+-  transition: transform 0.2s ease-in-out;
+-}
+-
+-.card:hover {
+-  transform: scale(1.03);
+-}
+-
+-.card img {
+-  width: 250px;
+-  height: auto;
+-  border-radius: 8px 8px 0 0;
+-}
+-
+-.sealed-img {
+-  width: 250px;
+-  height: auto;
+-  border-radius: 8px 8px 0 0;
+-}
+-
+-.card a {
+-  text-decoration: none;
+-  color: inherit;
+-}
+-
+-.card a:hover h3 {
+-  text-decoration: underline;
+-}
+-
+-.image-container {
+-  position: relative;
+-  display: inline-block;
+-  width: 100%;
+-}
+-
+-.sold-overlay {
+-  position: absolute;
+-  top: 50%;
+-  left: 50%;
+-  transform: translate(-50%, -50%) rotate(-45deg);
+-  font-size: 60px;
+-  font-weight: bold;
+-  color: rgba(50, 50, 50, 0.9);
+-  pointer-events: none;
+-  z-index: 10;
+-  white-space: nowrap;
+-}
+-
+-.sold-label {
+-  position: absolute;
+-  top: 10px;
+-  right: 10px;
+-  background: rgba(180, 0, 0, 0.9);
+-  color: white;
+-  font-weight: 800;
+-  font-size: 14px;
+-  padding: 6px 12px;
+-  border-radius: 6px;
+-  z-index: 10;
+-  text-transform: uppercase;
+-  letter-spacing: 1px;
+-  pointer-events: none;
+-}
+-
+-  
+-footer {
+-  background-color: #222;
+-  color: white;
+-  padding: 15px 0;
+-  margin-top: 30px;
+-}
+-
+-footer a {
+-  color: white;
+-  text-decoration: none;
+-}
+-
+-footer a:hover {
+-  color: #ccc; /* optional hover effect */
+-  text-decoration: underline; /* optional */
+-}
+-
+-
+-/* ===== Singles Dropdown ===== */
+-.dropdown {
+-  position: relative;
+-  display: inline-block;
+-}
+-
+-.dropdown-content {
+-  display: none;
+-  position: absolute;
+-  top: 100%;
+-  left: 0;
+-  background: #111;
+-  min-width: 160px;
+-  z-index: 2000;
+-  border-radius: 6px;
+-  overflow: hidden;
+-  padding-top: 5px;   /* hover buffer */
+-}
+-
+-.dropdown-content a {
+-  display: block;
+-  padding: 10px 14px;
+-  color: white;
+-  text-decoration: none;
+-  font-weight: bold;
+-  white-space: nowrap;
+-}
+-
+-.dropdown-content a:hover {
+-  background: #222;
+-}
+-
+-/* THIS is the important part */
+-.dropdown:hover .dropdown-content,
+-.dropdown-content:hover {
+-  display: block;
+-}
+-  
+-</style>
+-</head>
+ 
+-<body>
+-
+-<div class="banner">SITE IN DEVELOPMENT. CHECKOUT STILL WORKS.</div>
++  /* ---------- Header ---------- */
++  header{
++    position:sticky; top:0; z-index:1000;
++    display:flex; align-items:center; justify-content:space-between;
++    padding:20px 40px;
++    background:rgba(11,14,19,0.9);
++    backdrop-filter:blur(8px);
++    border-bottom:1px solid var(--line);
++  }
++  .header-left{ display:flex; align-items:center; gap:16px; }
++  .logo{
++    font-family:'Fraunces', serif;
++    font-size:1.3rem;
++    font-weight:600;
++    letter-spacing:0.02em;
++    text-decoration:none;
++    color:var(--text);
++    white-space:nowrap;
++  }
++  .logo span{ color:var(--gold); }
++  .social-links{ display:flex; gap:12px; }
++  .social-links a{
++    color:var(--muted);
++    text-decoration:none;
++    font-family:'Barlow Condensed', sans-serif;
++    font-size:0.85rem;
++    font-weight:600;
++    letter-spacing:0.04em;
++  }
++  .social-links a:hover{ color:var(--gold-bright); }
++
++  nav.nav-menu{ display:flex; gap:26px; align-items:center; }
++  nav.nav-menu a{
++    color:var(--muted);
++    text-decoration:none;
++    font-family:'Barlow Condensed', sans-serif;
++    font-weight:600;
++    font-size:0.95rem;
++    letter-spacing:0.08em;
++    text-transform:uppercase;
++    transition:color 0.2s;
++    position:relative;
++  }
++  nav.nav-menu a:hover, nav.nav-menu a:focus-visible{ color:var(--text); }
+ 
+-<!-- HEADER -->
+-<header class="site-header">
+-  <div class="header-inner">
++  .dropdown{ position:relative; }
++  .dropdown-content{
++    display:none;
++    position:absolute;
++    top:100%; left:0;
++    padding-top:10px;
++    min-width:170px;
++    z-index:2000;
++  }
++  .dropdown-content-inner{
++    background:var(--surface-raised);
++    border:1px solid var(--line);
++    border-radius:6px;
++    overflow:hidden;
++  }
++  .dropdown-content a{
++    display:block;
++    padding:10px 14px;
++    color:var(--text);
++    text-decoration:none;
++    font-family:'Barlow Condensed', sans-serif;
++    font-weight:600;
++    font-size:0.85rem;
++    letter-spacing:0.04em;
++    text-transform:uppercase;
++    white-space:nowrap;
++  }
++  .dropdown-content a:hover{ background:var(--surface); color:var(--gold-bright); }
++  .dropdown:hover .dropdown-content,
++  .dropdown-content:hover{ display:block; }
+ 
+-    <div class="header-left">
+-      <a href="index.html" class="site-title">Jaronhav TCG</a>
+-      <div class="social-links">
+-        <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a> |
+-        <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
+-      </div>
+-    </div>
++  .menu-toggle{
++    display:none;
++    font-size:26px;
++    cursor:pointer;
++    user-select:none;
++    color:var(--text);
++  }
+ 
+-    <nav class="nav-menu">
+-      <a href="graded_cards.html">Graded Cards</a>
+-      <a href="sealed.html">Sealed</a>
+-      <a href="foreign.sealed.html">Foreign Language Sealed</a>
+-<div class="dropdown">
+-  <a href="#">Singles ▾</a>
+-  <div class="dropdown-content">
+-    <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
+-    <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+-  </div>
+-</div>
+-      <a href="mtg.html">Magic The Gathering</a>
+-      <a href="op.html">One Piece</a>
+-      <a href="contact.html">Contact</a>
+-    </nav>
++  .mobile-menu{
++    display:none;
++    flex-direction:column;
++    background:var(--surface-raised);
++    border-bottom:1px solid var(--line);
++  }
++  .mobile-menu a{
++    color:var(--text);
++    text-decoration:none;
++    padding:16px 24px;
++    border-top:1px solid var(--line);
++    font-family:'Barlow Condensed', sans-serif;
++    font-weight:600;
++    letter-spacing:0.06em;
++    text-transform:uppercase;
++    font-size:0.9rem;
++  }
+ 
+-    <div class="menu-toggle" id="menuToggle">☰</div>
++  @media (max-width: 900px){
++    nav.nav-menu{ display:none; }
++    .menu-toggle{ display:block; }
++  }
+ 
+-  </div>
+-</header>
++  /* ---------- Hero ---------- */
++  .hero{
++    padding:90px 40px 70px;
++    text-align:center;
++    background:
++      radial-gradient(ellipse at 50% -10%, rgba(201,162,75,0.10), transparent 60%);
++    border-bottom:1px solid var(--line);
++  }
++  .hero .eyebrow{
++    font-family:'Barlow Condensed', sans-serif;
++    letter-spacing:0.25em;
++    text-transform:uppercase;
++    color:var(--gold);
++    font-size:0.8rem;
++    font-weight:600;
++    margin-bottom:18px;
++  }
++  .hero h1{
++    font-family:'Fraunces', serif;
++    font-weight:500;
++    font-size:clamp(2.1rem, 4.5vw, 3.4rem);
++    line-height:1.15;
++    max-width:16ch;
++    margin:0 auto 18px;
++  }
++  .hero p{
++    color:var(--muted);
++    font-size:1.05rem;
++    max-width:46ch;
++    margin:0 auto;
++    line-height:1.6;
++  }
+ 
+-<!-- MOBILE MENU -->
+-<div class="mobile-menu" id="mobileMenu">
+-  <a href="graded_cards.html">Graded Cards</a>
+-  <a href="sealed.html">Sealed</a>
+-  <a href="foreign.sealed.html">Foreign Language Sealed</a>
+-  <a href="singles.html">Singles</a>
+-  <a href="mtg.html">Magic The Gathering</a>
+-  <a href="op.html">One Piece</a>
+-  <a href="contact.html">Contact</a>
+-</div>
++  /* ---------- Grid ---------- */
++  main{ padding:60px 40px 100px; max-width:1280px; margin:0 auto; }
++  .grid{
++    display:grid;
++    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
++    gap:28px;
++  }
+ 
+-<!-- ================= CONTENT ================= -->
++  /* ---------- Tile ---------- */
++  .tile{
++    background:var(--surface);
++    border:1px solid var(--line);
++    border-radius:6px;
++    overflow:hidden;
++    position:relative;
++    transition:transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
++  }
++  .tile:hover{
++    transform:translateY(-4px);
++    border-color:rgba(201,162,75,0.5);
++    box-shadow:0 14px 28px -14px rgba(0,0,0,0.6);
++  }
+ 
+-<h2 class="section-title">Graded Cards</h2>
+-<div class="card-container">
++  .art{
++    aspect-ratio:4/5;
++    position:relative;
++    display:flex; align-items:center; justify-content:center;
++    background:linear-gradient(155deg, #232A36 0%, #171B22 55%, #10131A 100%);
++    overflow:hidden;
++  }
++  .art::before{
++    content:"";
++    position:absolute; inset:-40%;
++    background:conic-gradient(from 200deg, transparent 0deg, rgba(201,162,75,0.16) 40deg, transparent 90deg, rgba(201,162,75,0.10) 180deg, transparent 260deg);
++    transform:rotate(0deg);
++    transition:transform 1.2s ease;
++  }
++  .tile:hover .art::before{ transform:rotate(35deg); }
++  .art .mark{
++    font-family:'Fraunces', serif;
++    font-size:2.6rem;
++    color:rgba(237,234,227,0.14);
++    z-index:1;
++  }
++  .art img{
++    position:relative;
++    z-index:1;
++    width:100%;
++    height:100%;
++    object-fit:cover;
++  }
+ 
+-  
+-<div class="card">
+-  <a href="hitmontop.html">
+-    <img src="https://i.ebayimg.com/images/g/hcAAAeSwupZokEOk/s-l1600.webp">
+-    <h3>CGC 10 Hitmontop</h3>
+-  </a>
+-  <p>$30</p>
+-</div>
++  .tag{
++    position:absolute; top:14px; right:-8px;
++    background:linear-gradient(120deg, var(--gold-bright), var(--gold));
++    color:#1A1406;
++    font-family:'Barlow Condensed', sans-serif;
++    font-weight:700;
++    font-size:1rem;
++    padding:5px 16px 5px 14px;
++    border-radius:3px 0 0 3px;
++    box-shadow:0 6px 14px -4px rgba(0,0,0,0.5);
++    z-index:2;
++  }
++  .tag::after{
++    content:"";
++    position:absolute; right:-8px; top:0;
++    border-style:solid;
++    border-width:0 8px 13px 0;
++    border-color:transparent #8A6A22 transparent transparent;
++  }
+ 
+-<div class="card">
+-  <a href="rowlet.html">
+-    <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/CGC9_Rowlet_Promo.jpg">
+-    <h3>CGC 9 Rowlet Black Star Promo</h3>
+-  </a>
+-  <p>$10</p>
+-</div>
++  .grade-chip{
++    position:absolute; top:14px; left:14px;
++    font-family:'IBM Plex Mono', monospace;
++    font-size:0.7rem;
++    color:var(--void);
++    background:var(--text);
++    padding:3px 8px;
++    border-radius:3px;
++    letter-spacing:0.02em;
++    z-index:2;
++  }
+ 
+-<div class="card">
+-  <a href="magikarp.html">
+-    <div class="image-container">
+-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA8_Shining_Magikarp1.jpg">
+-      <div class="sold-overlay">SOLD</div>
+-    </div>
+-    <h3>PSA 8 Shining Magikarp Unlimited</h3>
+-  </a>
+-  <p>$650</p>
+-</div>
++  .info{ padding:16px 16px 18px; }
++  .info h3{
++    font-family:'Fraunces', serif;
++    font-weight:500;
++    font-size:1.08rem;
++    line-height:1.3;
++    margin-bottom:6px;
++  }
++  .meta{
++    font-family:'Barlow Condensed', sans-serif;
++    font-size:0.85rem;
++    letter-spacing:0.04em;
++    text-transform:uppercase;
++    color:var(--muted);
++    margin-bottom:14px;
++  }
+ 
+-<div class="card">
+-  <a href="mew_delta_error.html">
+-    <div class="image-container">
+-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA5_Mew_Delta_Error.jpg">
+-      <div class="sold-overlay">SOLD</div>
+-    </div>
+-    <h3>PSA 5 Mew Delta Species Error</h3>
+-  </a>
+-  <p>$380</p>
+-</div>
++  .request-btn{
++    width:100%;
++    padding:10px 0;
++    background:transparent;
++    border:1px solid var(--line);
++    color:var(--text);
++    font-family:'Barlow Condensed', sans-serif;
++    font-weight:600;
++    font-size:0.95rem;
++    letter-spacing:0.06em;
++    text-transform:uppercase;
++    border-radius:4px;
++    cursor:pointer;
++    transition:all 0.2s ease;
++  }
++  .request-btn:hover, .request-btn:focus-visible{
++    border-color:var(--gold);
++    color:var(--gold-bright);
++    background:rgba(201,162,75,0.08);
++  }
+ 
+-<div class="card">
+-  <a href="abra.legendary.html">
+-    <div class="image-container">
+-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA7_Abra_Legendary.png"">
+-      <div class="sold-overlay">SOLD</div>
+-    </div>
+-    <h3>PSA 7 Abra Rev Foil Legendary Collection</h3>
+-  </a>
+-  <p>$180</p>
+-</div>
+-  
+-<div class="card">
+-  <a href="dark_blastoise.html">
+-    <div class="image-container">
+-      <img src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/PSA1_Dark_Blastoise.jpg">
+-      <div class="sold-overlay">SOLD</div>
+-    </div>
+-    <h3>PSA 1 Dark Blastoise Unlimited</h3>
+-  </a>
+-  <p>$140</p>
+-</div>
++  /* ---------- Find panel (general request) ---------- */
++  .find-panel{
++    max-width:960px; margin:-30px auto 50px;
++    padding:24px 28px;
++    border:1px dashed rgba(201,162,75,0.45);
++    border-radius:8px;
++    background:rgba(201,162,75,0.045);
++    display:flex; flex-wrap:wrap; align-items:flex-end; gap:20px;
++  }
++  .find-panel .find-copy{ flex:1 1 260px; }
++  .find-panel .find-copy .eyebrow{
++    font-family:'Barlow Condensed', sans-serif;
++    color:var(--gold); letter-spacing:0.18em; text-transform:uppercase;
++    font-size:0.75rem; font-weight:600; margin-bottom:6px;
++  }
++  .find-panel .find-copy h4{
++    font-family:'Fraunces', serif; font-weight:500; font-size:1.15rem; margin-bottom:6px;
++  }
++  .find-panel .find-copy p{ color:var(--muted); font-size:0.88rem; line-height:1.5; max-width:38ch; }
++  .find-panel .find-fields{ display:flex; gap:10px; flex:1 1 380px; flex-wrap:wrap; }
++  .find-panel .find-fields input{
++    flex:1 1 160px; background:var(--void); border:1px solid var(--line); color:var(--text);
++    padding:11px 13px; border-radius:4px; font-family:'Inter', sans-serif; font-size:0.9rem;
++  }
++  .find-panel .find-fields input:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
++  .find-panel .find-fields button{
++    padding:11px 22px; background:var(--gold); color:#1A1406; border:none; border-radius:4px;
++    font-family:'Barlow Condensed', sans-serif; font-weight:700; letter-spacing:0.05em;
++    text-transform:uppercase; cursor:pointer; white-space:nowrap; transition:background 0.2s;
++  }
++  .find-panel .find-fields button:hover{ background:var(--gold-bright); }
++
++  /* ---------- Search ---------- */
++  .search-wrap{ max-width:960px; margin:0 auto 32px; position:relative; }
++  .search-wrap input{
++    width:100%; padding:13px 16px 13px 44px;
++    background:var(--surface); border:1px solid var(--line); color:var(--text);
++    border-radius:6px; font-family:'Inter', sans-serif; font-size:0.95rem;
++  }
++  .search-wrap input:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
++  .search-wrap svg{ position:absolute; left:15px; top:50%; transform:translateY(-50%); opacity:0.45; pointer-events:none; }
++  .search-count{
++    font-family:'Barlow Condensed', sans-serif; font-size:0.82rem; letter-spacing:0.04em;
++    text-transform:uppercase; color:var(--muted); margin:10px 2px 0;
++  }
+ 
+-</div>
++  .item-id{
++    display:block; font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
++    color:var(--muted); opacity:0.7; margin:-8px 0 14px;
++  }
+ 
+-<!-- Sealed -->
+-<h2 class="section-title">Boxes</h2>
+-<div class="card-container">
+-<!-- (boxes preserved exactly) -->
+-
+-
+-  <div class="card sealed">
+-    <a href="charizard_upc.html">
+-      <div class="image-container">
+-      <img class="sealed-img"
+-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Charizard_UPC2.jpg"
+-        alt="Charizard Ultra Premium Collection">
+-        <div class="sold-label">Sold Out</div>
+-      </div>        
+-      <h3>Mega Charizard UPC</h3>
+-    </a>
+-    <p>$150</p>
+-  </div>
++  .empty-state{ display:none; text-align:center; padding:70px 20px; color:var(--muted); }
++  .empty-state.show{ display:block; }
++  .empty-state h4{ font-family:'Fraunces', serif; color:var(--text); font-size:1.25rem; margin-bottom:10px; font-weight:500; }
++  .empty-state a{ color:var(--gold-bright); cursor:pointer; text-decoration:underline; }
+ 
+-  <div class="card sealed">
+-    <a href="ascended.heroes.etb.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/ascended_heroes_etb.png"
+-          alt="Ascended Heroes Elite Trainer Box (ETB)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Ascended Heroes ETB</h3>
+-    </a>
+-    <p>$95</p>
+-  </div>
+-  
+-  <div class="card sealed">
+-    <a href="prismatic.evo.3pack.sylveon.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/prismatic_3pack_sylveon.png"
+-          alt="Prismatic Evolutions Tech Sticker Collection (Sylveon)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Prismatic Evolutions Tech Sticker Collection (Sylveon)</h3>
+-    </a>
+-    <p>$28</p>
+-  </div>
++  .loading-state{ text-align:center; padding:70px 20px; color:var(--muted); font-family:'Barlow Condensed', sans-serif; letter-spacing:0.04em; text-transform:uppercase; }
+ 
+-  <div class="card sealed">
+-    <a href="prismatic.evo.3pack.glaceon.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/prismatic_3pack_glaceon.png"
+-          alt="Prismatic Evolutions Tech Sticker Collection (Glaceon)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>        
+-      <h3>Prismatic Evolutions Tech Sticker Collection (Glaceon)</h3>
+-    </a>
+-    <p>$28</p>
+-  </div>
+-  
+-  <div class="card sealed">
+-    <a href="ascened.heroes.tin.riolu.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/ascended_heroes_tin1.png"
+-          alt="Ascended Heroes Mini Tin (Riolu & Darumaka)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Ascended Heroes Mini Tin (Riolu & Darumaka)</h3>
+-    </a>
+-    <p>$20</p>
+-  </div>
++  /* ---------- Modal ---------- */
++  .modal-backdrop{
++    position:fixed; inset:0;
++    background:rgba(6,8,11,0.7);
++    display:none;
++    align-items:center; justify-content:center;
++    z-index:50;
++    padding:20px;
++  }
++  .modal-backdrop.open{ display:flex; }
++  .modal{
++    background:var(--surface-raised);
++    border:1px solid var(--line);
++    border-radius:8px;
++    padding:32px;
++    max-width:380px;
++    width:100%;
++  }
++  .modal .eyebrow{
++    font-family:'Barlow Condensed', sans-serif;
++    color:var(--gold);
++    letter-spacing:0.15em;
++    text-transform:uppercase;
++    font-size:0.75rem;
++    font-weight:600;
++    margin-bottom:8px;
++  }
++  .modal h3{
++    font-family:'Fraunces', serif;
++    font-weight:500;
++    font-size:1.3rem;
++    margin-bottom:18px;
++  }
++  .modal label{
++    display:block;
++    font-family:'Barlow Condensed', sans-serif;
++    font-size:0.8rem;
++    letter-spacing:0.06em;
++    text-transform:uppercase;
++    color:var(--muted);
++    margin-bottom:6px;
++    margin-top:16px;
++  }
++  .modal input{
++    width:100%;
++    background:var(--void);
++    border:1px solid var(--line);
++    color:var(--text);
++    padding:10px 12px;
++    border-radius:4px;
++    font-family:'Inter', sans-serif;
++    font-size:0.95rem;
++  }
++  .modal input:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
++  .modal-actions{ display:flex; gap:10px; margin-top:24px; }
++  .modal-actions button{
++    flex:1; padding:11px 0; border-radius:4px; cursor:pointer;
++    font-family:'Barlow Condensed', sans-serif; font-weight:600;
++    letter-spacing:0.05em; text-transform:uppercase; font-size:0.9rem;
++    border:1px solid var(--line);
++  }
++  .btn-cancel{ background:transparent; color:var(--muted); }
++  .btn-send{ background:var(--gold); color:#1A1406; border-color:var(--gold); }
++  .btn-send:hover{ background:var(--gold-bright); }
++
++  footer{
++    text-align:center; padding:36px 20px;
++    color:var(--muted);
++    font-size:0.85rem;
++    border-top:1px solid var(--line);
++  }
++  footer a{ color:var(--muted); text-decoration:none; }
++  footer a:hover{ color:var(--gold-bright); }
+ 
+-  <div class="card sealed">
+-    <a href="ascened.heroes.tin.clefairy.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/ascended_heroes_tin2.png"
+-          alt="Ascended Heroes Mini Tin (Clefairy & Chikorita)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Ascended Heroes Mini Tin (Clefairy & Chikorita)</h3>
+-    </a>
+-    <p>$20</p>
+-  </div>
+-  
+-<div class="card sealed">
+-    <a href="2pack.blister.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/2_Pack_Blister1.png"
+-          alt="2-Pack Blister (Raikou)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>2-Pack Blister (Raikou)</h3>
+-    </a>
+-    <p>$16</p>
+-  </div>
++  @media (prefers-reduced-motion: reduce){
++    .tile, .art::before{ transition:none !important; }
++  }
++</style>
++</head>
++<body>
+ 
+-  <div class="card sealed">
+-    <a href="knock.out.kyogre.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_kyogre.jpg"
+-          alt="Knock Out Collection (Kyogre)">  
+-        <div class="sold-label">Sold Out</div>
+-      </div>  
+-      <h3>Knock Out Collection (Kyogre)</h3>
+-    </a>
+-    <p>$14</p>
+-  </div>
+-  
+-<div class="card sealed">
+-    <a href="mega.portfolio.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Mega_Portfolios1.jpg"
+-          alt="Mega Evolution Mini portfolio Sealed Box">
+-        <div class="sold-label">Sold Out</div>
+-      </div>        
+-      <h3>Mega Evolution Mini Portfolio Sealed Box</h3>
+-    </a>
+-    <p>$95</p>
++<header>
++  <div class="header-left">
++    <a href="index.html" class="logo">Jaronhav<span>TCG</span></a>
++    <div class="social-links">
++      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
++      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a>
++    </div>
+   </div>
+ 
+-<div class="card sealed">
+-    <a href="ascended_heroes_gastly.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Ascended_Heroes_Sticker_Gengar.png"
+-          alt="Ascended Heroes Tech Sticker Collection (Gastly)">
+-        <div class="sold-label">Sold Out</div>
++  <nav class="nav-menu">
++    <a href="graded_cards.html">Graded Cards</a>
++    <a href="sealed.html">Sealed</a>
++    <a href="foreign.sealed.html">Foreign Language Sealed</a>
++    <div class="dropdown">
++      <a href="#">Singles ▾</a>
++      <div class="dropdown-content">
++        <div class="dropdown-content-inner">
++          <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">TCGplayer</a>
++          <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
++        </div>
+       </div>
+-      <h3>Ascended Heroes Tech Sticker Collection (Gastly)</h3>
+-    </a>
+-    <p>$34</p>
+-  </div>
+-
+-<div class="card sealed">
+-  <a href="ascended.heroes.charmander.html">
+-    <div class="image-container">
+-      <img class="sealed-img"
+-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Ascended_Heroes_Sticker_Charmander.png"
+-        alt="Ascended Heroes Tech Sticker Collection (Charmander)">
+-      <div class="sold-label">Sold Out</div>
+     </div>
+-    <h3>Ascended Heroes Tech Sticker Collection (Charmander)</h3>
+-  </a>
+-  <p>$34</p>
+-</div>
+-
++    <a href="mtg.html">Magic The Gathering</a>
++    <a href="op.html">One Piece</a>
++    <a href="contact.html">Contact</a>
++  </nav>
+ 
+-<div class="card sealed">
+-    <a href="pokemon.day.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Pokemon_Day.png"
+-          alt="Pokemon Day 2026 Collection Box">
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Pokemon Day 2026 Collection</h3>
+-    </a>
+-    <p>$24</p>
+-  </div>
+-  
+-  
+-  <div class="card sealed">
+-    <a href="knock_out_suicune.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/knock_out_suicune.jpg"
+-          alt="Knock Out Collection (Suicune)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>        
+-      <h3>Knock Out Collection (Suicune)</h3>
+-    </a>
+-    <p>$14</p>
+-  </div>
+-
+-
+-    <div class="card sealed">
+-    <a href="phantasmal.flames.single.pack.blister.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Single_Pack_Blister.png"
+-          alt="Phantasmal Flames Single Pack Blister (Whimsicott))">
+-        <div class="sold-label">Sold Out</div>
+-      </div>         
+-      <h3>Phantasmal Flames Single Pack Blister (Whimsicott)</h3>
+-    </a>
+-    <p>$7</p>
+-  </div>
+-
+-</div>
+-
+-
+-  <!-- Packs -->
+-<h2 class="section-title">Packs</h2>
+-
+-<div class="card-container">
++  <div class="menu-toggle" id="menuToggle">☰</div>
++</header>
+ 
+-<div class="card sealed">
+-  <a href="phantasmal.html">
+-    <div class="image-container">
+-      <img class="sealed-img"
+-      src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Phantasmal_Flames_Packs.jpg"
+-      alt="Phantasmal Flames Packs">
+-      <div class="sold-label">Sold Out</div>
+-    </div>
+-    <h3>Phantasmal Flames Sleeved Pack</h3>
+-  </a>
+-  <p>$6</p>
++<div class="mobile-menu" id="mobileMenu">
++  <a href="graded_cards.html">Graded Cards</a>
++  <a href="sealed.html">Sealed</a>
++  <a href="foreign.sealed.html">Foreign Language Sealed</a>
++  <a href="https://jaronhavtcg.tcgplayerpro.com/search/products?productLineName=Pokemon" target="_blank">Singles — TCGplayer</a>
++  <a href="https://www.ebay.com/usr/jaronhav" target="_blank">Singles — eBay</a>
++  <a href="mtg.html">Magic The Gathering</a>
++  <a href="op.html">One Piece</a>
++  <a href="contact.html">Contact</a>
+ </div>
+-  
+-  <div class="card sealed">
+-    <a href="Destined.Rivals.Sleeved.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Destined_Sleeved.png"
+-          alt="Destined Rivals Sleeved Pack"> 
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>Destined Rivals Sleeved Pack</h3>
+-    </a>
+-    <p>$7</p>
+-  </div>
+-  
+-
+-  <div class="card sealed">
+-    <a href="mega.evo.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/mega_packs.png"
+-          alt="Mega Evolutions Pack">
+-        <div class="sold-label">Sold Out</div>
+-      </div>            
+-      <h3>Mega Evolution Pack</h3>
+-    </a>
+-    <p>$6</p>
+-  </div>
+ 
+-  <div class="card sealed">
+-    <a href="journey.together.pack.html">
+-       <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/journey_packs.png"
+-          alt="Journey Together Pack">
+-        <div class="sold-label">Sold Out</div>
+-      </div>           
+-      <h3>Journey Together Pack</h3>
+-    </a>
+-    <p>$6</p>
++<section class="hero">
++  <div class="eyebrow">Off eBay, on your terms</div>
++  <h1>The cards you've been watching, without the eBay markup.</h1>
++  <p>See something below you want? Request it and I'll pull it straight from my eBay listing to check out here — lower fees for me, a better price for you.</p>
++</section>
++
++<div class="find-panel">
++  <div class="find-copy">
++    <div class="eyebrow">Not listed here?</div>
++    <h4>I don't put everything from eBay on this site.</h4>
++    <p>Know the card you want? Give me the name or the eBay item ID and I'll get it set up for you here.</p>
+   </div>
+-
+-  <div class="card sealed">
+-    <a href="surging.sparks.html">
+-       <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Surging_Sparks_Packs.jpg"
+-          alt="Surging Sparks Packs">
+-        <div class="sold-label">Sold Out</div>
+-      </div>           
+-      <h3>Surging Sparks Pack</h3>
+-    </a>
+-    <p>$6</p>
++  <div class="find-fields" id="findFields">
++    <input type="text" id="findQuery" name="query" placeholder="Card name or eBay item ID" form="generalRequestForm">
++    <input type="email" id="findEmail" name="email" placeholder="Your email" form="generalRequestForm" required>
++    <input type="hidden" name="_subject" value="New Card Search Request" form="generalRequestForm">
++    <button id="findSubmit" type="submit" form="generalRequestForm">Send Request</button>
+   </div>
+-  
+- <div class="card sealed">
+-    <a href="black.crystal.blaze.html">
+-       <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/Black_Crystal_Blaze.png"
+-          alt="Black Crystal Blaze Simplified Chinese Pack">
+-        <div class="sold-label">Sold Out</div>
+-      </div>           
+-      <h3>Black Crystal Blaze Simplified Chinese Pack</h3>
+-    </a>
+-    <p>$2</p>
+-  </div>
+-
+ </div>
++<form id="generalRequestForm" action="https://formspree.io/f/xdalvggz" method="POST" style="display:none;"></form>
+ 
+-    <!-- MTG -->
+-<h2 class="section-title">MTG</h2>
+-
+-<div class="card-container">
+-
+-    <div class="card sealed">
+-    <a href="final_fantasy.play.booster.html">
+-      <img class="sealed-img"
+-        src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_Play_Booster.png"
+-        alt="Final Fantasy - Play Booster Pack">
+-      <h3>Final Fantasy - Play Booster Pack</h3>
+-    </a>
+-    <p>$5</p>
++<main>
++  <div class="search-wrap">
++    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B92A0" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
++    <input type="text" id="searchInput" placeholder="Search by card name or eBay item ID">
++    <div class="search-count" id="searchCount"></div>
+   </div>
+ 
+-    <div class="card sealed">
+-    <a href="lord.of.the.rings.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_Lord_of_The_Rings.png"
+-          alt="Lord of The Rings Sleeved Set Booster Pack">
+-        <div class="sold-label">Sold Out</div>
+-      </div>            
+-      <h3>Lord of The Rings Sleeved Set Booster Pack</h3>
+-    </a>
+-    <p>$10</p>
+-  </div>
+-  
+-    <div class="card sealed">
+-    <a href="Final.Fantasy.Siege.Alexandria.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/MTG_FIN_The_Siege_of_Alexandria.png"
+-          alt="Final Fantasy - Scene Box (The Siege of Alexandria)">
+-        <div class="sold-label">Sold Out</div>
+-      </div>           
+-      <h3>Final Fantasy - Scene Box (The Siege of Alexandria)</h3>
+-    </a>
+-    <p>$50</p>
+-  </div>
+-  
+-</div>
+-
+- <!-- OP -->
+-<h2 class="section-title">One Piece</h2>
+-
+-<div class="card-container">
+-
++  <div class="loading-state" id="loadingState">Loading cards…</div>
++  <div class="grid" id="cardGrid" style="display:none;"></div>
+ 
+-    <div class="card sealed">
+-    <a href="op.illustration.box.vol.5.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/OP_illustration_vol.5.png"
+-          alt="One Piece Illustration Box Vol.5">   
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>One Piece Illustration Box Vol.5</h3>
+-    </a>
+-    <p>$48</p>
++  <div class="empty-state" id="emptyState">
++    <h4>No cards match that search.</h4>
++    <p>Don't see it? <a id="emptyStateLink">Request it above</a> and I'll add it for you.</p>
+   </div>
+-
+-    <div class="card sealed">
+-    <a href="op.illustration.box.vol.6.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_illustration_vol.6.png"
+-          alt="One Piece Illustration Box Vol.6">  
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>One Piece Illustration Box Vol.6</h3>
+-    </a>
+-    <p>$48</p>
++</main>
++
++<footer>© 2026 Jaronhav TCG · <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> · <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a></footer>
++
++<!-- Request modal -->
++<div class="modal-backdrop" id="modalBackdrop">
++  <div class="modal">
++    <div class="eyebrow" id="modalCard">Card name</div>
++    <h3>Request this card</h3>
++    <label for="email">Your email</label>
++    <input type="email" id="email" name="email" placeholder="you@email.com" form="tileRequestForm" required>
++    <label for="note">Note (optional)</label>
++    <input type="text" id="note" name="note" placeholder="Anything I should know?" form="tileRequestForm">
++    <input type="hidden" id="tileCardName" name="card" form="tileRequestForm">
++    <input type="hidden" id="tileEbayId" name="ebay_item_id" form="tileRequestForm">
++    <input type="hidden" name="_subject" value="Card Request" form="tileRequestForm">
++    <div class="modal-actions">
++      <button class="btn-cancel" id="cancelBtn" type="button">Cancel</button>
++      <button class="btn-send" id="sendBtn" type="submit" form="tileRequestForm">Send Request</button>
++    </div>
+   </div>
++</div>
++<form id="tileRequestForm" action="https://formspree.io/f/xdalvggz" method="POST" style="display:none;"></form>
++
++<script>
++  // ---- Mobile menu toggle ----
++  const menuToggle = document.getElementById("menuToggle");
++  const mobileMenu = document.getElementById("mobileMenu");
++  menuToggle.addEventListener("click", () => {
++    mobileMenu.style.display = mobileMenu.style.display === "flex" ? "none" : "flex";
++  });
++
++  // ---- Modal wiring ----
++  const backdrop = document.getElementById('modalBackdrop');
++  const modalCard = document.getElementById('modalCard');
++
++  function openRequestModal(card){
++    modalCard.textContent = card.title;
++    document.getElementById('tileCardName').value = card.title;
++    document.getElementById('tileEbayId').value = card.ebayItemId;
++    backdrop.classList.add('open');
++  }
++  document.getElementById('cancelBtn').addEventListener('click', () => backdrop.classList.remove('open'));
++  backdrop.addEventListener('click', (e) => { if(e.target === backdrop) backdrop.classList.remove('open'); });
++
++  // ---- Shared Formspree submit helper ----
++  async function submitToFormspree(form, btn, busyLabel, doneLabel, onDone){
++    const original = btn.textContent;
++    btn.disabled = true;
++    btn.textContent = busyLabel;
++    try{
++      const res = await fetch(form.action, {
++        method: 'POST',
++        body: new FormData(form),
++        headers: { 'Accept': 'application/json' }
++      });
++      btn.textContent = res.ok ? doneLabel : 'Something went wrong';
++    } catch(err){
++      btn.textContent = 'Something went wrong';
++    }
++    setTimeout(() => {
++      btn.disabled = false;
++      btn.textContent = original;
++      if(onDone) onDone();
++    }, 1400);
++  }
+ 
+-    <div class="card sealed">
+-    <a href="op.tin.portgas.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2.portgas.png"
+-          alt="One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace">  
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>One Piece Tin Pack Set Vol. 2 - Portgas.D.Ace</h3>
+-    </a>
+-    <p>$26</p>
+-  </div>
++  document.getElementById('tileRequestForm').addEventListener('submit', (e) => {
++    e.preventDefault();
++    const form = e.target;
++    const sendBtn = document.getElementById('sendBtn');
++    submitToFormspree(form, sendBtn, 'Sending…', 'Sent ✓', () => {
++      backdrop.classList.remove('open');
++      document.getElementById('email').value = '';
++      document.getElementById('note').value = '';
++    });
++  });
++
++  // ---- General "not listed here" request form ----
++  document.getElementById('generalRequestForm').addEventListener('submit', (e) => {
++    e.preventDefault();
++    const form = e.target;
++    const query = document.getElementById('findQuery').value.trim();
++    const email = document.getElementById('findEmail').value.trim();
++    const submitBtn = document.getElementById('findSubmit');
++    if(!query || !email){
++      submitBtn.textContent = 'Fill both fields';
++      setTimeout(() => { submitBtn.textContent = 'Send Request'; }, 1400);
++      return;
++    }
++    submitToFormspree(form, submitBtn, 'Sending…', 'Sent ✓', () => {
++      document.getElementById('findQuery').value = '';
++      document.getElementById('findEmail').value = '';
++    });
++  });
++
++  // ---- Card grid: load from cards.json, render tiles, wire search ----
++  const grid = document.getElementById('cardGrid');
++  const loadingState = document.getElementById('loadingState');
++  const emptyState = document.getElementById('emptyState');
++  const searchInput = document.getElementById('searchInput');
++  const searchCount = document.getElementById('searchCount');
++  let cards = [];
++
++  function monogram(title){
++    const words = title.replace(/[—–-]/g, ' ').split(/\s+/).filter(Boolean);
++    const initials = words.slice(0, 2).map(w => w[0]).join('');
++    return initials.toUpperCase() || '?';
++  }
+ 
+-    <div class="card sealed">
+-    <a href="op.tin.sabo.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_tin_vol2_sabo.png"
+-          alt="One Piece Tin Pack Set Vol. 2 - Sabo">   
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>One Piece Tin Pack Set Vol. 2 - Sabo </h3>
+-    </a>
+-    <p>$26</p>
+-  </div>
+-  
+-    <div class="card sealed">
+-    <a href="op.heroines.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_heroines.png"
+-          alt="One Piece Heroines Edition Sleeved Booster Pack">   
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>One Piece Heroines Edition Sleeved Booster Pack</h3>
+-    </a>
+-    <p>$9</p>
+-  </div>
++  function renderTiles(){
++    grid.innerHTML = '';
++    cards.forEach(card => {
++      const tile = document.createElement('div');
++      tile.className = 'tile';
++      tile.dataset.title = card.title.toLowerCase();
++      tile.dataset.ebayId = card.ebayItemId;
++
++      tile.innerHTML = `
++        <div class="art">
++          <span class="grade-chip">${card.grade}</span>
++          <span class="tag">${card.price}</span>
++          ${card.image ? `<img src="${card.image}" alt="${card.title}" loading="lazy">` : `<span class="mark">${monogram(card.title)}</span>`}
++        </div>
++        <div class="info">
++          <h3>${card.title}</h3>
++          <div class="meta">${card.set}</div>
++          <span class="item-id">Item #${card.ebayItemId}</span>
++          <button class="request-btn" type="button">Request This Card</button>
++        </div>
++      `;
++
++      tile.querySelector('.request-btn').addEventListener('click', () => openRequestModal(card));
++      grid.appendChild(tile);
++    });
++  }
+ 
+-    <div class="card sealed">
+-    <a href="the.azure.seas.seven.html">
+-      <div class="image-container">
+-        <img class="sealed-img"
+-          src="https://raw.githubusercontent.com/jaronhav/jaronhav-tcg/main/images/op_the_azure.png"
+-          alt="The Azure Sea's Seven Sleeved Booster Pack">  
+-        <div class="sold-label">Sold Out</div>
+-      </div>
+-      <h3>The Azure Sea's Seven Sleeved Booster Pack</h3>
+-    </a>
+-    <p>$7</p>
+-  </div>
+-  
+-</div>
+-  
+-  <footer>
+-    <p>&copy; 2026 Jaronhav TCG</p>
+-    <div class="socials">
+-      <a href="https://www.instagram.com/jaronhav_tcg/" target="_blank">Instagram</a> |
+-      <a href="https://www.ebay.com/usr/jaronhav" target="_blank">eBay</a>
+-    </div>
+-  </footer>
+-
+-  <!-- ✅ MOBILE MENU TOGGLE SCRIPT -->
+-  <script>
+-    const menuToggle = document.getElementById("menuToggle");
+-    const mobileMenu = document.getElementById("mobileMenu");
+-
+-    menuToggle.addEventListener("click", () => {
+-      if (mobileMenu.style.display === "flex") {
+-        mobileMenu.style.display = "none";
+-      } else {
+-        mobileMenu.style.display = "flex";
+-      }
++  function runSearch(){
++    const q = searchInput.value.trim().toLowerCase();
++    const tiles = Array.from(grid.querySelectorAll('.tile'));
++    let visible = 0;
++    tiles.forEach(tile => {
++      const match = q === '' || tile.dataset.title.includes(q) || tile.dataset.ebayId.includes(q);
++      tile.style.display = match ? '' : 'none';
++      if(match) visible++;
++    });
++    searchCount.textContent = q === '' ? '' : `${visible} card${visible === 1 ? '' : 's'} found`;
++    emptyState.classList.toggle('show', visible === 0);
++    grid.style.display = visible === 0 ? 'none' : 'grid';
++  }
++  searchInput.addEventListener('input', runSearch);
++
++  document.getElementById('emptyStateLink').addEventListener('click', () => {
++    document.getElementById('findQuery').value = searchInput.value;
++    document.getElementById('findQuery').focus();
++    window.scrollTo({ top: document.querySelector('.find-panel').offsetTop - 90, behavior:'smooth' });
++  });
++
++  fetch('cards.json')
++    .then(res => res.json())
++    .then(data => {
++      cards = data;
++      renderTiles();
++      loadingState.style.display = 'none';
++      grid.style.display = 'grid';
++      runSearch();
++    })
++    .catch(err => {
++      console.error('Failed to load cards.json', err);
++      loadingState.textContent = 'Couldn’t load cards right now — try refreshing.';
+     });
+-  </script>
++</script>
+ 
+ </body>
+ </html>
+diff --git a/vercel.json b/vercel.json
+index 2355643..e2ac197 100644
+--- a/vercel.json
++++ b/vercel.json
+@@ -8,6 +8,14 @@
+     {
+       "src": "**/*.html",
+       "use": "@vercel/static"
++    },
++    {
++      "src": "cards.json",
++      "use": "@vercel/static"
++    },
++    {
++      "src": "images/**",
++      "use": "@vercel/static"
+     }
+   ],
+   "routes": [
+-- 
+2.43.0
+
