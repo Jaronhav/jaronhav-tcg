@@ -59,6 +59,9 @@
   h1{
     font-family:'Fraunces', serif; font-weight:500; font-size:1.9rem; margin-bottom:30px;
   }
+  h2{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.3rem; margin:44px 0 18px;
+  }
 
   .panel{
     background:var(--surface); border:1px solid var(--line); border-radius:8px;
@@ -91,6 +94,16 @@
     padding:11px 20px; font-size:0.9rem;
   }
   .btn-secondary:hover{ color:var(--text); border-color:var(--gold); }
+  .btn-danger{
+    background:transparent; color:var(--danger); border:1px solid rgba(217,108,95,0.4);
+    padding:6px 12px; font-size:0.78rem;
+  }
+  .btn-danger:hover{ background:rgba(217,108,95,0.12); border-color:var(--danger); }
+  .btn-small{
+    background:transparent; color:var(--muted); border:1px solid var(--line);
+    padding:6px 12px; font-size:0.78rem;
+  }
+  .btn-small:hover{ color:var(--text); border-color:var(--gold); }
 
   .status{
     margin-top:14px; font-family:'Barlow Condensed', sans-serif; font-size:0.88rem;
@@ -100,6 +113,28 @@
   .status.error{ background:rgba(217,108,95,0.12); color:var(--danger); }
   .status.success{ background:rgba(201,162,75,0.12); color:var(--gold-bright); }
   .status.info{ background:rgba(139,146,160,0.12); color:var(--muted); }
+
+  /* ---------- Existing cards list ---------- */
+  .card-row{
+    display:flex; align-items:center; gap:14px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+  }
+  .card-row:last-child{ border-bottom:none; }
+  .card-row .thumb{
+    width:44px; height:55px; border-radius:4px; overflow:hidden; flex-shrink:0;
+    background:linear-gradient(155deg, #232A36 0%, #171B22 55%, #10131A 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-row .thumb img{ width:100%; height:100%; object-fit:cover; }
+  .card-row .thumb .mark{ font-family:'Fraunces', serif; font-size:1.1rem; color:rgba(237,234,227,0.2); }
+  .card-row .row-info{ flex:1; min-width:0; }
+  .card-row .row-title{ font-size:0.92rem; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .card-row .row-meta{
+    font-family:'Barlow Condensed', sans-serif; font-size:0.78rem; color:var(--muted);
+    letter-spacing:0.02em; margin-top:2px;
+  }
+  .card-row .row-actions{ display:flex; gap:8px; flex-shrink:0; }
+  .empty-list{ color:var(--muted); font-size:0.9rem; padding:8px 0; }
 
   /* ---------- Tile preview (matches index.html exactly) ---------- */
   .preview-wrap{ display:none; }
@@ -190,7 +225,7 @@
     </div>
 
     <div class="preview-wrap" id="previewWrap">
-      <div class="preview-label">Preview — edit anything before approving</div>
+      <div class="preview-label" id="previewLabel">Preview — edit anything before approving</div>
 
       <div class="tile-preview">
         <div class="art">
@@ -220,6 +255,7 @@
 
         <label>Image</label>
         <div class="image-picker" id="imagePicker"></div>
+        <input type="text" id="fieldImage" placeholder="Or paste an image URL directly" style="margin-top:8px;">
 
         <label for="fieldEbayId">eBay item ID</label>
         <input type="text" id="fieldEbayId" readonly style="opacity:0.6;">
@@ -235,6 +271,12 @@
         </div>
         <div class="status" id="approveStatus"></div>
       </div>
+    </div>
+
+    <h2>Your cards</h2>
+    <div class="panel">
+      <div id="cardList"><div class="empty-list">Loading…</div></div>
+      <div class="status" id="listStatus"></div>
     </div>
   </div>
 
@@ -258,6 +300,7 @@
     loginPanel.style.display = 'none';
     toolWrap.style.display = 'block';
     logoutBtn.style.display = 'inline-block';
+    loadCardList();
   }
   function showLogin(){
     loginPanel.style.display = 'block';
@@ -299,12 +342,17 @@
     showLogin();
   });
 
-  // ---- Lookup ----
+  // ---- Lookup (add mode) ----
   const lookupBtn = document.getElementById('lookupBtn');
   const lookupStatus = document.getElementById('lookupStatus');
   const previewWrap = document.getElementById('previewWrap');
+  const previewLabel = document.getElementById('previewLabel');
+  const approveBtn = document.getElementById('approveBtn');
+  const discardBtn = document.getElementById('discardBtn');
+  const approveStatus = document.getElementById('approveStatus');
   let currentImages = [];
   let selectedImage = '';
+  let mode = 'add'; // 'add' | 'edit'
 
   lookupBtn.addEventListener('click', async () => {
     const input = document.getElementById('lookupInput').value.trim();
@@ -327,8 +375,9 @@
         return;
       }
 
-      populatePreview(data);
+      startAdd(data);
       previewWrap.classList.add('show');
+      previewWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       showStatus(lookupStatus, 'Something went wrong.', 'error');
     } finally {
@@ -340,7 +389,12 @@
     if (e.key === 'Enter') lookupBtn.click();
   });
 
-  function populatePreview(data){
+  function startAdd(data){
+    mode = 'add';
+    previewLabel.textContent = 'Preview — edit anything before approving';
+    approveBtn.textContent = 'Approve & Add';
+    discardBtn.textContent = 'Discard';
+
     document.getElementById('fieldTitle').value = data.title || '';
     document.getElementById('fieldPrice').value = data.price || '';
     document.getElementById('fieldGrade').value = data.guesses?.grade || '';
@@ -349,14 +403,41 @@
 
     currentImages = data.images || [];
     selectedImage = currentImages[0] || '';
+    document.getElementById('fieldImage').value = selectedImage;
     renderImagePicker();
 
     const aspectsTable = document.getElementById('aspectsTable');
     aspectsTable.innerHTML = (data.aspects || [])
       .map((a) => `<tr><td>${escapeHtml(a.name)}</td><td>${escapeHtml(a.value)}</td></tr>`)
       .join('');
+    document.getElementById('aspectsWrap').style.display = '';
 
     updateTilePreview();
+  }
+
+  function startEdit(card){
+    mode = 'edit';
+    previewLabel.textContent = `Editing — ${card.title}`;
+    approveBtn.textContent = 'Save Changes';
+    discardBtn.textContent = 'Cancel';
+
+    document.getElementById('fieldTitle').value = card.title || '';
+    document.getElementById('fieldPrice').value = card.price || '';
+    document.getElementById('fieldGrade').value = card.grade || '';
+    document.getElementById('fieldSet').value = card.set || '';
+    document.getElementById('fieldEbayId').value = card.ebayItemId || '';
+
+    currentImages = card.image ? [card.image] : [];
+    selectedImage = card.image || '';
+    document.getElementById('fieldImage').value = selectedImage;
+    renderImagePicker();
+
+    document.getElementById('aspectsTable').innerHTML = '';
+    document.getElementById('aspectsWrap').style.display = 'none';
+
+    updateTilePreview();
+    previewWrap.classList.add('show');
+    previewWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function renderImagePicker(){
@@ -367,11 +448,18 @@
     picker.querySelectorAll('img').forEach((img) => {
       img.addEventListener('click', () => {
         selectedImage = img.dataset.url;
+        document.getElementById('fieldImage').value = selectedImage;
         renderImagePicker();
         updateTilePreview();
       });
     });
   }
+
+  document.getElementById('fieldImage').addEventListener('input', (e) => {
+    selectedImage = e.target.value.trim();
+    renderImagePicker();
+    updateTilePreview();
+  });
 
   function monogram(title){
     const words = (title || '').replace(/[—–-]/g, ' ').split(/\s+/).filter(Boolean);
@@ -412,14 +500,11 @@
     return div.innerHTML;
   }
 
-  // ---- Approve / Discard ----
-  const approveBtn = document.getElementById('approveBtn');
-  const approveStatus = document.getElementById('approveStatus');
-
+  // ---- Approve / Save / Discard ----
   approveBtn.addEventListener('click', async () => {
     hideStatus(approveStatus);
     approveBtn.disabled = true;
-    approveBtn.textContent = 'Adding…';
+    approveBtn.textContent = mode === 'edit' ? 'Saving…' : 'Adding…';
 
     const card = {
       title: document.getElementById('fieldTitle').value.trim(),
@@ -430,8 +515,10 @@
       ebayItemId: document.getElementById('fieldEbayId').value.trim(),
     };
 
+    const endpoint = mode === 'edit' ? '/api/cards-update' : '/api/cards-add';
+
     try {
-      const res = await fetch('/api/cards-add', {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(card),
@@ -439,21 +526,29 @@
       const data = await res.json();
 
       if (!res.ok) {
-        showStatus(approveStatus, data.error || 'Failed to add card.', 'error');
+        showStatus(approveStatus, data.error || 'Failed to save card.', 'error');
         return;
       }
 
-      showStatus(approveStatus, 'Added — live on the site in a minute or so.', 'success');
+      if (mode === 'edit') {
+        const i = existingCards.findIndex((c) => c.ebayItemId === card.ebayItemId);
+        if (i !== -1) existingCards[i] = card;
+      } else {
+        existingCards.push(card);
+      }
+      renderCardList();
+
+      showStatus(approveStatus, mode === 'edit' ? 'Saved — live on the site in a minute or so.' : 'Added — live on the site in a minute or so.', 'success');
       setTimeout(resetTool, 1800);
     } catch (err) {
       showStatus(approveStatus, 'Something went wrong.', 'error');
     } finally {
       approveBtn.disabled = false;
-      approveBtn.textContent = 'Approve & Add';
+      approveBtn.textContent = mode === 'edit' ? 'Save Changes' : 'Approve & Add';
     }
   });
 
-  document.getElementById('discardBtn').addEventListener('click', resetTool);
+  discardBtn.addEventListener('click', resetTool);
 
   function resetTool(){
     document.getElementById('lookupInput').value = '';
@@ -462,6 +557,91 @@
     hideStatus(approveStatus);
     currentImages = [];
     selectedImage = '';
+    mode = 'add';
+  }
+
+  // ---- Existing cards list ----
+  const cardList = document.getElementById('cardList');
+  const listStatus = document.getElementById('listStatus');
+  let existingCards = [];
+
+  async function loadCardList(){
+    try {
+      const res = await fetch('/cards.json', { cache: 'no-store' });
+      existingCards = await res.json();
+      renderCardList();
+    } catch (err) {
+      cardList.innerHTML = '<div class="empty-list">Couldn’t load your cards right now.</div>';
+    }
+  }
+
+  function renderCardList(){
+    if (!existingCards.length) {
+      cardList.innerHTML = '<div class="empty-list">No cards yet.</div>';
+      return;
+    }
+    cardList.innerHTML = existingCards
+      .map((card) => `
+        <div class="card-row" data-id="${escapeHtml(card.ebayItemId)}">
+          <div class="thumb">
+            ${card.image
+              ? `<img src="${card.image}" alt="">`
+              : `<span class="mark">${monogram(card.title)}</span>`}
+          </div>
+          <div class="row-info">
+            <div class="row-title">${escapeHtml(card.title)}</div>
+            <div class="row-meta">${escapeHtml(card.price)}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}</div>
+          </div>
+          <div class="row-actions">
+            <button class="btn-small" data-action="edit">Edit</button>
+            <button class="btn-danger" data-action="delete">Delete</button>
+          </div>
+        </div>
+      `)
+      .join('');
+
+    cardList.querySelectorAll('.card-row').forEach((row) => {
+      const id = row.dataset.id;
+      row.querySelector('[data-action="edit"]').addEventListener('click', () => {
+        const card = existingCards.find((c) => c.ebayItemId === id);
+        if (card) startEdit(card);
+      });
+      row.querySelector('[data-action="delete"]').addEventListener('click', () => {
+        const card = existingCards.find((c) => c.ebayItemId === id);
+        if (card) deleteCard(card);
+      });
+    });
+  }
+
+  async function deleteCard(card){
+    if (!confirm(`Delete "${card.title}"? This can't be undone.`)) return;
+
+    hideStatus(listStatus);
+    try {
+      const res = await fetch('/api/cards-delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ebayItemId: card.ebayItemId }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showStatus(listStatus, data.error || 'Failed to delete card.', 'error');
+        return;
+      }
+
+      existingCards = existingCards.filter((c) => c.ebayItemId !== card.ebayItemId);
+      renderCardList();
+      showStatus(listStatus, 'Deleted — live on the site in a minute or so.', 'success');
+      setTimeout(() => hideStatus(listStatus), 2500);
+
+      // If the deleted card was open in the editor, close it out.
+      if (mode === 'edit' && document.getElementById('fieldEbayId').value === card.ebayItemId) {
+        resetTool();
+      }
+    } catch (err) {
+      showStatus(listStatus, 'Something went wrong.', 'error');
+    }
   }
 </script>
 
