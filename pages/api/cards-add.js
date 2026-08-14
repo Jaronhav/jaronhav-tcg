@@ -66,7 +66,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Missing GITHUB_TOKEN' });
   }
 
-  const { title, price, grade, set, image, ebayItemId } = req.body || {};
+  const { title, price, ebayPrice, grade, set, image, ebayItemId } = req.body || {};
 
   if (!title || !price || !ebayItemId) {
     return res.status(400).json({ error: 'title, price, and ebayItemId are required' });
@@ -75,6 +75,7 @@ export default async function handler(req, res) {
   const newCard = {
     title,
     price,
+    ebayPrice: ebayPrice || '',
     grade: grade || '',
     set: set || '',
     image: image || '',

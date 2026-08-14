@@ -163,6 +163,15 @@
     color:#1A1406; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:1rem;
     padding:5px 16px 5px 14px; border-radius:3px 0 0 3px; box-shadow:0 6px 14px -4px rgba(0,0,0,0.5);
   }
+  .was-tag{
+    position:absolute; top:50px; right:14px;
+    color:var(--muted);
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:600;
+    font-size:0.78rem;
+    text-decoration:line-through;
+    opacity:0.85;
+  }
   .grade-chip{
     position:absolute; top:14px; left:14px; font-family:'IBM Plex Mono', monospace;
     font-size:0.7rem; color:var(--void); background:var(--text); padding:3px 8px; border-radius:3px;
@@ -172,6 +181,11 @@
   .tile-preview .meta{
     font-family:'Barlow Condensed', sans-serif; font-size:0.85rem; letter-spacing:0.04em;
     text-transform:uppercase; color:var(--muted);
+  }
+  .tile-preview .ebay-link{
+    display:block;
+    font-family:'Barlow Condensed', sans-serif; font-size:0.78rem;
+    color:var(--muted); text-decoration:underline; margin-top:6px;
   }
 
   .image-picker{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
@@ -231,12 +245,14 @@
         <div class="art">
           <span class="grade-chip" id="previewGradeChip">—</span>
           <span class="tag" id="previewTag">—</span>
+          <span class="was-tag" id="previewWasTag" style="display:none;"></span>
           <span class="mark" id="previewMark" style="display:none;">?</span>
           <img id="previewImg" style="display:none;">
         </div>
         <div class="info">
           <h3 id="previewTitle">—</h3>
           <div class="meta" id="previewMeta">—</div>
+          <a class="ebay-link" id="previewEbayLink" href="#" target="_blank" rel="noopener">View on eBay ↗</a>
         </div>
       </div>
 
@@ -244,8 +260,11 @@
         <label for="fieldTitle">Title</label>
         <input type="text" id="fieldTitle">
 
-        <label for="fieldPrice">Price</label>
-        <input type="text" id="fieldPrice" placeholder="$1,250">
+        <label for="fieldPrice">Your Price</label>
+        <input type="text" id="fieldPrice" placeholder="$435">
+
+        <label for="fieldEbayPrice">eBay Price (shown crossed out — leave blank to hide)</label>
+        <input type="text" id="fieldEbayPrice" placeholder="$650">
 
         <label for="fieldGrade">Grade</label>
         <input type="text" id="fieldGrade" placeholder="PSA 10">
@@ -397,6 +416,7 @@
 
     document.getElementById('fieldTitle').value = data.title || '';
     document.getElementById('fieldPrice').value = data.price || '';
+    document.getElementById('fieldEbayPrice').value = data.price || '';
     document.getElementById('fieldGrade').value = data.guesses?.grade || '';
     document.getElementById('fieldSet').value = data.guesses?.set || '';
     document.getElementById('fieldEbayId').value = data.ebayItemId || '';
@@ -423,6 +443,7 @@
 
     document.getElementById('fieldTitle').value = card.title || '';
     document.getElementById('fieldPrice').value = card.price || '';
+    document.getElementById('fieldEbayPrice').value = card.ebayPrice || '';
     document.getElementById('fieldGrade').value = card.grade || '';
     document.getElementById('fieldSet').value = card.set || '';
     document.getElementById('fieldEbayId').value = card.ebayItemId || '';
@@ -469,13 +490,26 @@
   function updateTilePreview(){
     const title = document.getElementById('fieldTitle').value || '—';
     const price = document.getElementById('fieldPrice').value || '—';
+    const ebayPrice = document.getElementById('fieldEbayPrice').value.trim();
     const grade = document.getElementById('fieldGrade').value || '—';
     const set = document.getElementById('fieldSet').value || '—';
+    const ebayId = document.getElementById('fieldEbayId').value.trim();
 
     document.getElementById('previewTitle').textContent = title;
     document.getElementById('previewTag').textContent = price;
     document.getElementById('previewGradeChip').textContent = grade;
     document.getElementById('previewMeta').textContent = set;
+
+    const wasTag = document.getElementById('previewWasTag');
+    if (ebayPrice) {
+      wasTag.textContent = ebayPrice;
+      wasTag.style.display = 'block';
+    } else {
+      wasTag.style.display = 'none';
+    }
+
+    const ebayLink = document.getElementById('previewEbayLink');
+    ebayLink.href = ebayId ? `https://www.ebay.com/itm/${ebayId}` : '#';
 
     const img = document.getElementById('previewImg');
     const mark = document.getElementById('previewMark');
@@ -490,7 +524,7 @@
     }
   }
 
-  ['fieldTitle', 'fieldPrice', 'fieldGrade', 'fieldSet'].forEach((id) => {
+  ['fieldTitle', 'fieldPrice', 'fieldEbayPrice', 'fieldGrade', 'fieldSet'].forEach((id) => {
     document.getElementById(id).addEventListener('input', updateTilePreview);
   });
 
@@ -509,6 +543,7 @@
     const card = {
       title: document.getElementById('fieldTitle').value.trim(),
       price: document.getElementById('fieldPrice').value.trim(),
+      ebayPrice: document.getElementById('fieldEbayPrice').value.trim(),
       grade: document.getElementById('fieldGrade').value.trim(),
       set: document.getElementById('fieldSet').value.trim(),
       image: selectedImage,
@@ -590,7 +625,7 @@
           </div>
           <div class="row-info">
             <div class="row-title">${escapeHtml(card.title)}</div>
-            <div class="row-meta">${escapeHtml(card.price)}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}</div>
+            <div class="row-meta">${escapeHtml(card.price)}${card.ebayPrice ? ` (was ${escapeHtml(card.ebayPrice)})` : ''}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}</div>
           </div>
           <div class="row-actions">
             <button class="btn-small" data-action="edit">Edit</button>
