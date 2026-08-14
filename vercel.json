@@ -8,6 +8,14 @@
     {
       "src": "**/*.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "cards.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "images/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
