@@ -1,6 +1,6 @@
 // pages/api/inventory.js
 
-const SHOPIFY_STORE = "jaronhav-tcg";
+const SHOPIFY_DOMAIN = "pxq5yx-ka.myshopify.com";
 const SHOPIFY_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
 
 export default async function handler(req, res) {
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     // 3️⃣ Fetch product variants from Shopify Admin API
-    const url = `https://${SHOPIFY_STORE}.myshopify.com/admin/api/2026-01/products/${id}/variants.json`;
+    const url = `https://${SHOPIFY_DOMAIN}/admin/api/2026-01/products/${id}/variants.json`;
 
     const response = await fetch(url, {
       method: "GET",

@@ -104,6 +104,12 @@
     padding:6px 12px; font-size:0.78rem;
   }
   .btn-small:hover{ color:var(--text); border-color:var(--gold); }
+  .btn-checkout{
+    background:transparent; color:var(--gold-bright); border:1px solid rgba(201,162,75,0.4);
+    padding:6px 12px; font-size:0.78rem;
+  }
+  .btn-checkout:hover{ background:rgba(201,162,75,0.12); border-color:var(--gold); }
+  .btn-checkout:disabled{ opacity:0.5; cursor:not-allowed; }
 
   .status{
     margin-top:14px; font-family:'Barlow Condensed', sans-serif; font-size:0.88rem;
@@ -630,6 +636,7 @@
             <div class="row-meta">${escapeHtml(card.price)}${card.ebayPrice ? ` (was ${escapeHtml(card.ebayPrice)})` : ''}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}</div>
           </div>
           <div class="row-actions">
+            <button class="btn-checkout" data-action="checkout">Create Checkout</button>
             <button class="btn-small" data-action="edit">Edit</button>
             <button class="btn-danger" data-action="delete">Delete</button>
           </div>
@@ -639,6 +646,10 @@
 
     cardList.querySelectorAll('.card-row').forEach((row) => {
       const id = row.dataset.id;
+      row.querySelector('[data-action="checkout"]').addEventListener('click', (e) => {
+        const card = existingCards.find((c) => c.ebayItemId === id);
+        if (card) createCheckout(card, e.target);
+      });
       row.querySelector('[data-action="edit"]').addEventListener('click', () => {
         const card = existingCards.find((c) => c.ebayItemId === id);
         if (card) startEdit(card);
@@ -648,6 +659,41 @@
         if (card) deleteCard(card);
       });
     });
+  }
+
+  async function createCheckout(card, btn){
+    hideStatus(listStatus);
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Creating…';
+
+    try {
+      const res = await fetch('/api/shopify-create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: card.title, price: card.price, image: card.image }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showStatus(listStatus, data.error || 'Failed to create checkout.', 'error');
+        return;
+      }
+
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(data.checkoutUrl);
+        copied = true;
+      } catch (e) {}
+
+      listStatus.innerHTML = `Checkout ready${copied ? ' (copied to clipboard)' : ''}: <a href="${data.checkoutUrl}" target="_blank" rel="noopener">${data.checkoutUrl}</a>`;
+      listStatus.className = 'status show success';
+    } catch (err) {
+      showStatus(listStatus, 'Something went wrong.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
   }
 
   async function deleteCard(card){
