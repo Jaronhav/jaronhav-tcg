@@ -676,7 +676,8 @@
       const data = await res.json();
 
       if (!res.ok) {
-        showStatus(listStatus, data.error || 'Failed to create checkout.', 'error');
+        const message = data.error || 'Failed to create checkout.';
+        showStatus(listStatus, data.details ? `${message}: ${data.details}` : message, 'error');
         return;
       }
 
