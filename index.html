@@ -661,6 +661,11 @@
     return initials.toUpperCase() || '?';
   }
 
+  function priceValue(priceStr){
+    const numeric = Number(String(priceStr || '').replace(/[^0-9.]/g, ''));
+    return Number.isFinite(numeric) ? numeric : 0;
+  }
+
   function renderTiles(){
     grid.innerHTML = '';
     cards.forEach(card => {
@@ -719,7 +724,7 @@
   fetch('cards.json')
     .then(res => res.json())
     .then(data => {
-      cards = data;
+      cards = data.slice().sort((a, b) => priceValue(b.price) - priceValue(a.price));
       renderTiles();
       loadingState.style.display = 'none';
       grid.style.display = 'grid';
