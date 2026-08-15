@@ -687,8 +687,11 @@
         copied = true;
       } catch (e) {}
 
-      listStatus.innerHTML = `Checkout ready${copied ? ' (copied to clipboard)' : ''}: <a href="${data.checkoutUrl}" target="_blank" rel="noopener">${data.checkoutUrl}</a>`;
-      listStatus.className = 'status show success';
+      const warningHtml = data.inventoryWarning
+        ? `<br><strong>Warning:</strong> inventory may not be set correctly — ${escapeHtml(data.inventoryWarning)}. Check the product in Shopify before sending this link.`
+        : '';
+      listStatus.innerHTML = `Checkout ready${copied ? ' (copied to clipboard)' : ''}: <a href="${data.checkoutUrl}" target="_blank" rel="noopener">${data.checkoutUrl}</a>${warningHtml}`;
+      listStatus.className = `status show ${data.inventoryWarning ? 'error' : 'success'}`;
     } catch (err) {
       showStatus(listStatus, 'Something went wrong.', 'error');
     } finally {
