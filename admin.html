@@ -633,10 +633,12 @@
           </div>
           <div class="row-info">
             <div class="row-title">${escapeHtml(card.title)}</div>
-            <div class="row-meta">${escapeHtml(card.price)}${card.ebayPrice ? ` (was ${escapeHtml(card.ebayPrice)})` : ''}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}</div>
+            <div class="row-meta">${escapeHtml(card.price)}${card.ebayPrice ? ` (was ${escapeHtml(card.ebayPrice)})` : ''}${card.grade ? ' · ' + escapeHtml(card.grade) : ''}${card.checkoutUrl ? ' · <span style="color:var(--gold)">Checkout ready</span>' : ''}</div>
           </div>
           <div class="row-actions">
-            <button class="btn-checkout" data-action="checkout">Create Checkout</button>
+            ${card.checkoutUrl
+              ? `<button class="btn-checkout" data-action="copy-link">Copy Link</button>`
+              : `<button class="btn-checkout" data-action="checkout">Create Checkout</button>`}
             <button class="btn-small" data-action="edit">Edit</button>
             <button class="btn-danger" data-action="delete">Delete</button>
           </div>
@@ -646,10 +648,28 @@
 
     cardList.querySelectorAll('.card-row').forEach((row) => {
       const id = row.dataset.id;
-      row.querySelector('[data-action="checkout"]').addEventListener('click', (e) => {
-        const card = existingCards.find((c) => c.ebayItemId === id);
-        if (card) createCheckout(card, e.target);
-      });
+      const checkoutBtn = row.querySelector('[data-action="checkout"]');
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', (e) => {
+          const card = existingCards.find((c) => c.ebayItemId === id);
+          if (card) createCheckout(card, e.target);
+        });
+      }
+      const copyBtn = row.querySelector('[data-action="copy-link"]');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async (e) => {
+          const card = existingCards.find((c) => c.ebayItemId === id);
+          if (!card) return;
+          try {
+            await navigator.clipboard.writeText(card.checkoutUrl);
+            const original = e.target.textContent;
+            e.target.textContent = 'Copied!';
+            setTimeout(() => { e.target.textContent = original; }, 1500);
+          } catch (err) {
+            showStatus(listStatus, 'Could not copy — link: ' + card.checkoutUrl, 'error');
+          }
+        });
+      }
       row.querySelector('[data-action="edit"]').addEventListener('click', () => {
         const card = existingCards.find((c) => c.ebayItemId === id);
         if (card) startEdit(card);
@@ -671,7 +691,7 @@
       const res = await fetch('/api/shopify-create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: card.title, price: card.price, image: card.image }),
+        body: JSON.stringify({ title: card.title, price: card.price, image: card.image, ebayItemId: card.ebayItemId }),
       });
       const data = await res.json();
 
@@ -687,10 +707,20 @@
         copied = true;
       } catch (e) {}
 
+      if (!data.inventoryWarning) {
+        card.checkoutUrl = data.checkoutUrl;
+        existingCards = existingCards.filter((c) => c.ebayItemId !== card.ebayItemId);
+        existingCards.unshift(card);
+        renderCardList();
+      }
+
       const warningHtml = data.inventoryWarning
         ? `<br><strong>Warning:</strong> inventory may not be set correctly — ${escapeHtml(data.inventoryWarning)}. Check the product in Shopify before sending this link.`
         : '';
-      listStatus.innerHTML = `Checkout ready${copied ? ' (copied to clipboard)' : ''}: <a href="${data.checkoutUrl}" target="_blank" rel="noopener">${data.checkoutUrl}</a>${warningHtml}`;
+      const cardsJsonWarningHtml = data.cardsJsonWarning
+        ? `<br><strong>Note:</strong> ${escapeHtml(data.cardsJsonWarning)}`
+        : '';
+      listStatus.innerHTML = `Checkout ready${copied ? ' (copied to clipboard)' : ''}: <a href="${data.checkoutUrl}" target="_blank" rel="noopener">${data.checkoutUrl}</a>${warningHtml}${cardsJsonWarningHtml}`;
       listStatus.className = `status show ${data.inventoryWarning ? 'error' : 'success'}`;
     } catch (err) {
       showStatus(listStatus, 'Something went wrong.', 'error');

@@ -300,6 +300,30 @@
     background:rgba(201,162,75,0.08);
   }
 
+  .buy-now-btn{
+    display:block;
+    width:100%;
+    padding:10px 0;
+    background:var(--gold);
+    border:1px solid var(--gold);
+    color:#12141a;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    border-radius:4px;
+    cursor:pointer;
+    text-align:center;
+    text-decoration:none;
+    transition:all 0.2s ease;
+    box-sizing:border-box;
+  }
+  .buy-now-btn:hover, .buy-now-btn:focus-visible{
+    background:var(--gold-bright);
+    border-color:var(--gold-bright);
+  }
+
   /* ---------- Find panel (general request) ---------- */
   .find-panel{
     max-width:960px; margin:-30px auto 50px;
@@ -659,11 +683,14 @@
           <div class="meta">${card.set}</div>
           <span class="item-id">Item #${card.ebayItemId}</span>
           <a class="ebay-link" href="${ebayUrl}" target="_blank" rel="noopener">View on eBay ↗</a>
-          <button class="request-btn" type="button">Request This Card</button>
+          ${card.checkoutUrl
+            ? `<a class="buy-now-btn" href="${card.checkoutUrl}" target="_blank" rel="noopener">Buy Now</a>`
+            : `<button class="request-btn" type="button">Request This Card</button>`}
         </div>
       `;
 
-      tile.querySelector('.request-btn').addEventListener('click', () => openRequestModal(card));
+      const requestBtn = tile.querySelector('.request-btn');
+      if (requestBtn) requestBtn.addEventListener('click', () => openRequestModal(card));
       grid.appendChild(tile);
     });
   }

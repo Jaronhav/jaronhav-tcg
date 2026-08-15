@@ -7,6 +7,10 @@
 const crypto = require('crypto');
 
 const SHOPIFY_DOMAIN = 'pxq5yx-ka.myshopify.com';
+const OWNER = 'Jaronhav';
+const REPO = 'jaronhav-tcg';
+const FILE_PATH = 'cards.json';
+const BRANCH = 'main';
 
 function isValidSession(cookieHeader) {
   if (!cookieHeader) return false;
@@ -44,6 +48,65 @@ function parsePrice(priceStr) {
   return Number.isFinite(numeric) && numeric > 0 ? numeric.toFixed(2) : null;
 }
 
+async function githubRequest(path, options = {}) {
+  return fetch(`https://api.github.com/repos/${OWNER}/${REPO}${path}`, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  });
+}
+
+// Moves the card to the front of cards.json and stamps its checkoutUrl, so
+// the homepage shows a real "Buy Now" button in the most visible slot.
+// Best-effort: the checkout link itself is already valid and returned to the
+// caller regardless of whether this promotion succeeds.
+async function promoteCardToFront(ebayItemId, checkoutUrl, title) {
+  if (!process.env.GITHUB_TOKEN) {
+    return 'Missing GITHUB_TOKEN — card was not moved to the homepage.';
+  }
+  try {
+    const currentRes = await githubRequest(`/contents/${FILE_PATH}?ref=${BRANCH}`);
+    if (!currentRes.ok) {
+      return `Could not read cards.json (${currentRes.status}) — card was not moved to the homepage.`;
+    }
+    const currentFile = await currentRes.json();
+    const cards = JSON.parse(Buffer.from(currentFile.content, 'base64').toString('utf-8'));
+
+    const index = cards.findIndex((c) => c.ebayItemId === String(ebayItemId));
+    if (index === -1) {
+      return 'Card not found in cards.json — checkout link still works, but nothing was moved.';
+    }
+
+    const [card] = cards.splice(index, 1);
+    card.checkoutUrl = checkoutUrl;
+    cards.unshift(card);
+
+    const updatedContent = JSON.stringify(cards, null, 2) + '\n';
+    const updateRes = await githubRequest(`/contents/${FILE_PATH}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `Checkout ready: ${title}`,
+        content: Buffer.from(updatedContent, 'utf-8').toString('base64'),
+        sha: currentFile.sha,
+        branch: BRANCH,
+      }),
+    });
+
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      return `Could not commit cards.json (${updateRes.status}): ${errText}`;
+    }
+
+    return null;
+  } catch (err) {
+    return `Unexpected error moving card to homepage: ${err.message}`;
+  }
+}
+
 export default async function handler(req, res) {
   if (!requireAdmin(req, res)) return;
 
@@ -55,7 +118,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Missing SHOPIFY_ADMIN_TOKEN' });
   }
 
-  const { title, price, image } = req.body || {};
+  const { title, price, image, ebayItemId } = req.body || {};
   const formattedPrice = parsePrice(price);
 
   if (!title || !formattedPrice) {
@@ -139,7 +202,14 @@ export default async function handler(req, res) {
     const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${variant.id}:1`;
     const productAdminUrl = `https://admin.shopify.com/store/${SHOPIFY_DOMAIN.split('.')[0]}/products/${product.id}`;
 
-    return res.status(200).json({ checkoutUrl, productAdminUrl, inventoryWarning });
+    // Only promote to the homepage if inventory is actually confirmed usable —
+    // an inventoryWarning means the checkout link may not work yet.
+    let cardsJsonWarning = null;
+    if (!inventoryWarning && ebayItemId) {
+      cardsJsonWarning = await promoteCardToFront(ebayItemId, checkoutUrl, title);
+    }
+
+    return res.status(200).json({ checkoutUrl, productAdminUrl, inventoryWarning, cardsJsonWarning });
   } catch (err) {
     return res.status(500).json({ error: 'Unexpected error', details: err.message });
   }
