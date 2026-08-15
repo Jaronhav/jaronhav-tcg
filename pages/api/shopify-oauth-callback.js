@@ -1,37 +1,26 @@
 // pages/api/shopify-oauth-callback.js
 // One-time bootstrap: completes the OAuth install for the Shopify CLI-based
 // app so we can capture a real Admin API access token to paste into
-// SHOPIFY_ADMIN_TOKEN. Not used by any other part of the site — safe to
-// remove once the token has been captured.
+// SHOPIFY_ADMIN_TOKEN. Not used by any other part of the site — delete this
+// file once the token has been captured.
 //
 // Set this exact URL as BOTH the app's "App URL" and its "Allowed
 // redirection URL(s)" in Shopify: https://<your-domain>/api/shopify-oauth-callback
 // Requires SHOPIFY_APP_CLIENT_ID and SHOPIFY_APP_CLIENT_SECRET env vars
 // (from the app's Settings page — NOT the same as SHOPIFY_ADMIN_TOKEN).
+//
+// No admin-cookie gate here on purpose: Shopify embeds the App URL in an
+// iframe after install, and cross-site iframes don't carry the admin_session
+// cookie (browser third-party cookie rules), which blocked this endpoint
+// entirely. Safety instead comes from Shopify's HMAC-signed callback (only
+// a real completed install using our client secret produces a valid one)
+// and the single-use, short-lived authorization code — adequate for a
+// temporary endpoint deleted right after use.
 
 const crypto = require('crypto');
 
 const SHOPIFY_DOMAIN = 'pxq5yx-ka.myshopify.com';
 const SCOPES = 'read_products,write_products,read_inventory';
-
-function isValidSession(cookieHeader) {
-  if (!cookieHeader) return false;
-  const match = cookieHeader.match(/admin_session=([^;]+)/);
-  if (!match) return false;
-
-  const [expiryStr, signature] = match[1].split('.');
-  const expiry = Number(expiryStr);
-  if (!expiry || !signature || Date.now() > expiry) return false;
-
-  const expected = crypto
-    .createHmac('sha256', process.env.ADMIN_PASSWORD || '')
-    .update(String(expiry))
-    .digest('hex');
-  const a = Buffer.from(signature);
-  const b = Buffer.from(expected);
-  if (a.length !== b.length) return false;
-  return crypto.timingSafeEqual(a, b);
-}
 
 function escapeHtml(str) {
   return String(str)
@@ -71,12 +60,6 @@ function verifyHmac(query) {
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html');
-
-  if (!isValidSession(req.headers.cookie)) {
-    return res
-      .status(401)
-      .send(htmlPage('<p>Not logged in. Log into <a href="/admin.html">admin.html</a> first, then reload this page.</p>'));
-  }
 
   if (!process.env.SHOPIFY_APP_CLIENT_ID || !process.env.SHOPIFY_APP_CLIENT_SECRET) {
     return res
