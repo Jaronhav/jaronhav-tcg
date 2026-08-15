@@ -101,15 +101,24 @@ export default async function handler(req, res) {
     }
 
     // Set the starting inventory to exactly 1 at the variant's default location.
+    // Surfaced as a warning (not a hard failure) since the product itself was
+    // created fine — but the checkout link is useless until this succeeds.
     const inventoryItemId = variant.inventory_item_id;
+    let inventoryWarning = null;
+
     const locationsRes = await fetch(`https://${SHOPIFY_DOMAIN}/admin/api/2026-01/locations.json`, {
       headers: { 'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_TOKEN },
     });
-    if (locationsRes.ok) {
+
+    if (!locationsRes.ok) {
+      inventoryWarning = `Could not fetch locations (${locationsRes.status}): ${await locationsRes.text()}`;
+    } else {
       const locationsData = await locationsRes.json();
       const locationId = locationsData.locations?.[0]?.id;
-      if (locationId && inventoryItemId) {
-        await fetch(`https://${SHOPIFY_DOMAIN}/admin/api/2026-01/inventory_levels/set.json`, {
+      if (!locationId || !inventoryItemId) {
+        inventoryWarning = 'No location or inventory item ID available — inventory not set.';
+      } else {
+        const inventoryRes = await fetch(`https://${SHOPIFY_DOMAIN}/admin/api/2026-01/inventory_levels/set.json`, {
           method: 'POST',
           headers: {
             'X-Shopify-Access-Token': process.env.SHOPIFY_ADMIN_TOKEN,
@@ -121,13 +130,16 @@ export default async function handler(req, res) {
             available: 1,
           }),
         });
+        if (!inventoryRes.ok) {
+          inventoryWarning = `Inventory set failed (${inventoryRes.status}): ${await inventoryRes.text()}`;
+        }
       }
     }
 
     const checkoutUrl = `https://${SHOPIFY_DOMAIN}/cart/${variant.id}:1`;
     const productAdminUrl = `https://admin.shopify.com/store/${SHOPIFY_DOMAIN.split('.')[0]}/products/${product.id}`;
 
-    return res.status(200).json({ checkoutUrl, productAdminUrl });
+    return res.status(200).json({ checkoutUrl, productAdminUrl, inventoryWarning });
   } catch (err) {
     return res.status(500).json({ error: 'Unexpected error', details: err.message });
   }

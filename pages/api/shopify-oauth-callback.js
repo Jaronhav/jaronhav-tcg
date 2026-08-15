@@ -20,7 +20,7 @@
 const crypto = require('crypto');
 
 const SHOPIFY_DOMAIN = 'pxq5yx-ka.myshopify.com';
-const SCOPES = 'read_products,write_products,read_inventory';
+const SCOPES = 'read_products,write_products,read_inventory,write_inventory';
 
 function escapeHtml(str) {
   return String(str)
